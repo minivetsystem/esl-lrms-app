@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/splash_screen/models/splash_model.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/splash_screen/models/splash_model.dart';
 
 class SplashController extends GetxController {
   Rx<SplashModel> splashModelObj = SplashModel().obs;

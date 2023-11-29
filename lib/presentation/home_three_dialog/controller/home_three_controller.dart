@@ -1,4 +1,4 @@
-import 'package:truck_booking_app/core/app_export.dart';import 'package:truck_booking_app/presentation/home_three_dialog/models/home_three_model.dart';class HomeThreeController extends GetxController {Rx<HomeThreeModel> homeThreeModelObj = HomeThreeModel().obs;
+import 'package:vedanta_lrms/core/app_export.dart';import 'package:vedanta_lrms/presentation/home_three_dialog/models/home_three_model.dart';class HomeThreeController extends GetxController {Rx<HomeThreeModel> homeThreeModelObj = HomeThreeModel().obs;
 
 SelectionPopupModel? selectedDropDownValue;
 

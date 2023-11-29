@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 class AppDecoration {
   static BoxDecoration get fillblueA200 => BoxDecoration(

@@ -23,7 +23,7 @@
 
 ---------------  S U M M A R Y ------------
 
-Command Line: -Dorg.gradle.appname=gradlew org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-arm64 -Ptarget=D:\flutter_workspace\flutter_project\truck_booking_app-v1.0.1\lib\main.dart -Pbase-application-name=android.app.Application -Pdart-defines=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Pfilesystem-scheme=org-dartlang-root assembleDebug
+Command Line: -Dorg.gradle.appname=gradlew org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-arm64 -Ptarget=D:\flutter_workspace\flutter_project\vedanta_lrms-v1.0.1\lib\main.dart -Pbase-application-name=android.app.Application -Pdart-defines=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Pfilesystem-scheme=org-dartlang-root assembleDebug
 
 Host: Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz, 8 cores, 15G,  Windows 10 , 64 bit Build 19041 (10.0.19041.2364)
 Time: Mon Feb  6 18:01:23 2023 India Standard Time elapsed time: 0.015068 seconds (0d 0h 0m 0s)
@@ -141,8 +141,8 @@ symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;D:\an
 
 VM Arguments:
 jvm_args: -Dorg.gradle.appname=gradlew 
-java_command: org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-arm64 -Ptarget=D:\flutter_workspace\flutter_project\truck_booking_app-v1.0.1\lib\main.dart -Pbase-application-name=android.app.Application -Pdart-defines=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Pfilesystem-scheme=org-dartlang-root assembleDebug
-java_class_path (initial): D:\flutter_workspace\flutter_project\truck_booking_app-v1.0.1\android\\gradle\wrapper\gradle-wrapper.jar
+java_command: org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-arm64 -Ptarget=D:\flutter_workspace\flutter_project\vedanta_lrms-v1.0.1\lib\main.dart -Pbase-application-name=android.app.Application -Pdart-defines=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Pfilesystem-scheme=org-dartlang-root assembleDebug
+java_class_path (initial): D:\flutter_workspace\flutter_project\vedanta_lrms-v1.0.1\android\\gradle\wrapper\gradle-wrapper.jar
 Launcher Type: SUN_STANDARD
 
 [Global flags]
@@ -172,7 +172,7 @@ Log output configuration:
 
 Environment Variables:
 JAVA_HOME=D:\android studio\jre
-CLASSPATH=D:\flutter_workspace\flutter_project\truck_booking_app-v1.0.1\android\\gradle\wrapper\gradle-wrapper.jar
+CLASSPATH=D:\flutter_workspace\flutter_project\vedanta_lrms-v1.0.1\android\\gradle\wrapper\gradle-wrapper.jar
 PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\flutter\bin;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;D:\flutter\bin;;D:\flutter\bin\mingit\cmd
 USERNAME=Admin
 OS=Windows_NT

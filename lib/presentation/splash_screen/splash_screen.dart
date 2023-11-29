@@ -1,7 +1,7 @@
 import '../../widgets/custom_page.dart';
 import 'controller/splash_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
   @override
@@ -21,6 +21,7 @@ class SplashScreen extends GetWidget<SplashController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    // Image.asset('assets/images/20220310134204.png')
                     CustomImageView(
                       svgPath: ImageConstant.imgSplashLogo,
                       height: getVerticalSize(232.00),

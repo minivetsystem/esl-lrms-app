@@ -3,7 +3,7 @@ library time_picker_spinner;
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 class ItemScrollPhysics extends ScrollPhysics {
   /// Creates physics for snapping to item.

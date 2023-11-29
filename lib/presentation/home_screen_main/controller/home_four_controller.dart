@@ -1,4 +1,4 @@
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 import 'package:flutter/material.dart';
 

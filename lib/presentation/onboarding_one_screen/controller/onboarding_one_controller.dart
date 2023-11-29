@@ -1,5 +1,5 @@
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/onboarding_one_screen/models/onboarding_one_model.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/onboarding_one_screen/models/onboarding_one_model.dart';
 
 class OnboardingOneController extends GetxController {
   int currentPage = 0;

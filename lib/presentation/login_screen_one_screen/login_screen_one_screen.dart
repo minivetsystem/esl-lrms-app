@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/custom_page.dart';
 import 'controller/login_screen_one_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/core/utils/validation_functions.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
-import 'package:truck_booking_app/domain/facebookauth/facebook_auth_helper.dart';
-import 'package:truck_booking_app/domain/googleauth/google_auth_helper.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/core/utils/validation_functions.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
+import 'package:vedanta_lrms/domain/googleauth/google_auth_helper.dart';
 
 // ignore_for_file: must_be_immutable
 class LoginScreenOneScreen extends GetWidget<LoginScreenOneController> {
@@ -53,11 +53,16 @@ class LoginScreenOneScreen extends GetWidget<LoginScreenOneController> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomImageView(
-                              svgPath: ImageConstant.imgGroup3,
-                              height: 32.h,
-                              width: 148.h,
-                              margin: EdgeInsets.only(top: 17.h)),
+                          Container(
+                            margin: EdgeInsets.only(top: 20.h),
+                            child: Image.asset('assets/images/20220310134204.png',
+                            height: 90,),
+                          ),
+                          // CustomImageView(
+                          //     svgPath: ImageConstant.loginImage,
+                          //     height: 70.h,
+                          //     width: 148.h,
+                          //     margin: EdgeInsets.only(top: 17.h)),
                           Padding(
                               padding: EdgeInsets.only(top: 50.h),
                               child: Text("lbl_login".tr,

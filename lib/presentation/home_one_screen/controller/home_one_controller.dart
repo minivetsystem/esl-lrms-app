@@ -1,5 +1,5 @@
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/home_one_screen/models/home_one_model.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/home_one_screen/models/home_one_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeOneController extends GetxController {

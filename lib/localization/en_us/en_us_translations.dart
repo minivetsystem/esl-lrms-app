@@ -86,6 +86,7 @@ final Map<String, String> enUs = {
   "msg_last_update_4_minuts": "Last Update 4 Minuts Ago",
   "lbl_32": "32",
   "lbl_password": "Password",
+  "lbl_confirm_password": "Confirm Password",
   "lbl_title": "Title",
   "lbl_summery": "Summery",
   "lbl_8_30": "8:30",

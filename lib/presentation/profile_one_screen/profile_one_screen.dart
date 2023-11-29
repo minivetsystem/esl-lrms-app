@@ -1,6 +1,6 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/services.dart';
-import 'package:truck_booking_app/presentation/profile_one_screen/setting_option_screen.dart';
+import 'package:vedanta_lrms/presentation/profile_one_screen/setting_option_screen.dart';
 
 import '../../support_screen/support_screen.dart';
 import '../../widgets/custom_button.dart';
@@ -9,10 +9,10 @@ import '../profile_dialog/controller/profile_controller.dart';
 import '../profile_dialog/profile_dialog.dart';
 import 'controller/profile_one_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 
 class ProfileOneScreen extends GetWidget<ProfileOneController> {
   @override
@@ -42,7 +42,9 @@ class ProfileOneScreen extends GetWidget<ProfileOneController> {
                       width: getSize(24.00),
                       svgPath: ImageConstant.imgArrowleftWhiteA700,
                       margin: getMargin(left: 20, top: 17, bottom: 16),
-                      onTap: onTapArrowleft10),
+                      onTap: (){
+                           Navigator.pop(context);
+                      }),
                   title: AppbarSubtitle(
                       text: "lbl_profile".tr, margin: getMargin(left: 16)),
                   styleType: Style.bgFillblueA200),

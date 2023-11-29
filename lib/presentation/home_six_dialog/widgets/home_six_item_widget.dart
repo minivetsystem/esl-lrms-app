@@ -1,7 +1,7 @@
 import '../controller/home_six_controller.dart';
 import '../models/home_six_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 // ignore: must_be_immutable
 class HomeSixItemWidget extends StatelessWidget {

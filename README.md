@@ -1,5 +1,5 @@
 
-# truck_booking_app
+# vedanta_lrms
 
 <div>
   <h1 align="center">Getting Started with Flutter 🚀 </h1>

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/custom_page.dart';
 import 'controller/onboarding_one_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 import 'models/onboarding_data.dart';
 import 'models/onboarding_one_model.dart';

@@ -1,8 +1,8 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:truck_booking_app/presentation/profile_one_screen/privacy_policy_screen.dart';
-import 'package:truck_booking_app/presentation/profile_one_screen/security_screen.dart';
+import 'package:vedanta_lrms/presentation/profile_one_screen/privacy_policy_screen.dart';
+import 'package:vedanta_lrms/presentation/profile_one_screen/security_screen.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';

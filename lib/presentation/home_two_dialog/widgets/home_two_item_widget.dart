@@ -1,7 +1,7 @@
 import '../controller/home_two_controller.dart';
 import '../models/home_two_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 // ignore: must_be_immutable
 class HomeTwoItemWidget extends StatelessWidget {

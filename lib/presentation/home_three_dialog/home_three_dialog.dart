@@ -2,8 +2,8 @@ import '../home_three_dialog/widgets/home_three_item_widget.dart';
 import 'controller/home_three_controller.dart';
 import 'models/home_three_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_drop_down.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_drop_down.dart';
 
 // ignore_for_file: must_be_immutable
 class HomeThreeDialog extends StatelessWidget {

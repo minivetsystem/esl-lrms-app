@@ -2,9 +2,13 @@ class ImageConstant {
   static String imgGroup2 = 'assets/images/img_group2.svg';
   static String imgDestination = 'assets/images/img_destination_icon.svg';
   static String imgLocationIcon = 'assets/images/img_location_icon.svg';
-  static String imgSplashLogo = 'assets/images/img_splash_logo.svg';
+  // static String imgSplashLogo = 'assets/images/img_splash_logo.svg';
+  static String imgSplashLogo = 'assets/images/20220310134204.svg';
+
 
   static String img67732931 = 'assets/images/img_67732931.png';
+
+  static String loginImage = 'assets/images/20220310134204.png';
 
   static String imgArrowdownBlack900 =
       'assets/images/img_arrowdown_black_900.svg';

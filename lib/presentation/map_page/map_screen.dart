@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-// import 'package:truck_booking_app/core/app_export.dart';
-// import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-// import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/home_screen_main/controller/home_four_controller.dart';
+import 'package:vedanta_lrms/presentation/home_screen_main/models/home_four_model.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+// import 'package:vedanta_lrms/core/app_export.dart';
+// import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+// import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -18,6 +20,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  HomeFourController controller =
+      Get.put(HomeFourController(HomeFourModel().obs));
   late CameraPosition cameraPosition;
   late GoogleMapController mapController;
   late LatLng _center = LatLng(22.586123, 88.486406);
@@ -26,15 +30,16 @@ class _MapScreenState extends State<MapScreen> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-    @override
-  void initState(){
+
+  @override
+  void initState() {
     super.initState();
     setState(() {
-      getLocation().then((value) => {
-        this._center = LatLng(value.latitude, value.longitude)
-      });
+      getLocation().then(
+          (value) => {this._center = LatLng(value.latitude, value.longitude)});
     });
   }
+
   Future<Position> getLocation() async {
     // LocationPermission permission;
     bool permissionStatus = await Geolocator.isLocationServiceEnabled();
@@ -70,7 +75,39 @@ class _MapScreenState extends State<MapScreen> {
           markers: _markers,
           myLocationEnabled: true,
           zoomControlsEnabled: false,
+
         ),
+        // Positioned(
+        //   top: 100,
+        //   child: Padding(
+        //     padding: getPadding(top: 16, right: 20, left: 20),
+        //     child: CustomTextFormField(
+        //       shadowTextfield: true,
+        //       function: () {
+        //         Get.toNamed(AppRoutes.searchOneScreen);
+        //       },
+        //       textInputType: TextInputType.none,
+        //       width: double.infinity,
+        //       focusNode: FocusNode(),
+        //       hintText: "lbl_search_location".tr,
+        //       variant: TextFormFieldVariant.OutlineBlack90016,
+        //       shape: TextFormFieldShape.RoundedBorder10,
+        //       padding: TextFormFieldPadding.PaddingT14_1,
+        //       fontStyle: TextFormFieldFontStyle.SFUITextRegular17,
+        //       prefix: Container(
+        //         margin: getMargin(
+        //           left: 16,
+        //           top: 12,
+        //           right: 8,
+        //           bottom: 12,
+        //         ),
+        //         child: CustomImageView(
+        //           svgPath: ImageConstant.imgContrast,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Positioned(
           bottom: 50,
           right: 20,
@@ -99,9 +136,9 @@ class _MapScreenState extends State<MapScreen> {
                 },
               ),
               SpeedDialChild(
-                child: Icon(Icons.gps_fixed_outlined),
+                child: Icon(Icons.search_outlined),
                 onTap: () {
-
+                  Get.toNamed(AppRoutes.searchOneScreen);
                 },
               ),
               SpeedDialChild(

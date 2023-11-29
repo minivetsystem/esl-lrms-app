@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 // ignore: must_be_immutable
 class AppbarSubtitle1 extends StatelessWidget {

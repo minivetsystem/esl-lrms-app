@@ -1,5 +1,5 @@
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/select_payment_method_one_dialog/models/select_payment_method_one_model.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/select_payment_method_one_dialog/models/select_payment_method_one_model.dart';
 
 class SelectPaymentMethodOneController extends GetxController {
   Rx<SelectPaymentMethodOneModel> selectPaymentMethodOneModelObj =

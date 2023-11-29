@@ -1,9 +1,9 @@
 import '../../widgets/custom_page.dart';
 import 'controller/truck_detail_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_icon_button.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_icon_button.dart';
 
 class TruckDetailScreen extends GetWidget<TruckDetailController> {
   @override

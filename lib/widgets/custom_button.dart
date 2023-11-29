@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
@@ -153,6 +153,7 @@ class CustomButton extends StatelessWidget {
         return ColorConstant.lime100;
       case ButtonVariant.OutlineblueA200_1:
       case ButtonVariant.OutlineblueA200_2:
+       case ButtonVariant.OutlineredA200_2:
         return null;
       default:
         return ColorConstant.blueA200;
@@ -178,6 +179,13 @@ class CustomButton extends StatelessWidget {
       case ButtonVariant.OutlineblueA200_2:
         return BorderSide(
           color: ColorConstant.blueA200,
+          width: getHorizontalSize(
+            1.00,
+          ),
+        );
+      case ButtonVariant.OutlineredA200_2:
+        return BorderSide(
+          color: ColorConstant.red500,
           width: getHorizontalSize(
             1.00,
           ),
@@ -292,6 +300,15 @@ class CustomButton extends StatelessWidget {
           fontFamily: 'SF UI Text',
           fontWeight: FontWeight.w700,
         );
+              case ButtonFontStyle.SFUITextBold15:
+        return TextStyle(
+          color: ColorConstant.red500,
+          fontSize: getFontSize(
+            14,
+          ),
+          fontFamily: 'SF UI Text',
+          fontWeight: FontWeight.w700,
+        );
       case ButtonFontStyle.SFUITextRegular13:
         return TextStyle(
           color: ColorConstant.red500,
@@ -375,6 +392,7 @@ enum ButtonVariant {
   FillRed50,
   OutlineBlack90016,
   FillLime100,
+  OutlineredA200_2,
 }
 
 enum ButtonFontStyle {
@@ -389,5 +407,5 @@ enum ButtonFontStyle {
   SFUITextRegular17Gray600,
   SFUITextBold14WhiteA700,
   SFUITextBold17,
-  SFUITextRegular17blueA200,
+  SFUITextRegular17blueA200, SFUITextBold15,
 }

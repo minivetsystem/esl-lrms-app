@@ -1,4 +1,4 @@
-import 'package:truck_booking_app/core/app_export.dart';import 'package:truck_booking_app/presentation/home_screen_one_dialog/models/home_screen_one_model.dart';class HomeScreenOneController extends GetxController {Rx<HomeScreenOneModel> homeScreenOneModelObj = HomeScreenOneModel().obs;
+import 'package:vedanta_lrms/core/app_export.dart';import 'package:vedanta_lrms/presentation/home_screen_one_dialog/models/home_screen_one_model.dart';class HomeScreenOneController extends GetxController {Rx<HomeScreenOneModel> homeScreenOneModelObj = HomeScreenOneModel().obs;
 
 SelectionPopupModel? selectedDropDownValue;
 

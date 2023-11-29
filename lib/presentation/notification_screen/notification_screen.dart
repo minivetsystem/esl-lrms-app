@@ -4,20 +4,20 @@ import 'package:flutter/services.dart';
 import '../../widgets/custom_page.dart';
 import 'controller/notification_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 class NotificationScreen extends GetWidget<NotificationController> {
   @override
   Widget build(BuildContext context) {
-    return CustomPage(widget: get_page());
+    return CustomPage(widget: get_page(context));
   }
 
 // ignore: non_constant_identifier_names
-  Widget get_page() {
+  Widget get_page(context) {
     return WillPopScope(
       onWillPop: () async {
         Future.delayed(const Duration(milliseconds: 1000), () {
@@ -40,9 +40,7 @@ class NotificationScreen extends GetWidget<NotificationController> {
                     svgPath: ImageConstant.imgArrowleftWhiteA700,
                     margin: getMargin(left: 20, top: 17, bottom: 16),
                     onTap: () {
-                      Future.delayed(const Duration(milliseconds: 1000), () {
-                        SystemNavigator.pop();
-                      });
+                   Navigator.pop(context);
                     }),
                 title: AppbarSubtitle(
                     text: "lbl_notification".tr, margin: getMargin(left: 16)),
@@ -330,9 +328,5 @@ class NotificationScreen extends GetWidget<NotificationController> {
     );
   }
 
-  onTapArrowleft14() {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      SystemNavigator.pop();
-    });
-  }
+  onTapArrowleft14(context) {}
 }

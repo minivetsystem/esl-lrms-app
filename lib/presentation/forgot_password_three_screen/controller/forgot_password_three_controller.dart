@@ -1,5 +1,5 @@
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/forgot_password_three_screen/models/forgot_password_three_model.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/forgot_password_three_screen/models/forgot_password_three_model.dart';
 
 class ForgotPasswordThreeController extends GetxController {
   Rx<ForgotPasswordThreeModel> forgotPasswordThreeModelObj =

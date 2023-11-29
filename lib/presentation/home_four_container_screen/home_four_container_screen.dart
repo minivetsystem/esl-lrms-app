@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:truck_booking_app/presentation/map_page/map_screen.dart';
-import 'package:truck_booking_app/presentation/profile_one_screen/profile_one_screen.dart';
+import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
+import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
 
 import '../../widgets/custom_page.dart';
 import '../home_screen_main/home_main_screen.dart';
 import '../notification_screen/notification_screen.dart';
 import 'controller/home_four_container_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/history_page/history_page.dart';
-import 'package:truck_booking_app/widgets/custom_bottom_bar.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/history_page/history_page.dart';
+import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
 
 class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
   @override

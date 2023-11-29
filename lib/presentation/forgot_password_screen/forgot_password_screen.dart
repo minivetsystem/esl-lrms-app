@@ -1,17 +1,17 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:truck_booking_app/presentation/forgot_password_one_dialog/forgot_password_one_dialog.dart';
+import 'package:vedanta_lrms/presentation/forgot_password_one_dialog/forgot_password_one_dialog.dart';
 
 import '../../widgets/custom_page.dart';
 import '../forgot_password_one_dialog/controller/forgot_password_one_controller.dart';
 import 'controller/forgot_password_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
 class ForgotPasswordScreen extends GetWidget<ForgotPasswordController> {

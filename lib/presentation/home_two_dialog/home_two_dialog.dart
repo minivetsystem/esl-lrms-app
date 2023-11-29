@@ -2,9 +2,9 @@ import '../home_two_dialog/widgets/home_two_item_widget.dart';
 import 'controller/home_two_controller.dart';
 import 'models/home_two_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_drop_down.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_drop_down.dart';
 
 // ignore_for_file: must_be_immutable
 class HomeTwoDialog extends StatelessWidget {

@@ -1,10 +1,10 @@
 import 'controller/notification_empty_controller.dart';
 import 'models/notification_empty_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 
 // ignore_for_file: must_be_immutable
 class NotificationEmptyPage extends StatelessWidget {
@@ -24,7 +24,9 @@ class NotificationEmptyPage extends StatelessWidget {
                     width: getSize(24.00),
                     svgPath: ImageConstant.imgArrowleftWhiteA700,
                     margin: getMargin(left: 20, top: 17, bottom: 16),
-                    onTap: onTapArrowleft13),
+                    onTap: (){
+                      Navigator.pop(context);
+                    }),
                 centerTitle: true,
                 title: AppbarSubtitle(text: "lbl_notification".tr),
                 styleType: Style.bgFillblueA200),

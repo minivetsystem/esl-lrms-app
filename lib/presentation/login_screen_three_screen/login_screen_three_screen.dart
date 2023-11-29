@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/custom_page.dart';
 import 'controller/login_screen_three_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/core/utils/validation_functions.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/core/utils/validation_functions.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
 class LoginScreenThreeScreen extends GetWidget<LoginScreenThreeController> {

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:truck_booking_app/data/models/selectionPopupModel/selection_popup_model.dart';
+import 'package:vedanta_lrms/data/models/selectionPopupModel/selection_popup_model.dart';
 
 class MapModel {
   RxList<SelectionPopupModel> dropdownItemList = [

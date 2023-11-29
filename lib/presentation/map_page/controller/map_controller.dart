@@ -1,6 +1,6 @@
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:flutter/material.dart';
-// import 'package:truck_booking_app/presentation/map_page/models/map_model.dart';
+// import 'package:vedanta_lrms/presentation/map_page/models/map_model.dart';
 
 class MapController extends GetxController {
   TextEditingController masterInputController = TextEditingController();

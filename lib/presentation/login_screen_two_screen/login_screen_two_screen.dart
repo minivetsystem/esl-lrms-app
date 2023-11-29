@@ -1,11 +1,11 @@
 import 'controller/login_screen_two_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/core/utils/validation_functions.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
-import 'package:truck_booking_app/domain/facebookauth/facebook_auth_helper.dart';
-import 'package:truck_booking_app/domain/googleauth/google_auth_helper.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/core/utils/validation_functions.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
+import 'package:vedanta_lrms/domain/googleauth/google_auth_helper.dart';
 
 // ignore_for_file: must_be_immutable
 class LoginScreenTwoScreen extends GetWidget<LoginScreenTwoController> {
@@ -26,11 +26,11 @@ class LoginScreenTwoScreen extends GetWidget<LoginScreenTwoController> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomImageView(
-                              svgPath: ImageConstant.imgGroup3,
-                              height: getVerticalSize(32.00),
-                              width: getHorizontalSize(134.00),
-                              margin: getMargin(top: 17)),
+                      Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Image.asset('assets/images/20220310134204.png',
+                            height: 90,),
+                          ),
                           Padding(
                               padding: getPadding(top: 50),
                               child: Text("lbl_login".tr,

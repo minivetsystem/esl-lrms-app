@@ -1,5 +1,5 @@
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/data/apiClient/api_client.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/data/apiClient/api_client.dart';
 
 class InitialBindings extends Bindings {
   @override

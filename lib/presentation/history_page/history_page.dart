@@ -9,10 +9,10 @@ import 'controller/history_controller.dart';
 import 'models/history_item_model.dart';
 import 'models/history_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_image.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 
 // ignore_for_file: must_be_immutable
 class HistoryPage extends StatelessWidget {
@@ -46,7 +46,9 @@ class HistoryPage extends StatelessWidget {
                       width: getSize(24.00),
                       svgPath: ImageConstant.imgArrowleftWhiteA700,
                       margin: getMargin(left: 20, top: 17, bottom: 16),
-                      onTap: onTapArrowleft16),
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
                   title: AppbarSubtitle(
                       text: "lbl_history".tr, margin: getMargin(left: 16)),
                   styleType: Style.bgFillblueA200),
@@ -66,11 +68,5 @@ class HistoryPage extends StatelessWidget {
                         return HistoryItemWidget(model);
                       }))))),
     );
-  }
-
-  onTapArrowleft16() {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      SystemNavigator.pop();
-    });
   }
 }

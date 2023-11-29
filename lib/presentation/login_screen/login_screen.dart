@@ -1,11 +1,11 @@
 import 'controller/login_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/core/utils/validation_functions.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
-import 'package:truck_booking_app/domain/facebookauth/facebook_auth_helper.dart';
-import 'package:truck_booking_app/domain/googleauth/google_auth_helper.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/core/utils/validation_functions.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
+import 'package:vedanta_lrms/domain/googleauth/google_auth_helper.dart';
 
 // ignore_for_file: must_be_immutable
 class LoginScreen extends GetWidget<LoginController> {

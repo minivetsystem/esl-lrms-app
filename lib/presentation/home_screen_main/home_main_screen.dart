@@ -9,13 +9,13 @@ import '../search_one_screen/controller/search_one_controller.dart';
 import 'controller/home_four_controller.dart';
 import 'models/home_four_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_circleimage.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle_1.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-import 'package:truck_booking_app/widgets/custom_icon_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle_1.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_icon_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
 class HomeMainScreen extends StatelessWidget {

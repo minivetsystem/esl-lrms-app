@@ -1,18 +1,18 @@
 import '../home_screen_main/home_main_screen.dart';
 import 'controller/home_five_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/presentation/history_page/history_page.dart';
-import 'package:truck_booking_app/presentation/notification_empty_page/notification_empty_page.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_circleimage.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle.dart';
-import 'package:truck_booking_app/widgets/app_bar/appbar_subtitle_1.dart';
-import 'package:truck_booking_app/widgets/app_bar/custom_app_bar.dart';
-import 'package:truck_booking_app/widgets/custom_bottom_bar.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
-import 'package:truck_booking_app/widgets/custom_drop_down.dart';
-import 'package:truck_booking_app/widgets/custom_icon_button.dart';
-import 'package:truck_booking_app/widgets/custom_text_form_field.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/history_page/history_page.dart';
+import 'package:vedanta_lrms/presentation/notification_empty_page/notification_empty_page.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle_1.dart';
+import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
+import 'package:vedanta_lrms/widgets/custom_drop_down.dart';
+import 'package:vedanta_lrms/widgets/custom_icon_button.dart';
+import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 class HomeFiveScreen extends GetWidget<HomeFiveController> {
   @override

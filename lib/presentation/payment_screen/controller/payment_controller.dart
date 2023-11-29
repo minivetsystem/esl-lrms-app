@@ -1,4 +1,4 @@
-import 'package:truck_booking_app/core/app_export.dart';import 'package:truck_booking_app/presentation/payment_screen/models/payment_model.dart';import 'package:flutter/material.dart';class PaymentController extends GetxController {TextEditingController masterInputController = TextEditingController();
+import 'package:vedanta_lrms/core/app_export.dart';import 'package:vedanta_lrms/presentation/payment_screen/models/payment_model.dart';import 'package:flutter/material.dart';class PaymentController extends GetxController {TextEditingController masterInputController = TextEditingController();
 
 TextEditingController masterInputOneController = TextEditingController();
 

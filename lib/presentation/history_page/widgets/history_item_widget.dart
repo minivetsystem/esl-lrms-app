@@ -1,8 +1,8 @@
 import '../controller/history_controller.dart';
 import '../models/history_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 // ignore: must_be_immutable
 class HistoryItemWidget extends StatelessWidget {
@@ -183,7 +183,7 @@ class HistoryItemWidget extends StatelessWidget {
               top: 16,
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomButton(
                     onTap: (){
@@ -218,33 +218,56 @@ class HistoryItemWidget extends StatelessWidget {
                 //   padding: ButtonPadding.PaddingAll9,
                 //   fontStyle: ButtonFontStyle.SFUITextBold14,
                 // ),
-                Container(
-                  width: getHorizontalSize(
-                    66.00,
-                  ),
-                  margin: getMargin(
-                    top: 12,
-                  ),
-                  padding: getPadding(
-                    left: 8,
-                    top: 3,
-                    right: 8,
-                    bottom: 3,
-                  ),
-                  decoration: AppDecoration.txtFillblue50.copyWith(
-                    borderRadius: BorderRadiusStyle.txtRoundedBorder4,
-                  ),
-                  child: Text(
-                    "lbl_pending".tr,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: AppStyle.txtSFUITextRegular13blueA200.copyWith(
-                      height: getVerticalSize(
-                        1.5,
-                      ),
-                    ),
-                  ),
+                SizedBox(
+                  width: 10,
                 ),
+                // Container(
+                //   width: getHorizontalSize(
+                //     66.00,
+                //   ),
+                //   margin: getMargin(
+                //     top: 4,
+                //   ),
+                //   padding: getPadding(
+                //     left: 8,
+                //     top: 3,
+                //     right: 8,
+                //     bottom: 3,
+                //   ),
+                //   decoration: AppDecoration.txtFillblue50.copyWith(
+                //     borderRadius: BorderRadiusStyle.txtRoundedBorder4,
+                //   ),
+                //   child: Text(
+                //     "lbl_pending".tr,
+                //     overflow: TextOverflow.ellipsis,
+                //     textAlign: TextAlign.center,
+                //     style: AppStyle.txtSFUITextRegular13blueA200.copyWith(
+                //       height: getVerticalSize(
+                //         3.0,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                CustomButton(
+                    onTap: (){
+                     
+                    },
+                    shape: ButtonShape
+                        .RoundedBorder4,
+                    height: 36,
+                    width: 135,
+                    text:
+                     "lbl_pending"
+                        .tr,
+                    margin: getMargin(
+                        bottom: 1),
+                    variant: ButtonVariant
+                        .OutlineredA200_2,
+                    padding: ButtonPadding
+                        .PaddingAll9,
+                    fontStyle:
+                    ButtonFontStyle
+                        .SFUITextBold15),
               ],
             ),
           ),

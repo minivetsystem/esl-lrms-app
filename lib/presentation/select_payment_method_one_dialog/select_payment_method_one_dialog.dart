@@ -1,9 +1,9 @@
-import 'package:truck_booking_app/presentation/select_truck_screen/select_truck_screen.dart';
+import 'package:vedanta_lrms/presentation/select_truck_screen/select_truck_screen.dart';
 
 import 'controller/select_payment_method_one_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
-import 'package:truck_booking_app/widgets/custom_button.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 // ignore_for_file: must_be_immutable
 class SelectPaymentMethodOneDialog extends StatelessWidget {

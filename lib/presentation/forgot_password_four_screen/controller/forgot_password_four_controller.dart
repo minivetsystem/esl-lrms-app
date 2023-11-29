@@ -1,17 +1,37 @@
-import 'package:truck_booking_app/core/app_export.dart';import 'package:truck_booking_app/presentation/forgot_password_four_screen/models/forgot_password_four_model.dart';import 'package:flutter/material.dart';class ForgotPasswordFourController extends GetxController {TextEditingController masterInputController = TextEditingController();
+import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/forgot_password_four_screen/models/forgot_password_four_model.dart';
+import 'package:flutter/material.dart';
 
-TextEditingController masterInputOneController = TextEditingController();
+class ForgotPasswordFourController extends GetxController {
+  TextEditingController masterInputController = TextEditingController();
 
-TextEditingController masterInputTwoController = TextEditingController();
+  TextEditingController masterInputOneController = TextEditingController();
 
-TextEditingController masterInputThreeController = TextEditingController();
+  TextEditingController masterInputTwoController = TextEditingController();
 
-TextEditingController masterInputFourController = TextEditingController();
+  TextEditingController masterInputThreeController = TextEditingController();
 
-Rx<ForgotPasswordFourModel> forgotPasswordFourModelObj = ForgotPasswordFourModel().obs;
+  TextEditingController masterInputFourController = TextEditingController();
 
-Rx<bool> isShowPassword = false.obs;
+    TextEditingController masterInputFiveController = TextEditingController();
 
-@override void onReady() { super.onReady(); } 
-@override void onClose() { super.onClose(); masterInputController.dispose(); masterInputOneController.dispose(); masterInputTwoController.dispose(); masterInputThreeController.dispose(); masterInputFourController.dispose(); } 
- }
+  Rx<ForgotPasswordFourModel> forgotPasswordFourModelObj =
+      ForgotPasswordFourModel().obs;
+
+  Rx<bool> isShowPassword = false.obs;
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    masterInputController.dispose();
+    masterInputOneController.dispose();
+    masterInputTwoController.dispose();
+    masterInputThreeController.dispose();
+    masterInputFourController.dispose();
+  }
+}

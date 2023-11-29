@@ -1,7 +1,7 @@
 import '../controller/ticket_preview_controller.dart';
 import '../models/ticket_preview_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:truck_booking_app/core/app_export.dart';
+import 'package:vedanta_lrms/core/app_export.dart';
 
 // ignore: must_be_immutable
 class TicketPreviewItemWidget extends StatelessWidget {

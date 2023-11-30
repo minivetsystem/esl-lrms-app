@@ -8,7 +8,6 @@ import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
-import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 class NotificationScreen extends GetWidget<NotificationController> {
   @override
@@ -40,7 +39,7 @@ class NotificationScreen extends GetWidget<NotificationController> {
                     svgPath: ImageConstant.imgArrowleftWhiteA700,
                     margin: getMargin(left: 20, top: 17, bottom: 16),
                     onTap: () {
-                   Navigator.pop(context);
+                      Navigator.pop(context);
                     }),
                 title: AppbarSubtitle(
                     text: "lbl_notification".tr, margin: getMargin(left: 16)),
@@ -51,88 +50,153 @@ class NotificationScreen extends GetWidget<NotificationController> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                          color: ColorConstant.whiteA700,
+                      // Container(
+                      //     color: ColorConstant.whiteA700,
+                      //     padding: getPadding(
+                      //         top: 14, bottom: 14, left: 20, right: 20),
+                      //     child: Stack(
+                      //       children: [
+                      //         Row(
+                      //             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               Row(
+                      //                 children: [
+                      //                   Column(
+                      //                     mainAxisAlignment:
+                      //                         MainAxisAlignment.start,
+                      //                     children: [
+                      //                       CustomImageView(
+                      //                           svgPath: ImageConstant
+                      //                               .imgFillNotificationIcon,
+                      //                           height: getSize(32.00),
+                      //                           width: getSize(32.00),
+                      //                           radius: BorderRadius.circular(
+                      //                               getHorizontalSize(16.00)),
+                      //                           margin: getMargin(
+                      //                               top: 0, bottom: 58)),
+                      //                     ],
+                      //                   ),
+                      //                   Padding(
+                      //                     padding: getPadding(left: 16),
+                      //                     child: Column(
+                      //                       crossAxisAlignment:
+                      //                           CrossAxisAlignment.start,
+                      //                       children: [
+                      //                         Text("msg_driver_has_arrived".tr,
+                      //                             overflow:
+                      //                                 TextOverflow.ellipsis,
+                      //                             style: AppStyle
+                      //                                 .txtSFUITextRegular17Black400
+                      //                                 .copyWith(
+                      //                                     height:
+                      //                                         getVerticalSize(
+                      //                                             1.5))),
+                      //                         // Padding(
+                      //                         //   padding: getPadding(top: 16),
+                      //                         //   child: Row(
+                      //                         //     children: [
+                      //                         //       CustomButton(
+                      //                         //           shape: ButtonShape
+                      //                         //               .RoundedBorder4,
+                      //                         //           height: 36,
+                      //                         //           width: 160,
+                      //                         //           text:
+                      //                         //               "lbl_procced_to_pay"
+                      //                         //                   .tr,
+                      //                         //           margin: getMargin(
+                      //                         //               bottom: 1),
+                      //                         //           variant: ButtonVariant
+                      //                         //               .OutlineblueA200_2,
+                      //                         //           padding: ButtonPadding
+                      //                         //               .PaddingAll9,
+                      //                         //           fontStyle:
+                      //                         //               ButtonFontStyle
+                      //                         //                   .SFUITextBold14),
+                      //                         //     ],
+                      //                         //   ),
+                      //                         // ),
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ]),
+                      //         Padding(
+                      //           padding: getPadding(left: 290, top: 72),
+                      //           child: Text("1 minuts ago",
+                      //               overflow: TextOverflow.ellipsis,
+                      //               style: AppStyle.txtSFUIText13Width400
+                      //                   .copyWith(
+                      //                       height: getVerticalSize(1.08))),
+                      //         )
+                      //       ],
+                      //     )
+                      //     ),
+                                    Container(
+                          margin: getMargin(top: 5, bottom: 5),
                           padding: getPadding(
                               top: 14, bottom: 14, left: 20, right: 20),
-                          child: Stack(
-                            children: [
-                              Row(
-                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          color: ColorConstant.whiteA700,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            CustomImageView(
-                                                svgPath: ImageConstant
-                                                    .imgFillNotificationIcon,
-                                                height: getSize(32.00),
-                                                width: getSize(32.00),
-                                                radius: BorderRadius.circular(
-                                                    getHorizontalSize(16.00)),
-                                                margin: getMargin(
-                                                    top: 0, bottom: 58)),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 16),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text("msg_driver_has_arrived".tr,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: AppStyle
-                                                      .txtSFUITextRegular17Black400
-                                                      .copyWith(
-                                                          height:
-                                                              getVerticalSize(
-                                                                  1.5))),
-                                              Padding(
-                                                padding: getPadding(top: 16),
-                                                child: Row(
-                                                  children: [
-                                                    CustomButton(
-                                                        shape: ButtonShape
-                                                            .RoundedBorder4,
-                                                        height: 36,
-                                                        width: 160,
-                                                        text:
-                                                            "lbl_procced_to_pay"
+                                    CustomImageView(
+                                        svgPath: ImageConstant
+                                            .imgFillNotificationIcon,
+                                        height: getSize(32.00),
+                                        width: getSize(32.00),
+                                        radius: BorderRadius.circular(
+                                            getHorizontalSize(16.00)),
+                                        margin: getMargin(top: 1, bottom: 27)),
+                                    Padding(
+                                      padding: getPadding(left: 16),
+                                      child: Container(
+                                          height: getVerticalSize(60.00),
+                                          width: getHorizontalSize(325.00),
+                                          child: Stack(
+                                              alignment: Alignment.bottomRight,
+                                              children: [
+                                                Align(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Container(
+                                                        width:
+                                                            getHorizontalSize(
+                                                                280.00),
+                                                        child: Text(
+                                                            "msg_welcome_to_moovers"
                                                                 .tr,
-                                                        margin: getMargin(
-                                                            bottom: 1),
-                                                        variant: ButtonVariant
-                                                            .OutlineblueA200_2,
-                                                        padding: ButtonPadding
-                                                            .PaddingAll9,
-                                                        fontStyle:
-                                                            ButtonFontStyle
-                                                                .SFUITextBold14),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
-                              Padding(
-                                padding: getPadding(left: 290, top: 72),
-                                child: Text("1 minuts ago",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: AppStyle.txtSFUIText13Width400
-                                        .copyWith(
-                                            height: getVerticalSize(1.08))),
-                              )
-                            ],
-                          )),
+                                                            maxLines: null,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: AppStyle
+                                                                .txtSFUITextRegular17Black400
+                                                                .copyWith(
+                                                                    height: getVerticalSize(
+                                                                        1.5))))),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Text("Just now",
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: AppStyle
+                                                            .txtSFUIText13Width400
+                                                            .copyWith(
+                                                                height:
+                                                                    getVerticalSize(
+                                                                        1.08))))
+                                              ])),
+                                    )
+                                  ],
+                                )
+                              ])),
                       Container(
                           margin: getMargin(top: 5, bottom: 5),
                           padding: getPadding(

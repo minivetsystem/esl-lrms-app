@@ -88,7 +88,7 @@ class OnboardingThreeScreen extends GetWidget<OnboardingThreeController> {
                         child: SmoothIndicator(
                           offset: 0,
                           count: 3,
-                          axisDirection: Axis.horizontal,
+                          size: Size.zero,
                           effect: ScrollingDotsEffect(
                             spacing: 4,
                             activeDotColor: ColorConstant.blueA200,

@@ -9,6 +9,7 @@ import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 
+
 class NotificationScreen extends GetWidget<NotificationController> {
   @override
   Widget build(BuildContext context) {

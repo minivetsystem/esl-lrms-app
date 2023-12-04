@@ -67,7 +67,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
       case AppRoutes.historyPage:
-        return HistoryPage();
+        return SurveyListPage();
       case AppRoutes.mapScreen:
         return MapScreen();
       case AppRoutes.notificationScreen:

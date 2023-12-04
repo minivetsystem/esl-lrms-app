@@ -8,7 +8,7 @@ import 'package:vedanta_lrms/widgets/custom_button.dart';
 class HistoryItemWidget extends StatelessWidget {
   HistoryItemWidget(this.historyItemModelObj);
 
-  HistoryItemModel historyItemModelObj;
+  SurveyItemList historyItemModelObj;
 
   var controller = Get.find<HistoryController>();
 

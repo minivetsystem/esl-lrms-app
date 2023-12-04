@@ -803,7 +803,7 @@ class HomeScreenThreeScreen extends GetWidget<HomeScreenThreeController> {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
       case AppRoutes.historyPage:
-        return HistoryPage();
+        return SurveyListPage();
       case AppRoutes.notificationEmptyPage:
         return NotificationEmptyPage();
       default:

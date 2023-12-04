@@ -42,8 +42,8 @@ class ProfileOneScreen extends GetWidget<ProfileOneController> {
                       width: getSize(24.00),
                       svgPath: ImageConstant.imgArrowleftWhiteA700,
                       margin: getMargin(left: 20, top: 17, bottom: 16),
-                      onTap: (){
-                           Navigator.pop(context);
+                      onTap: () {
+                        Navigator.pop(context);
                       }),
                   title: AppbarSubtitle(
                       text: "lbl_profile".tr, margin: getMargin(left: 16)),
@@ -156,110 +156,110 @@ class ProfileOneScreen extends GetWidget<ProfileOneController> {
                                                   ]),
                                             )),
                                       ),
-                                      Container(
-                                          height: getVerticalSize(1.00),
-                                          width: double.infinity,
-                                          margin: getMargin(top: 16),
-                                          decoration: BoxDecoration(
-                                              color: ColorConstant.gray300,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      getHorizontalSize(
-                                                          1.00)))),
-                                      Padding(
-                                          padding: getPadding(top: 16),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    CustomImageView(
-                                                      svgPath: ImageConstant
-                                                          .imgTrackPackegeIcon,
-                                                    ),
-                                                    Padding(
-                                                        padding: getPadding(
-                                                            left: 16),
-                                                        child: Text(
-                                                            "lbl_track_package"
-                                                                .tr,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                            style: AppStyle
-                                                                .txtSFUITextRegular17
-                                                                .copyWith(
-                                                                    height: getVerticalSize(
-                                                                        1.08)))),
-                                                  ],
-                                                ),
-                                                CustomImageView(
-                                                    svgPath: ImageConstant
-                                                        .imgrightArrow,
-                                                    height: getSize(24.00),
-                                                    width: getSize(24.00))
-                                              ])),
-                                      Container(
-                                          height: getVerticalSize(1.00),
-                                          width: getHorizontalSize(388.00),
-                                          margin: getMargin(top: 16),
-                                          decoration: BoxDecoration(
-                                              color: ColorConstant.gray300,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      getHorizontalSize(
-                                                          1.00)))),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed(
-                                              AppRoutes.historyEmptyScreen);
-                                        },
-                                        child: Padding(
-                                            padding: getPadding(top: 16),
-                                            child: Container(
-                                              color: ColorConstant.whiteA700,
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        CustomImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgHistryIcon,
-                                                        ),
-                                                        Padding(
-                                                            padding: getPadding(
-                                                                left: 16),
-                                                            child: Text(
-                                                                "lbl_history"
-                                                                    .tr,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: AppStyle
-                                                                    .txtSFUITextRegular17
-                                                                    .copyWith(
-                                                                        height:
-                                                                            getVerticalSize(1.08)))),
-                                                      ],
-                                                    ),
-                                                    CustomImageView(
-                                                        svgPath: ImageConstant
-                                                            .imgrightArrow,
-                                                        height: getSize(24.00),
-                                                        width: getSize(24.00))
-                                                  ]),
-                                            )),
-                                      ),
+                                      // Container(
+                                      //     height: getVerticalSize(1.00),
+                                      //     width: double.infinity,
+                                      //     margin: getMargin(top: 16),
+                                      //     decoration: BoxDecoration(
+                                      //         color: ColorConstant.gray300,
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(
+                                      //                 getHorizontalSize(
+                                      //                     1.00)))),
+                                      // Padding(
+                                      //     padding: getPadding(top: 16),
+                                      //     child: Row(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment
+                                      //                 .spaceBetween,
+                                      //         children: [
+                                      //           Row(
+                                      //             children: [
+                                      //               CustomImageView(
+                                      //                 svgPath: ImageConstant
+                                      //                     .imgTrackPackegeIcon,
+                                      //               ),
+                                      //               Padding(
+                                      //                   padding: getPadding(
+                                      //                       left: 16),
+                                      //                   child: Text(
+                                      //                       "lbl_track_package"
+                                      //                           .tr,
+                                      //                       overflow:
+                                      //                           TextOverflow
+                                      //                               .ellipsis,
+                                      //                       textAlign:
+                                      //                           TextAlign.left,
+                                      //                       style: AppStyle
+                                      //                           .txtSFUITextRegular17
+                                      //                           .copyWith(
+                                      //                               height: getVerticalSize(
+                                      //                                   1.08)))),
+                                      //             ],
+                                      //           ),
+                                      //           CustomImageView(
+                                      //               svgPath: ImageConstant
+                                      //                   .imgrightArrow,
+                                      //               height: getSize(24.00),
+                                      //               width: getSize(24.00))
+                                      //         ])),
+                                      // Container(
+                                      //     height: getVerticalSize(1.00),
+                                      //     width: getHorizontalSize(388.00),
+                                      //     margin: getMargin(top: 16),
+                                      //     decoration: BoxDecoration(
+                                      //         color: ColorConstant.gray300,
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(
+                                      //                 getHorizontalSize(
+                                      //                     1.00)))),
+                                      // GestureDetector(
+                                      //   onTap: () {
+                                      //     Get.toNamed(
+                                      //         AppRoutes.historyEmptyScreen);
+                                      //   },
+                                      //   child: Padding(
+                                      //       padding: getPadding(top: 16),
+                                      //       child: Container(
+                                      //         color: ColorConstant.whiteA700,
+                                      //         child: Row(
+                                      //             mainAxisAlignment:
+                                      //                 MainAxisAlignment
+                                      //                     .spaceBetween,
+                                      //             children: [
+                                      //               Row(
+                                      //                 children: [
+                                      //                   CustomImageView(
+                                      //                     svgPath: ImageConstant
+                                      //                         .imgHistryIcon,
+                                      //                   ),
+                                      //                   Padding(
+                                      //                       padding: getPadding(
+                                      //                           left: 16),
+                                      //                       child: Text(
+                                      //                           "lbl_history"
+                                      //                               .tr,
+                                      //                           overflow:
+                                      //                               TextOverflow
+                                      //                                   .ellipsis,
+                                      //                           textAlign:
+                                      //                               TextAlign
+                                      //                                   .left,
+                                      //                           style: AppStyle
+                                      //                               .txtSFUITextRegular17
+                                      //                               .copyWith(
+                                      //                                   height:
+                                      //                                       getVerticalSize(1.08)))),
+                                      //                 ],
+                                      //               ),
+                                      //               CustomImageView(
+                                      //                   svgPath: ImageConstant
+                                      //                       .imgrightArrow,
+                                      //                   height: getSize(24.00),
+                                      //                   width: getSize(24.00))
+                                      //             ]),
+                                      //       )),
+                                      // ),
                                       Container(
                                           height: getVerticalSize(1.00),
                                           width: getHorizontalSize(388.00),

@@ -49,7 +49,7 @@ class _SurveyListPageState extends State<SurveyListPage> {
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 5),
       curve: Curves.easeInOut,
     );
   }
@@ -375,6 +375,7 @@ class _SurveyListPageState extends State<SurveyListPage> {
                       );
                     }
                   },
-                ))));
+                )
+                )));
   }
 }

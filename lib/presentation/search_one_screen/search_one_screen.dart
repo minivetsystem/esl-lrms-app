@@ -1,4 +1,7 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:vedanta_lrms/data/apiClient/api_client.dart';
+import 'package:vedanta_lrms/presentation/search_one_screen/models/search_one_model.dart';
+import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 import '../../widgets/custom_page.dart';
 import 'controller/search_one_controller.dart';
@@ -57,221 +60,379 @@ class SearchOneScreen extends GetWidget<SearchOneController> {
               //     centerTitle: true,
               //     title: AppbarSubtitle(text: "lbl_search".tr),
               //     styleType: Style.bgFillblueA200),
-              body: Container(
-                  width: size.width,
-                  padding: getPadding(left: 0, top: 0, right: 0, bottom: 15),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          color: ColorConstant.whiteA700,
-                          child: Padding(
-                            padding: getPadding(
-                                top: 0, bottom: 16, left: 20, right: 20),
-                            child: CustomTextFormField(
-                                shadowTextfield: false,
-                                onChanged: (value) {
-                                  controller.setAdress(value);
-                                },
-                                onFieldSubmitted: (value) {
-                                  Get.back();
-                                },
-                                function: () {
-                                  // Get.to(AppRoutes.hom)
-                                },
-                                width: 388,
-                                focusNode: FocusNode(),
-                                controller: controller.group267Controller,
-                                hintText: "lbl_search_location".tr,
-                                margin: getMargin(top: 1),
-                                variant: TextFormFieldVariant.OutlineGray400,
-                                shape: TextFormFieldShape.RoundedBorder10,
-                                padding: TextFormFieldPadding.PaddingT14_1,
-                                fontStyle:
-                                    TextFormFieldFontStyle.SFUITextRegular17,
-                                textInputAction: TextInputAction.done,
-                                prefix: Container(
-                                    margin: getMargin(
-                                        left: 16,
-                                        top: 12,
-                                        right: 8,
-                                        bottom: 12),
-                                    child: CustomImageView(
-                                        svgPath: ImageConstant.imgContrast)),
-                                prefixConstraints: BoxConstraints(
-                                    maxHeight: getVerticalSize(48.00)),
-                                suffix: Container(
-                                    margin: getMargin(
-                                        left: 30,
-                                        top: 12,
-                                        right: 16,
-                                        bottom: 12),
-                                    child: CustomImageView(
-                                        svgPath: ImageConstant.imgMicrophone)),
-                                suffixConstraints: BoxConstraints(
-                                    maxHeight: getVerticalSize(48.00))),
-                          ),
-                        ),
-                        Padding(
-                          padding: getPadding(top: 10),
-                          child: Container(
-                            width: double.infinity,
-                            color: ColorConstant.whiteA700,
-                            child: Padding(
-                              padding:
-                                  getPadding(left: 20, right: 20, bottom: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: getPadding(top: 22),
-                                      child: Text("lbl_recent".tr,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle.txtSFUITextBold17
-                                              .copyWith(
-                                                  height:
-                                                      getVerticalSize(1.08)))),
-                                  Padding(
-                                      padding: getPadding(top: 17),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 1)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_ipsum_dolor3".tr,
-                                                overflow: TextOverflow.ellipsis,
+              body: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      color: ColorConstant.whiteA700,
+                      child: Padding(
+                        padding: getPadding(
+                            top: 0, bottom: 16, left: 20, right: 20),
+                        child: CustomTextFormField(
+                            shadowTextfield: false,
+                            onChanged: (value) {
+                              controller.setAdress(value);
+                            },
+                            onFieldSubmitted: (value) {
+                              Get.back();
+                            },
+                            function: () {
+                              // Get.to(AppRoutes.hom)
+                            },
+                            width: 388,
+                            focusNode: FocusNode(),
+                            controller: controller.group267Controller,
+                            hintText: "lbl_search_location".tr,
+                            margin: getMargin(top: 1),
+                            variant: TextFormFieldVariant.OutlineGray400,
+                            shape: TextFormFieldShape.RoundedBorder10,
+                            padding: TextFormFieldPadding.PaddingT14_1,
+                            fontStyle:
+                                TextFormFieldFontStyle.SFUITextRegular17,
+                            textInputAction: TextInputAction.done,
+                            prefix: Container(
+                                margin: getMargin(
+                                    left: 16,
+                                    top: 12,
+                                    right: 8,
+                                    bottom: 12),
+                                child: CustomImageView(
+                                    svgPath: ImageConstant.imgContrast)),
+                            prefixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(48.00)),
+                            suffix: Container(
+                                margin: getMargin(
+                                    left: 30,
+                                    top: 12,
+                                    right: 16,
+                                    bottom: 12),
+                                child: CustomImageView(
+                                    svgPath: ImageConstant.imgMicrophone)),
+                            suffixConstraints: BoxConstraints(
+                                maxHeight: getVerticalSize(48.00))),
+                      ),
+                    ),
+                    Expanded(
+                      child: FutureBuilder<LayerList>(
+                        future: ApiClient().getLayerList(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            print(snapshot);
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            print(snapshot);
+                            final ListLayers = snapshot.data!;
+                            print(ListLayers);
+                            return ListView.builder(
+                              itemCount: ListLayers.mapLayerVillages!.length,
+                              //  itemCount: 50,
+                              physics: ScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  width: double.infinity,
+                                  padding: getPadding(
+                                    all: 16,
+                                  ),
+                                  decoration:
+                                      AppDecoration.outlineGray300.copyWith(
+                                    borderRadius:
+                                        BorderRadiusStyle.roundedBorder4,
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: getPadding(
+                                          top: 1,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  ListLayers.mapLayerVillages![index].name.toString(),
+                                                  // ' ListSurvey.results.',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle
+                                                      .txtSFUITextBold17Width700black
+                                                      .copyWith(
+                                                    height: getVerticalSize(
+                                                      1.5,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: getPadding(
+                                                    top: 5,
+                                                  ),
+                                                  child: RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text:
+                                                              "lbl_large_truck2"
+                                                                  .tr,
+                                                          style: TextStyle(
+                                                            color:
+                                                                ColorConstant
+                                                                    .gray600,
+                                                            fontSize:
+                                                                getFontSize(
+                                                              17,
+                                                            ),
+                                                            fontFamily:
+                                                                'SF UI Text',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                            height:
+                                                                getVerticalSize(
+                                                              1.5,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: "lbl_rjgj6592"
+                                                              .tr,
+                                                          style: TextStyle(
+                                                            color:
+                                                                ColorConstant
+                                                                    .gray600,
+                                                            fontSize:
+                                                                getFontSize(
+                                                              17,
+                                                            ),
+                                                            fontFamily:
+                                                                'SF UI Text',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                            height:
+                                                                getVerticalSize(
+                                                              1.08,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    textAlign: TextAlign.left,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: getPadding(
+                                                    top: 15,
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      CustomImageView(
+                                                        svgPath: ImageConstant
+                                                            .imgLocationGray600,
+                                                        height: getSize(
+                                                          24.00,
+                                                        ),
+                                                        width: getSize(
+                                                          24.00,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: getPadding(
+                                                          left: 16,
+                                                          top: 1,
+                                                          bottom: 1,
+                                                        ),
+                                                        child: Text(
+                                                          "Naperville",
+                                                          overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtSFUITextRegular17
+                                                              .copyWith(
+                                                            height:
+                                                                getVerticalSize(
+                                                              1.08,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: getPadding(
+                                                    top: 16,
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      CustomImageView(
+                                                        svgPath: ImageConstant
+                                                            .imgLocationGray60024x24,
+                                                        height: getSize(
+                                                          24.00,
+                                                        ),
+                                                        width: getSize(
+                                                          24.00,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: getPadding(
+                                                          left: 16,
+                                                          top: 3,
+                                                        ),
+                                                        child: Text(
+                                                          "Austin",
+                                                          overflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtSFUITextRegular17
+                                                              .copyWith(
+                                                            height:
+                                                                getVerticalSize(
+                                                              1.08,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: getPadding(
+                                                top: 14,
+                                                bottom: 90,
+                                              ),
+                                              child: Text(
+                                                "lbl_458_00".tr,
+                                                overflow:
+                                                    TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
                                                 style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
+                                                    .txtSFUITextBold17blueA200
                                                     .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Padding(
-                                      padding: getPadding(top: 16),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 1)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_ipsum_dolor4".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
-                                                    .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Padding(
-                                      padding: getPadding(top: 16),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 1)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_ipsum_dolor5".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
-                                                    .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Padding(
-                                      padding: getPadding(top: 16),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 1)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_ipsum_consectetur"
-                                                    .tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
-                                                    .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Padding(
-                                      padding: getPadding(top: 16),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 1)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_ipsum_dolor6".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
-                                                    .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Padding(
-                                      padding: getPadding(top: 15),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            svgPath: ImageConstant.imgContrast,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00)),
-                                        Padding(
-                                            padding: getPadding(left: 16),
-                                            child: Text(
-                                                "msg_lorem_amet_consectetur".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtSFUITextRegular17Gray600
-                                                    .copyWith(
-                                                        height: getVerticalSize(
-                                                            1.08))))
-                                      ])),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Padding(
-                                          padding: getPadding(top: 32),
-                                          child: Text("lbl_clear_all".tr,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: AppStyle
-                                                  .txtSFUITextBold18blueA200
-                                                  .copyWith(
-                                                      height: getVerticalSize(
-                                                          1.07))))),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ])))),
+                                                  height: getVerticalSize(
+                                                    1.08,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: getPadding(
+                                          top: 16,
+                                        ),
+                                        child: Row(
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CustomButton(
+                                                onTap: () {
+                                                  Get.toNamed(AppRoutes
+                                                      .historyOneScreen);
+                                                },
+                                                shape: ButtonShape
+                                                    .RoundedBorder4,
+                                                height: 36,
+                                                width: 135,
+                                                text: "lbl_view_details".tr,
+                                                margin: getMargin(bottom: 1),
+                                                variant: ButtonVariant
+                                                    .OutlineblueA200_2,
+                                                padding:
+                                                    ButtonPadding.PaddingAll9,
+                                                fontStyle: ButtonFontStyle
+                                                    .SFUITextBold14),
+                                    
+                                            // CustomButton(
+                                            //   onTap: (){
+                                            //     Get.toNamed(AppRoutes.historyOneScreen);
+                                            //   },
+                                            //   height: 36,
+                                            //
+                                            //   text: "lbl_view_details".tr,
+                                            //   variant: ButtonVariant.OutlineblueA200_2,
+                                            //   padding: ButtonPadding.PaddingAll9,
+                                            //   fontStyle: ButtonFontStyle.SFUITextBold14,
+                                            // ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            // Container(
+                                            //   width: getHorizontalSize(
+                                            //     66.00,
+                                            //   ),
+                                            //   margin: getMargin(
+                                            //     top: 4,
+                                            //   ),
+                                            //   padding: getPadding(
+                                            //     left: 8,
+                                            //     top: 3,
+                                            //     right: 8,
+                                            //     bottom: 3,
+                                            //   ),
+                                            //   decoration: AppDecoration.txtFillblue50.copyWith(
+                                            //     borderRadius: BorderRadiusStyle.txtRoundedBorder4,
+                                            //   ),
+                                            //   child: Text(
+                                            //     "lbl_pending".tr,
+                                            //     overflow: TextOverflow.ellipsis,
+                                            //     textAlign: TextAlign.center,
+                                            //     style: AppStyle.txtSFUITextRegular13blueA200.copyWith(
+                                            //       height: getVerticalSize(
+                                            //         3.0,
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            CustomButton(
+                                                onTap: () {},
+                                                shape: ButtonShape
+                                                    .RoundedBorder4,
+                                                height: 36,
+                                                width: 135,
+                                                text: "lbl_pending".tr,
+                                                margin: getMargin(bottom: 1),
+                                                variant: ButtonVariant
+                                                    .OutlineredA200_2,
+                                                padding:
+                                                    ButtonPadding.PaddingAll9,
+                                                fontStyle: ButtonFontStyle
+                                                    .SFUITextBold15),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    )
+                  ]))),
     );
   }
 

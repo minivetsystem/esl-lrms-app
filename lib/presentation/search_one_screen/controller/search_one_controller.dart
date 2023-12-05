@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class SearchOneController extends GetxController {
   TextEditingController group267Controller = TextEditingController();
 
-  Rx<SearchOneModel> searchOneModelObj = SearchOneModel().obs;
+  Rx<LayerList> searchOneModelObj = LayerList().obs;
 String? address;
   @override
   void onReady() {

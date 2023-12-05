@@ -2,7 +2,7 @@ import '../home_screen_main/home_main_screen.dart';
 import 'controller/home_screen_three_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/presentation/history_page/history_page.dart';
+import 'package:vedanta_lrms/presentation/history_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/notification_empty_page/notification_empty_page.dart';
 import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';

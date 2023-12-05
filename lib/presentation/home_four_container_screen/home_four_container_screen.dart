@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
+import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
 
 import '../../widgets/custom_page.dart';
 import '../home_screen_main/home_main_screen.dart';
@@ -9,7 +10,7 @@ import '../notification_screen/notification_screen.dart';
 import 'controller/home_four_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/presentation/history_page/history_page.dart';
+import 'package:vedanta_lrms/presentation/history_page/survey_list_page.dart';
 import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
 
 class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
@@ -67,7 +68,8 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
       case AppRoutes.historyPage:
-        return SurveyListPage();
+        // return SurveyListPage();
+        return SearchOneScreen();
       case AppRoutes.mapScreen:
         return MapScreen();
       case AppRoutes.notificationScreen:

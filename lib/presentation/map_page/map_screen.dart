@@ -1,4 +1,7 @@
 // import '../home_screen_main/home_main_screen.dart';
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,6 +23,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+
   HomeFourController controller =
       Get.put(HomeFourController(HomeFourModel().obs));
   late CameraPosition cameraPosition;
@@ -30,10 +34,13 @@ class _MapScreenState extends State<MapScreen> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+  converCoordinates(){
 
+  }
   @override
   void initState() {
     super.initState();
+
     setState(() {
       getLocation().then(
           (value) => {this._center = LatLng(value.latitude, value.longitude)});
@@ -75,7 +82,7 @@ class _MapScreenState extends State<MapScreen> {
           markers: _markers,
           myLocationEnabled: true,
           zoomControlsEnabled: false,
-
+   
         ),
         // Positioned(
         //   top: 100,

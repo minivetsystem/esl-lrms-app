@@ -133,8 +133,8 @@ class _SurveyListPageState extends State<SurveyListPage> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            // ListSurvey.results.userNotifications[index].notification.title.toString(),
-                                            ' ListSurvey.results.',
+                                            ListSurvey.results.userNotifications[index].notification.title.toString(),
+                                            // ' ListSurvey.results.',
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle

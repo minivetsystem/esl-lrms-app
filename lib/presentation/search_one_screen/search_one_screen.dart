@@ -1,5 +1,6 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:vedanta_lrms/data/apiClient/api_client.dart';
+import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/models/search_one_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 
@@ -13,8 +14,21 @@ import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 class SearchOneScreen extends GetWidget<SearchOneController> {
+String removeFileExtension(String fileName) {
+  int dotIndex = fileName.lastIndexOf('.');
+  
+  // Check if the dot is found and is not the first character
+  if (dotIndex != -1 && dotIndex < fileName.length - 1) {
+    return fileName.substring(0, dotIndex);
+  } else {
+    // No extension or dot is the last character
+    return fileName;
+  }
+}
+
   @override
   Widget build(BuildContext context) {
+
     return CustomPage(widget: get_page());
   }
 
@@ -114,9 +128,9 @@ class SearchOneScreen extends GetWidget<SearchOneController> {
                         print(snapshot);
                         return Text('Error: ${snapshot.error}');
                       } else {
-                        print(snapshot);
+                        // print(snapshot);
                         final ListLayers = snapshot.data!;
-                        print(ListLayers);
+                        print('ListLayers $ListLayers');
                         return ListView.builder(
                           itemCount: ListLayers.mapLayerVillages!.length,
                           //  itemCount: 50,
@@ -144,14 +158,22 @@ class SearchOneScreen extends GetWidget<SearchOneController> {
                                       child: ListTile(
                                         leading: const Icon(Icons.map_outlined),
                                         title: Text(
-                                          ListLayers.mapLayerVillages![index].value![0].name.toString(),
+                                          removeFileExtension(
+                                          ListLayers.mapLayerVillages![index].value![0].name.toString()),
                                           textScaleFactor: 1,
                                         ),
                                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                                         // subtitle:
                                         //     const Text('This is subtitle'),
                                         // selected: true,
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MapScreen(id: ListLayers.mapLayerVillages![index].value![0].id),
+              ),
+            );
+                                        },
                                       ),
                                     )
                                   ],

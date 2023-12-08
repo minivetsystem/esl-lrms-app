@@ -11,7 +11,7 @@ class LoginModel {
     required this.user,
   });
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) {
+  factory LoginModel.fromJson(Map json) {
     return LoginModel(
       status: json['status'],
       message: json['message'],
@@ -42,7 +42,7 @@ class User {
     required this.verify,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map json) {
     return User(
       id: json['id'],
       name: json['name'],

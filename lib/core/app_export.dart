@@ -19,3 +19,4 @@ export 'package:vedanta_lrms/core/utils/date_time_utils.dart';
 export 'package:vedanta_lrms/core/utils/permission_manager.dart';
 export 'package:permission_handler/permission_handler.dart';
 export 'package:vedanta_lrms/core/utils/file_upload_helper.dart';
+export 'package:shared_preferences/shared_preferences.dart';

@@ -181,7 +181,7 @@ class AppRoutes {
     ),
         GetPage(
       name: mapScreen,
-      page: () => MapScreen(),
+      page: () => MapScreen(id: 0),
       bindings: [
         MapBinding(),
       ],

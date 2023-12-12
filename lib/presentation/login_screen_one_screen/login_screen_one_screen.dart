@@ -15,6 +15,7 @@ import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
 import 'package:vedanta_lrms/domain/googleauth/google_auth_helper.dart';
 import 'package:http/http.dart' as http;
+
 // ignore_for_file: must_be_immutable
 class LoginScreenOneScreen extends StatefulWidget {
   const LoginScreenOneScreen({super.key});
@@ -27,16 +28,18 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
   TextEditingController masterInputController = TextEditingController();
 
   TextEditingController masterInputOneController = TextEditingController();
-    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   bool isShowPassword = false;
   AndroidDeviceInfo? deviceInfo;
+
   var token = '';
   @override
   void initState() {
     super.initState();
     _getDeviceInfo();
   }
-Future<void> loginAuth() async {
+
+  Future<void> loginAuth() async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.setString('key', 'value');
     var url = Uri.parse('${Constant.baseurl}login');
@@ -48,23 +51,30 @@ Future<void> loginAuth() async {
     map['device_id'] = deviceInfo!.brand;
     // final response = await http.MultipartRequest('POST',Uri.parse('${Constant.baseurl}login'));
     final response = await http.post(
-    url,
-    body: map,
-);
+      url,
+      body: map,
+    );
     // var response = await request.send();
     // final respStr = await response.stream.bytesToString();
     if (response.statusCode == 200) {
       // Map<String, dynamic> jsonMap = json.decode(response.body);
-        var data = jsonDecode(response.body.toString());
-        setState(() {
-          token = data['token'];
-        });
-        print(token);
-      // return LoginModel.fromJson(jsonResponse);
+      var data = jsonDecode(response.body.toString());
+      setState(() {
+        token = data['token'];
+      });
+      print(token);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+
+      if (token != '') {
+        PrefUtils.setIsSignIn(false);
+        Get.toNamed(AppRoutes.homeFourContainerScreen);
+      }
     } else {
       throw Exception('Failed to load notifications');
     }
   }
+
   //  _Login() async {
   //   final res = await ApiClient().loginAuth(masterInputController.text, masterInputOneController.text, deviceInfo!.product);
   //         setState(() {
@@ -73,22 +83,20 @@ Future<void> loginAuth() async {
   //       print(token);
   // }
   Future<void> _getDeviceInfo() async {
-
     try {
-        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-        setState(() {
-          deviceInfo = androidInfo;
-        });
+      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+      setState(() {
+        deviceInfo = androidInfo;
+      });
       print(deviceInfo!.product.toString());
-        IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-        // setState(() {
-        //   deviceInfo = 'iOS\n'
-        //       'Device: ${iosInfo.utsname.machine}\n'
-        //       'Model: ${iosInfo.model}\n'
-        //       'OS Version: ${iosInfo.systemVersion}';
-        // });
-        // print(iosInfo.utsname.machine);
-      
+      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+      // setState(() {
+      //   deviceInfo = 'iOS\n'
+      //       'Device: ${iosInfo.utsname.machine}\n'
+      //       'Model: ${iosInfo.model}\n'
+      //       'OS Version: ${iosInfo.systemVersion}';
+      // });
+      // print(iosInfo.utsname.machine);
     } catch (e) {
       print(e);
     }
@@ -113,7 +121,6 @@ Future<void> loginAuth() async {
       Get.snackbar('Error', onError.toString());
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +196,7 @@ Future<void> loginAuth() async {
                             }
                             return null;
                           }),
-CustomTextFormField(
+                      CustomTextFormField(
                           shadowTextfield: false,
                           function: () {},
                           width: double.infinity,
@@ -263,10 +270,10 @@ CustomTextFormField(
                                             height: getVerticalSize(1.08))))),
                       ),
                       CustomButton(
-                          onTap:  loginAuth
-                            // PrefUtils.setIsSignIn(false);
-                            // Get.toNamed(
-                            //     AppRoutes.homeFourContainerScreen);
+                          onTap: loginAuth
+                          // PrefUtils.setIsSignIn(false);
+                          // Get.toNamed(
+                          //     AppRoutes.homeFourContainerScreen);
                           ,
                           height: 50.h,
                           width: width,

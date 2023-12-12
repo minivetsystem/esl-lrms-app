@@ -4,7 +4,7 @@ class SurveyItemList {
   int? notificationId;
   String? isSeen;
   String? isResponse;
-  Null? message;
+  Null message;
   String? createdAt;
   String? updatedAt;
   String? notificationStatus;
@@ -151,7 +151,7 @@ class Detail {
   int? id;
   int? notificationId;
   String? details;
-  Null? area;
+  Null area;
   int? isMultiPlot;
   int? village;
   NotificationType? villageDetails;

@@ -5,15 +5,15 @@ class LoadMapData {
 
   LoadMapData({this.status, this.results, this.message});
 
-  LoadMapData.fromJson(Map<String, dynamic> json) {
+  LoadMapData.fromJson(Map json) {
     status = json['status'];
     results =
         json['results'] != null ? new Results.fromJson(json['results']) : null;
     message = json['message'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     data['status'] = this.status;
     if (this.results != null) {
       data['results'] = this.results!.toJson();
@@ -32,7 +32,7 @@ class Results {
 
   Results({this.data, this.lat, this.lng, this.id, this.type});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  Results.fromJson(Map json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     lat = json['lat'];
     lng = json['lng'];
@@ -40,8 +40,8 @@ class Results {
     type = json['type'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -59,7 +59,7 @@ class Data {
 
   Data({this.type, this.features});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map json) {
     type = json['type'];
     if (json['features'] != null) {
       features = <Features>[];
@@ -69,8 +69,8 @@ class Data {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     data['type'] = this.type;
     if (this.features != null) {
       data['features'] = this.features!.map((v) => v.toJson()).toList();
@@ -86,7 +86,7 @@ class Features {
 
   Features({this.type, this.geometry, this.properties});
 
-  Features.fromJson(Map<String, dynamic> json) {
+  Features.fromJson(Map json) {
     type = json['type'];
     geometry = json['geometry'] != null
         ? new Geometry.fromJson(json['geometry'])
@@ -96,8 +96,8 @@ class Features {
         : null;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     data['type'] = this.type;
     if (this.geometry != null) {
       data['geometry'] = this.geometry!.toJson();
@@ -115,13 +115,13 @@ class Geometry {
 
   Geometry({this.type, this.coordinates});
 
-  Geometry.fromJson(Map<String, dynamic> json) {
+  Geometry.fromJson(Map json) {
     type = json['type'];
     coordinates = json['coordinates'].cast<double>();
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     data['type'] = this.type;
     data['coordinates'] = this.coordinates;
     return data;
@@ -146,7 +146,7 @@ class Properties {
       this.villageId,
       this.villageName});
 
-  Properties.fromJson(Map<String, dynamic> json) {
+  Properties.fromJson(Map json) {
     base = json['base'];
     status = json['status'];
     id = json['id'];
@@ -156,8 +156,8 @@ class Properties {
     villageName = json['village_name'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map toJson() {
+    final Map data = new Map();
     data['base'] = this.base;
     data['status'] = this.status;
     data['id'] = this.id;

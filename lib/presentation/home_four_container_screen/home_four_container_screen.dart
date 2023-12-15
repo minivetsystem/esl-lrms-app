@@ -70,7 +70,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         // return SurveyListPage();
         return SearchOneScreen();
       case AppRoutes.mapScreen:
-        return MapScreen(id: 0,);
+        return MapScreen(id: 0,searchPlotId: '');
       case AppRoutes.notificationScreen:
         return NotificationScreen();
       case AppRoutes.profileOneScreen:

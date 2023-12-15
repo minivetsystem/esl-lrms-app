@@ -3,18 +3,18 @@ import 'package:http/http.dart' as http;
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/presentation/history_page/models/history_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/load_map_data_model.dart';
+import 'package:vedanta_lrms/presentation/map_page/models/polt_details_by_searchid_model.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/models/search_one_model.dart';
 
 class ApiClient extends GetConnect {
   static final String get_survey = "${Constant.baseurl}notification/get-survey";
   Future<NotificationResponse> getSurveyList() async {
-         SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token =  prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
     final response = await http.get(Uri.parse(get_survey), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization':
-          'Bearer $token',
+      'Authorization': 'Bearer $token',
     });
 
     if (response.statusCode == 200) {
@@ -27,13 +27,12 @@ class ApiClient extends GetConnect {
 
   static final String layer_list = "${Constant.baseurl}layer-list";
   Future<LayerList> getLayerList() async {
-             SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(Uri.parse(layer_list), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization':
-          'Bearer $token',
+      'Authorization': 'Bearer $token',
     });
 
     if (response.statusCode == 200) {
@@ -44,15 +43,33 @@ class ApiClient extends GetConnect {
     }
   }
 
+  Future<PlotDetailsfromSearch> searchByAddress(plotId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}search-address?plot_id=$plotId'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      return PlotDetailsfromSearch.fromJson(jsonResponse);
+    } else {
+      throw Exception('Failed to load notifications');
+    }
+  }
+
   Future<LoadMapData> getLoadListData(id) async {
-                 SharedPreferences prefs = await SharedPreferences.getInstance();
-       String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http
         .get(Uri.parse('${Constant.baseurl}load-map-data/$id'), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization':
-          'Bearer $token',
+      'Authorization': 'Bearer $token',
     });
 
     if (response.statusCode == 200) {
@@ -63,7 +80,7 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future<void> loginAuth( email, password, deviceId) async {
+  Future<void> loginAuth(email, password, deviceId) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.setString('key', 'value');
     var url = Uri.parse('${Constant.baseurl}login');
@@ -75,13 +92,12 @@ class ApiClient extends GetConnect {
     map['device_id'] = deviceId;
     // final response = await http.MultipartRequest('POST',Uri.parse('${Constant.baseurl}login'));
     final response = await http.post(
-    url,
-    body: map,
-);
+      url,
+      body: map,
+    );
     // var response = await request.send();
     // final respStr = await response.stream.bytesToString();
     if (response.statusCode == 200) {
-       
       return jsonDecode(response.body.toString());
       // return LoginModel.fromJson(jsonResponse);
     } else {
@@ -89,9 +105,9 @@ class ApiClient extends GetConnect {
     }
   }
 //   Future<void> loginAuth( email , password,deviceId) async {
-  
+
 //   try{
-    
+
 //     Response response = await post(
 //       Uri.parse('https://reqres.in/api/login'),
 //       body: {
@@ -101,7 +117,7 @@ class ApiClient extends GetConnect {
 //     );
 
 //     if(response.statusCode == 200){
-      
+
 //       var data = jsonDecode(response.body.toString());
 //       print(data['token']);
 //       print('Login successfully');

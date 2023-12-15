@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/data/apiClient/api_client.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
+import 'package:vedanta_lrms/presentation/map_page/models/polt_details_by_searchid_model.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/models/search_one_model.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
+import 'package:badges/badges.dart';
+// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SearchOneScreen extends StatefulWidget {
   const SearchOneScreen({super.key});
@@ -31,22 +34,25 @@ class _SearchOneScreenState extends State<SearchOneScreen> {
 
   TextEditingController group267Controller = TextEditingController();
   String? address;
-  @override
-  @override
-  void onClose() {
-    group267Controller.dispose();
-  }
+  // @override
+  // @override
+  // void onClose() {
+  //   group267Controller.dispose();
+  // }
 
-  void setAdress(String value) {
-    address = value;
-  }
+  // void setAdress(String value) {
+  //   setState(() {
+  //         address = value;
+  //   });
+  // print(address);
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    group267Controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   group267Controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,40 +104,138 @@ class _SearchOneScreenState extends State<SearchOneScreen> {
                     padding:
                         getPadding(top: 0, bottom: 16, left: 20, right: 20),
                     child: CustomTextFormField(
-                        shadowTextfield: false,
-                        onChanged: (value) {
-                          setAdress(value);
-                        },
-                        onFieldSubmitted: (value) {
-                          Get.back();
-                        },
-                        function: () {
-                          // Get.to(AppRoutes.hom)
-                        },
-                        width: 388,
-                        focusNode: FocusNode(),
-                        controller: group267Controller,
-                        hintText: "lbl_search_location".tr,
-                        margin: getMargin(top: 1),
-                        variant: TextFormFieldVariant.OutlineGray400,
-                        shape: TextFormFieldShape.RoundedBorder10,
-                        padding: TextFormFieldPadding.PaddingT14_1,
-                        fontStyle: TextFormFieldFontStyle.SFUITextRegular17,
-                        textInputAction: TextInputAction.done,
-                        prefix: Container(
-                            margin: getMargin(
-                                left: 16, top: 12, right: 8, bottom: 12),
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgContrast)),
-                        prefixConstraints:
-                            BoxConstraints(maxHeight: getVerticalSize(48.00)),
-                        suffix: Container(
-                            margin: getMargin(
-                                left: 30, top: 12, right: 16, bottom: 12),
-                            child: CustomImageView(
-                                svgPath: ImageConstant.imgMicrophone)),
-                        suffixConstraints:
-                            BoxConstraints(maxHeight: getVerticalSize(48.00))),
+                      shadowTextfield: false,
+                      // onChanged: (value) {
+                      //   setAdress(value);
+
+                      // },
+                      onFieldSubmitted: (value) {
+                        print("input text  $value");
+                        if (value != '') {
+                          showModalBottomSheet<void>(
+                              // context and builder are
+                              // required properties in this widget
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                // we set up a container inside which
+                                // we create center column and display text
+
+                                // Returning SizedBox instead of a Container
+                                return SizedBox(
+                                    height: 650,
+                                    child: Container(
+                                        child: Center(
+                                      child: FutureBuilder<
+                                              PlotDetailsfromSearch>(
+                                          future: ApiClient()
+                                              .searchByAddress(value),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            } else if (snapshot.hasError) {
+                                              print(snapshot);
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              // print(snapshot);
+                                              final PlotDetails =
+                                                  snapshot.data!;
+
+                                              print(
+                                                  'PlotDetails ${PlotDetails.mapFeatures}');
+                                              return ListView.builder(
+                                                  itemCount: PlotDetails
+                                                      .mapFeatures!.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Container(
+                                                        color: ColorConstant
+                                                            .whiteA700,
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        width: double.infinity,
+                                                        child: ListTile(
+                                                          leading: const Icon(
+                                                              Icons
+                                                                  .map_outlined),
+                                                          title: 
+                                                              Text(
+                                                                "${PlotDetails.mapFeatures![index].mapLayers?.village?.name.toString()} ${PlotDetails.mapFeatures![index].propertiesId.toString()}",
+                                                                // "${ListLayers
+                                                                // .mapLayerVillages![index]
+                                                                // .value![ind]
+                                                                // .originalName
+                                                                // .toString()}",
+                                                                // "plot List",
+                                                                textScaleFactor: 1,
+                                                              ),
+                                                           
+                                                          trailing: const Icon(Icons
+                                                              .arrow_forward_ios_outlined),
+                                                          // subtitle:
+                                                          //     const Text('This is subtitle'),
+                                                          // selected: true,
+                                                          onTap: () {
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    MapScreen(
+                                                                        id: 0,
+                                                                        searchPlotId:
+                                                                            PlotDetails.mapFeatures![index].propertiesId),
+                                                              ),
+                                                            );
+                                                          },
+                                                        )
+                                                        // })
+                                                        );
+                                                  });
+                                            }
+                                          }),
+                                    )));
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         MapScreen(id: 0, searchPlotId: value),
+                                //   ),
+                                // );
+                              });
+                        } else {}
+                      },
+                      // function: () {
+                      //   print("input text ${group267Controller.text}");
+                      // },
+                      width: 388,
+                      focusNode: FocusNode(),
+                      controller: group267Controller,
+                      hintText: "lbl_search_location".tr,
+                      margin: getMargin(top: 1),
+                      variant: TextFormFieldVariant.OutlineGray400,
+                      shape: TextFormFieldShape.RoundedBorder10,
+                      padding: TextFormFieldPadding.PaddingT14_1,
+                      fontStyle: TextFormFieldFontStyle.SFUITextRegular17,
+                      textInputAction: TextInputAction.done,
+                      prefix: Container(
+                          margin: getMargin(
+                              left: 16, top: 12, right: 8, bottom: 12),
+                          child: CustomImageView(
+                              svgPath: ImageConstant.imgContrast)),
+                      prefixConstraints:
+                          BoxConstraints(maxHeight: getVerticalSize(48.00)),
+                      // suffix: Container(
+                      //     margin: getMargin(
+                      //         left: 30, top: 12, right: 16, bottom: 12),
+                      //     child: CustomImageView(
+                      //         svgPath: ImageConstant.imgMicrophone)),
+                      // suffixConstraints:
+                      //     BoxConstraints(maxHeight: getVerticalSize(48.00))
+                    ),
                   ),
                 ),
                 Expanded(
@@ -219,7 +323,9 @@ class _SearchOneScreenState extends State<SearchOneScreen> {
                                                                     .mapLayerVillages![
                                                                         index]
                                                                     .value![ind]
-                                                                    .id),
+                                                                    .id,
+                                                                searchPlotId:
+                                                                    0),
                                                       ),
                                                     );
                                                   },

@@ -9,7 +9,6 @@ import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
-import 'package:badges/badges.dart';
 // import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SearchOneScreen extends StatefulWidget {
@@ -77,7 +76,7 @@ class _SearchOneScreenState extends State<SearchOneScreen> {
                     svgPath: ImageConstant.imgArrowleft,
                     margin: getMargin(left: 20, top: 12, bottom: 12),
                     onTap: () {
-                      Get.back();
+                      Navigator.pop(context);
                     }),
                 centerTitle: false,
                 title: AppbarSubtitle(

@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/presentation/home_screen_main/controller/home_four_controller.dart';
 import 'package:vedanta_lrms/presentation/home_screen_main/models/home_four_model.dart';
+import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:http/http.dart' as http;
@@ -125,42 +126,40 @@ class _MapScreenState extends State<MapScreen> {
             }
 
             coordinates.add(polygonCoordinates);
-
+            //  if (feature.getProperty('plot_id') === 0) {
+            //               if (feature.getProperty('id') === 0) {
+            //                 color = 'red';
+            //               }
+            //             } else {
+            //               if (feature.getProperty('plot_id') !== 0) {
+            //                 color = 'green';
+            //               }
+            //             }
+            var color = properties['plot_id'] == 0
+                ? properties['id'] == 0
+                    ? Colors.red.withOpacity(0.3)
+                    : Colors.blue.withOpacity(0.3)
+                : properties['plot_id'] != 0
+                    ? Colors.green.withOpacity(0.3)
+                    : Colors.red.withOpacity(0.3);
             polygons.add(
               Polygon(
                   polygonId: PolygonId('${properties['id']}'),
                   // initialize the list of points to display polygon
                   points: polygonCoordinates,
                   // given color to polygon
-                  fillColor: Colors.green.withOpacity(0.3),
+                  fillColor: color,
+
                   //  Colors.green.withOpacity(0.3),
                   // given border color to polygon
-                  strokeColor: Colors.red,
+                  strokeColor: Colors.black,
                   geodesic: true,
                   // given width of border
-                  strokeWidth: 4,
+                  strokeWidth: 2,
                   consumeTapEvents: true,
                   onTap: () {
-                    print(properties);
-                    showModalBottomSheet<void>(
-                        // context and builder are
-                        // required properties in this widget
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SizedBox(
-                              height: 650,
-                              child: Center(
-                                  child: Container(
-                                      color: ColorConstant.whiteA700,
-                                      padding: EdgeInsets.all(20),
-                                      width: double.infinity,
-                                      child: Column(
-                                        children: [
-                                          Text('text'),
-                                        ],
-                                      ))));
-                        });
+                    // print(properties);
+                    getPlotDetails(properties['id'], properties['village_id']);
                   }),
             );
           }
@@ -169,6 +168,185 @@ class _MapScreenState extends State<MapScreen> {
     }
     // return coordinates;
     return polygons;
+  }
+
+  getPlotDetails(plotId, villageId) async {
+    print(plotId);
+    print(villageId);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse(
+            '${Constant.baseurl}plot-details?village_id=${villageId}&plot_id=${plotId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['status'] == true) {
+        if (data['plot'].containsKey('plot_detail') &&
+            data['plot']['plot_detail'] != null) {
+          showModalBottomSheet<void>(
+              // context and builder are
+              // required properties in this widget
+              isScrollControlled: true,
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: 650,
+                  child: Container(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 70,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade300,
+                              borderRadius: BorderRadius.only(topLeft:  Radius.circular(10),topRight: Radius.circular(10))
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                '${data['plot']['plot_detail']['owner_name']}',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  letterSpacing: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Deed no.:',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Chip(
+                                elevation: 10,
+                                padding: EdgeInsets.all(8),
+                                backgroundColor: Colors.redAccent[100],
+                                shadowColor: Colors.black, //CircleAvatar
+                                label: Text(
+                                  ' N/A',
+                                  style: TextStyle(fontSize: 14),
+                                ), //Text
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Khasra no.:',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Chip(
+                                elevation: 10,
+                                padding: EdgeInsets.all(8),
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.black, //CircleAvatar
+                                label: Text(
+                                  '${data['plot']['khasara_no']}',
+                                  style: TextStyle(fontSize: 14),
+                                ), //Text
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Location:',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Chip(
+                                elevation: 10,
+                                padding: EdgeInsets.all(8),
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.black, //CircleAvatar
+                                label: Text(
+                                  '${data['plot']['village']['name']}',
+                                  style: TextStyle(fontSize: 14),
+                                ), //Text
+                              ),
+                            ],
+                          ),
+                          Text('Status: '),
+                          Text('Latitude: '),
+                          Text('Longitude: '),
+                          Text('ID: '),
+                          Text('Type: '),
+                          Text('Plot ID: '),
+                          Text('Village ID: '),
+                          Text('Village Name: '),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+        } else {}
+      } else {
+        showModalBottomSheet<void>(
+            // context and builder are
+            // required properties in this widget
+            isScrollControlled: true,
+            context: context,
+            builder: (BuildContext context) {
+              return SizedBox(
+                height: 650,
+                child: Container(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ' Not Data Available',
+                          style: TextStyle(
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            fontStyle: FontStyle.italic,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            });
+      }
+    } else {
+      throw Exception();
+    }
   }
 
   @override
@@ -230,6 +408,15 @@ class _MapScreenState extends State<MapScreen> {
           height: 50,
           title:
               AppbarSubtitle(text: "lbl_map".tr, margin: getMargin(left: 20)),
+          leadingWidth: 44,
+          leading: AppbarImage(
+              height: getSize(32.00),
+              width: getSize(32.00),
+              svgPath: ImageConstant.imgArrowleft,
+              margin: getMargin(left: 20, top: 12, bottom: 12),
+              onTap: () {
+                Navigator.pop(context);
+              }),
         ),
         body: Stack(children: [
           _mapLoaded
@@ -254,46 +441,6 @@ class _MapScreenState extends State<MapScreen> {
                   polygons: poly,
                   markers: _marker,
                 )
-
-              // ? FlutterMap(
-              //     mapController: _mapController,
-              //     options: MapOptions(
-              //         // initialCenter: LatLng(45.993807, 14.483972),
-              //         center: _center != null
-              //             ? _center
-              //             : LatLng(22.571085, 88.372896),
-              //         zoom: 14,
-
-              //       ),
-
-              //     children: [
-              //       TileLayer(
-              //           urlTemplate:
-              //               "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              //           subdomains: const ['a', 'b', 'c']),
-              //       PolygonLayer(
-              //         polygons: poly,
-
-              //         // polygons
-              //         //     .map(
-              //         //       (polygon) => Polygon(
-
-              //         //           label: '',
-              //         //           points: polygon,
-              //         //           color: Colors.blue.withOpacity(0.5),
-              //         //           borderStrokeWidth: 2.0,
-              //         //           borderColor: Colors.red,
-              //         //           isFilled: true,),
-              //         //     )
-              //         //     .toList(),
-
-              //         polygonLabels: true,
-
-              //       ),
-              //       MarkerLayer(markers: myGeoJson.markers),
-
-              //     ],
-              //   )
               : Center(child: CircularProgressIndicator()),
           // Positioned(
           //   top: 100,
@@ -353,12 +500,12 @@ class _MapScreenState extends State<MapScreen> {
                     });
                   },
                 ),
-                SpeedDialChild(
-                  child: Icon(Icons.search_outlined),
-                  onTap: () {
-                    Get.toNamed(AppRoutes.searchOneScreen);
-                  },
-                ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.search_outlined),
+                //   onTap: () {
+                //     Get.toNamed(AppRoutes.searchOneScreen);
+                //   },
+                // ),
                 SpeedDialChild(
                   child: Icon(Icons.keyboard_voice),
                   onTap: () => {},

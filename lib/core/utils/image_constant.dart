@@ -3,7 +3,7 @@ class ImageConstant {
   static String imgDestination = 'assets/images/img_destination_icon.svg';
   static String imgLocationIcon = 'assets/images/img_location_icon.svg';
   // static String imgSplashLogo = 'assets/images/img_splash_logo.svg';
-  static String imgSplashLogo = 'assets/images/20220310134204.svg';
+  static String imgSplashLogo = 'assets/images/ESL-01.svg';
 
 
   static String img67732931 = 'assets/images/img_67732931.png';

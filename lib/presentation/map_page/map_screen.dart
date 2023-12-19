@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -13,6 +12,7 @@ import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class MapScreen extends StatefulWidget {
   final id;
@@ -170,6 +170,13 @@ class _MapScreenState extends State<MapScreen> {
     return polygons;
   }
 
+  Future<void> downloadBi(Uri uri) async {
+    var url = Uri.parse('$uri');
+    if (!await launchUrl(url, mode: LaunchMode.inAppBrowserView)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   getPlotDetails(plotId, villageId) async {
     print(plotId);
     print(villageId);
@@ -197,6 +204,7 @@ class _MapScreenState extends State<MapScreen> {
                 return SizedBox(
                   height: 650,
                   child: Container(
+                    color: Colors.grey.shade300,
                     width: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -207,9 +215,10 @@ class _MapScreenState extends State<MapScreen> {
                             height: 70,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.green.shade300,
-                              borderRadius: BorderRadius.only(topLeft:  Radius.circular(10),topRight: Radius.circular(10))
-                            ),
+                                color: Colors.green.shade300,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
@@ -227,83 +236,228 @@ class _MapScreenState extends State<MapScreen> {
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                'Deed no.:',
-                                style: TextStyle(
-                                  fontSize: 20.0,
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: const Color.fromARGB(255, 245, 244, 244),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Deed no.:',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      'N/A',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Chip(
-                                elevation: 10,
-                                padding: EdgeInsets.all(8),
-                                backgroundColor: Colors.redAccent[100],
-                                shadowColor: Colors.black, //CircleAvatar
-                                label: Text(
-                                  ' N/A',
-                                  style: TextStyle(fontSize: 14),
-                                ), //Text
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Khasra no.:',
-                                style: TextStyle(
-                                  fontSize: 20.0,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Khasra no.:',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '${data['plot']['khasara_no']}',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Chip(
-                                elevation: 10,
-                                padding: EdgeInsets.all(8),
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.black, //CircleAvatar
-                                label: Text(
-                                  '${data['plot']['khasara_no']}',
-                                  style: TextStyle(fontSize: 14),
-                                ), //Text
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Location:',
-                                style: TextStyle(
-                                  fontSize: 20.0,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Location:',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '${data['plot']['village']['name']}',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Chip(
-                                elevation: 10,
-                                padding: EdgeInsets.all(8),
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.black, //CircleAvatar
-                                label: Text(
-                                  '${data['plot']['village']['name']}',
-                                  style: TextStyle(fontSize: 14),
-                                ), //Text
-                              ),
-                            ],
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Holiding Type :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '${data['plot']['plot_detail']['holding_type']}',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Status of Mutation :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      'N/A',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Total Area :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '${data['plot']['plot_detail']['area']}',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Total Area (In Bhuiyan) :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      '${data['plot']['plot_detail']['area_in_bhuiyan']}',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Remarks :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      'N/A',
+                                      style: TextStyle(fontSize: 14),
+                                    ), //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Download B(I) :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    data['plot']['plot_detail']
+                                                ['naksha_link'] !=
+                                            null
+                                        ? InkWell(
+                                            onTap: () async {
+                                              // downloadBi(data['plot']
+                                              //     ['plot_detail']['naksha_link'])
+                                              var url = Uri.parse(
+                                                  '${data['plot']['plot_detail']['naksha_link']}');
+                                              if (!await launchUrl(url,
+                                                  mode: LaunchMode
+                                                      .inAppBrowserView)) {
+                                                throw Exception(
+                                                    'Could not launch $url');
+                                              }
+                                            },
+                                            child: const Icon(
+                                              Icons.download_outlined,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : Text('Not Available')
+                                    //Text
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Download P(II) :',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    data['plot']['plot_detail']
+                                                ['pii_document_link'] !=
+                                            null
+                                        ? InkWell(
+                                            onTap: () async {
+                                              final Uri url = Uri.parse(
+                                                  '${data['plot']['plot_detail']['pii_document_link']}');
+                                              if (!await launchUrl(url,
+                                                  mode: LaunchMode
+                                                      .inAppBrowserView)) {
+                                                throw Exception(
+                                                    'Could not launch $url');
+                                              }
+                                            },
+                                            child: const Icon(
+                                              Icons.download_outlined,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        : Text('Not Available'), //Text
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          Text('Status: '),
-                          Text('Latitude: '),
-                          Text('Longitude: '),
-                          Text('ID: '),
-                          Text('Type: '),
-                          Text('Plot ID: '),
-                          Text('Village ID: '),
-                          Text('Village Name: '),
                         ],
                       ),
                     ),

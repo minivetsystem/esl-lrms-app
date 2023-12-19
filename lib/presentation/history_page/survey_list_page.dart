@@ -34,7 +34,7 @@ class _SurveyListPageState extends State<SurveyListPage> {
 
     // Start auto-scrolling every 3 seconds
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      _scrollToBottom();
+      // _scrollToBottom();
     });
   }
   @override
@@ -46,13 +46,13 @@ class _SurveyListPageState extends State<SurveyListPage> {
   }
 
   // Method to scroll to the bottom of the list
-  void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: Duration(seconds: 5),
-      curve: Curves.easeInOut,
-    );
-  }
+  // void _scrollToBottom() {
+  //   _scrollController.animateTo(
+  //     _scrollController.position.maxScrollExtent,
+  //     duration: Duration(seconds: 5),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
   @override
   Widget build(BuildContext context) {
 
@@ -100,9 +100,9 @@ class _SurveyListPageState extends State<SurveyListPage> {
                       print(snapshot);
                       final ListSurvey = snapshot.data!;
                       return ListView.builder(
-                          controller: _scrollController,
-                        // itemCount: ListSurvey.results.userNotifications.length,
-                         itemCount: 50,
+                          // controller: _scrollController,
+                        itemCount: ListSurvey.results.userNotifications.length,
+                        //  itemCount: 50,
                         itemBuilder: (context, index) {
                           return Container(
                             width: double.infinity,

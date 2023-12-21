@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:vedanta_lrms/presentation/history_page/survey_list_page.dart';
+import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
@@ -47,15 +47,16 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
   }
 
   String getCurrentRoute(BottomBarEnum type) {
+    print(type);
     switch (type) {
       case BottomBarEnum.Contrastwhitea700:
         return AppRoutes.HomeMainScreen;
-      case BottomBarEnum.Sort:
-        return AppRoutes.historyPage;
       case BottomBarEnum.Globe:
         return AppRoutes.mapScreen;
-      case BottomBarEnum.Notification:
-        return AppRoutes.notificationScreen;
+      case BottomBarEnum.Sort:
+        return AppRoutes.searchOneScreen;
+      case BottomBarEnum.legal:
+        return AppRoutes.historyPage;
       case BottomBarEnum.Profile:
         return AppRoutes.profileOneScreen;
       default:
@@ -67,11 +68,12 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
     switch (currentRoute) {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
+      case AppRoutes.mapScreen:
+        return MapScreen(id: 0, searchPlotId: 0);
       case AppRoutes.historyPage:
         return SurveyListPage();
-        // return SearchOneScreen();
-      case AppRoutes.mapScreen:
-        return MapScreen(id: 0,searchPlotId: 0);
+      // return SearchOneScreen();
+
       case AppRoutes.notificationScreen:
         return NotificationScreen();
       case AppRoutes.profileOneScreen:

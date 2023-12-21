@@ -12,18 +12,22 @@ class CustomBottomBar extends StatelessWidget {
       icon: ImageConstant.imgContrastWhiteA700,
       type: BottomBarEnum.Contrastwhitea700,
     ),
+        BottomMenuModel(
+      icon: ImageConstant.globe,
+      type: BottomBarEnum.Globe,
+    ),
     BottomMenuModel(
       icon: ImageConstant.imgSort,
       type: BottomBarEnum.Sort,
     ),
     BottomMenuModel(
-      icon: ImageConstant.globe,
-      type: BottomBarEnum.Globe,
+      icon: ImageConstant.legal,
+      type: BottomBarEnum.legal,
     ),
-    BottomMenuModel(
-      icon: ImageConstant.imgNotification,
-      type: BottomBarEnum.Notification,
-    ),
+    // BottomMenuModel(
+    //   icon: ImageConstant.imgNotification,
+    //   type: BottomBarEnum.Notification,
+    // ),
     BottomMenuModel(
       icon: ImageConstant.imgUserGray400,
       type: BottomBarEnum.Profile,
@@ -127,11 +131,40 @@ class CustomBottomBar extends StatelessWidget {
               );
             }),
             onTap: (index) {
-              selectedIndex.value = index;
+              // selectedIndex.value = index;
+              // print(selectedIndex.value);
+              BottomBarEnum selectedTab = bottomMenuList[index].type;
+              print(selectedTab);
+              String route = getCurrentRoute(selectedTab);
               onChanged!(bottomMenuList[index].type);
+              if (route == "/") {
+                // If the selected tab corresponds to a page not included in the tabs
+                // Set selectedIndex to null or any other appropriate value
+                selectedIndex.value = -1;
+              } else {
+                selectedIndex.value = index;
+                onChanged!(selectedTab);
+              }
             },
           ),
         ));
+  }
+}
+
+String getCurrentRoute(BottomBarEnum type) {
+  switch (type) {
+    case BottomBarEnum.Contrastwhitea700:
+      return AppRoutes.HomeMainScreen;
+    case BottomBarEnum.Globe:
+      return AppRoutes.mapScreen;
+    case BottomBarEnum.Sort:
+      return AppRoutes.searchOneScreen;
+    case BottomBarEnum.legal:
+      return AppRoutes.historyPage;
+    case BottomBarEnum.Profile:
+      return AppRoutes.profileOneScreen;
+    default:
+      return "/";
   }
 }
 
@@ -139,6 +172,7 @@ enum BottomBarEnum {
   Contrastwhitea700,
   Sort,
   Globe,
+  legal,
   Notification,
   Usergray400,
   Profile

@@ -4,7 +4,7 @@ import '../home_screen_main/home_main_screen.dart';
 import 'controller/home_one_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/presentation/history_page/survey_list_page.dart';
+import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/notification_empty_page/notification_empty_page.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';

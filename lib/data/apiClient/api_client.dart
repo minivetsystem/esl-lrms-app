@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/presentation/history_page/models/history_model.dart';
+import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/load_map_data_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/polt_details_by_searchid_model.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/models/search_one_model.dart';

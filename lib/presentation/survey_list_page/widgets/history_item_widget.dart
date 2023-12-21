@@ -10,7 +10,7 @@ class HistoryItemWidget extends StatelessWidget {
 
   SurveyItemList historyItemModelObj;
 
-  var controller = Get.find<HistoryController>();
+
 
   @override
   Widget build(BuildContext context) {

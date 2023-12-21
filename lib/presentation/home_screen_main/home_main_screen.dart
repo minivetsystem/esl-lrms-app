@@ -9,6 +9,7 @@ import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle_1.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 // import 'package:vedanta_lrms/widgets/custom_button.dart';
 // import 'package:vedanta_lrms/widgets/custom_icon_button.dart';
@@ -43,6 +44,15 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                   height: getVerticalSize(
                     70.00,
                   ),
+                       leadingWidth: 44,
+          leading: InkWell(
+            onTap: (){
+               Navigator.pushNamed(context,'${AppRoutes.notificationScreen}');
+           
+            },
+            child: Icon(Icons.notifications),
+          ),
+                  centerTitle: true,
                   title: Padding(
                     padding: getPadding(
                       left: 20,
@@ -64,15 +74,25 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     ),
                   ),
                   actions: [
-                    AppbarCircleimage(
-                      imagePath: ImageConstant.imgEllipse3,
+                    // AppbarCircleimage(
+                    //   imagePath: ImageConstant.imgEllipse3,
+                    //   margin: getMargin(
+                    //     left: 20,
+                    //     top: 11,
+                    //     right: 20,
+                    //     bottom: 19,
+                    //   ),
+                    // ),
+                   Container(
                       margin: getMargin(
                         left: 20,
-                        top: 11,
-                        right: 20,
-                        bottom: 19,
-                      ),
-                    ),
+                       top: 11,
+                         right: 20,
+                         bottom: 19,
+                       ),
+                     child: Icon( Icons.settings,
+                     ),
+                   )
                   ],
                   styleType: Style.bgFillblueA200,
                 ),

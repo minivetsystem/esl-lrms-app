@@ -3,7 +3,7 @@ class ImageConstant {
   static String imgDestination = 'assets/images/img_destination_icon.svg';
   static String imgLocationIcon = 'assets/images/img_location_icon.svg';
   // static String imgSplashLogo = 'assets/images/img_splash_logo.svg';
-  static String imgSplashLogo = 'assets/images/ESL-01.svg';
+  static String imgSplashLogo = 'assets/images/ESL-2-1.svg';
 
 
   static String img67732931 = 'assets/images/img_67732931.png';
@@ -186,6 +186,8 @@ class ImageConstant {
   static String imageNotFound = 'assets/images/image_not_found.png';
 
   static String globe = 'assets/images/img_globe.svg';
+
+  static String legal = 'assets/images/legal.svg';
 
   static String layers = 'assets/images/img_layers.png';
 }

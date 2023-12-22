@@ -55,9 +55,9 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return AppRoutes.mapScreen;
       case BottomBarEnum.Sort:
         return AppRoutes.searchOneScreen;
-      case BottomBarEnum.legal:
+      case BottomBarEnum.survey:
         return AppRoutes.historyPage;
-      case BottomBarEnum.Profile:
+      case BottomBarEnum.legal:
         return AppRoutes.profileOneScreen;
       default:
         return "/";
@@ -76,6 +76,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
 
       case AppRoutes.notificationScreen:
         return NotificationScreen();
+        
       case AppRoutes.profileOneScreen:
         return ProfileOneScreen();
       default:

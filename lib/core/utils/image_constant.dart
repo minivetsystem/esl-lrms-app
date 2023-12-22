@@ -189,5 +189,7 @@ class ImageConstant {
 
   static String legal = 'assets/images/legal.svg';
 
+  static String survey = 'assets/images/surveys-audit-icon.svg';
+
   static String layers = 'assets/images/img_layers.png';
 }

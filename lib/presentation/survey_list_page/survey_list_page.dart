@@ -6,6 +6,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/data/apiClient/api_client.dart';
+import 'package:vedanta_lrms/presentation/history_one_screen/history_one_screen.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 
@@ -46,13 +47,14 @@ class _SurveyListPageState extends State<SurveyListPage> {
     _scrollController.dispose();
     super.dispose();
   }
-dateFormat(date){
-  DateTime dd = DateTime.parse(date);
-  String formattedDate = DateFormat.yMMMd('en_US').format(dd);
+
+  dateFormat(date) {
+    DateTime dd = DateTime.parse(date);
+    String formattedDate = DateFormat.yMMMd('en_US').format(dd);
 // String dateWithT = d.substring(0, 8);
 // DateTime dateTime = DateTime.parse(dateWithT);
-  return  formattedDate;
-}
+    return formattedDate;
+  }
 
   // Method to scroll to the bottom of the list
   // void _scrollToBottom() {
@@ -108,6 +110,7 @@ dateFormat(date){
                     } else {
                       print(snapshot);
                       final ListSurvey = snapshot.data!;
+                      print(ListSurvey);
                       return Column(children: [
                         Container(
                           margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -391,43 +394,6 @@ dateFormat(date){
                                             ),
                                             Padding(
                                               padding: getPadding(
-                                                top: 5,
-                                              ),
-                                              child: RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: ListSurvey
-                                                          .results!
-                                                          .userNotifications![
-                                                              index]
-                                                          .notification!
-                                                          .detail![0]
-                                                          .villageDetails!
-                                                          .name
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        color: ColorConstant
-                                                            .gray600,
-                                                        fontSize: getFontSize(
-                                                          17,
-                                                        ),
-                                                        fontFamily:
-                                                            'SF UI Text',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: getVerticalSize(
-                                                          1.5,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: getPadding(
                                                 top: 15,
                                               ),
                                               child: Row(
@@ -474,21 +440,23 @@ dateFormat(date){
                                                             text:
                                                                 '  Surveyed By  ',
                                                             style: TextStyle(
-                                                              color: ColorConstant
-                                                            .gray600,
-                                                        fontSize: getFontSize(
-                                                          17,
-                                                        ),
-                                                        fontFamily:
-                                                            'SF UI Text',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: getVerticalSize(
-                                                          1.5,
-                                                        ),
-                                                            
+                                                              color:
+                                                                  ColorConstant
+                                                                      .gray600,
+                                                              fontSize:
+                                                                  getFontSize(
+                                                                17,
+                                                              ),
+                                                              fontFamily:
+                                                                  'SF UI Text',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              height:
+                                                                  getVerticalSize(
+                                                                1.5,
+                                                              ),
                                                             ),
-                                                            
                                                           ),
                                                           TextSpan(
                                                             text: ListSurvey
@@ -537,8 +505,9 @@ dateFormat(date){
                                               child: Row(
                                                 children: [
                                                   Icon(Icons.calendar_month,
-                                                  color: Colors.grey.shade400,
-                                                  size: 20),
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      size: 20),
                                                   Padding(
                                                     padding: getPadding(
                                                       left: 16,
@@ -546,11 +515,11 @@ dateFormat(date){
                                                     ),
                                                     child: Text(
                                                       dateFormat(ListSurvey
-                                                                .results!
-                                                                .userNotifications![
-                                                                    index]
-                                                                .createdAt
-                                                                .toString()),
+                                                          .results!
+                                                          .userNotifications![
+                                                              index]
+                                                          .createdAt
+                                                          .toString()),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
@@ -601,8 +570,27 @@ dateFormat(date){
                                       children: [
                                         CustomButton(
                                             onTap: () {
-                                              Get.toNamed(
-                                                  AppRoutes.historyOneScreen);
+                                              // Get.toNamed(
+                                              //     AppRoutes.historyOneScreen);
+                                              print(
+                                                ListSurvey
+                                                    .results!
+                                                    .userNotifications![index]
+                                                    .id
+                                                    .toString(),
+                                              );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HistoryOneScreen(
+                                                          id: ListSurvey
+                                                              .results!
+                                                              .userNotifications![
+                                                                  index]
+                                                              .id),
+                                                ),
+                                              );
                                             },
                                             shape: ButtonShape.RoundedBorder4,
                                             height: 36,
@@ -614,21 +602,6 @@ dateFormat(date){
                                             padding: ButtonPadding.PaddingAll9,
                                             fontStyle:
                                                 ButtonFontStyle.SFUITextBold14),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        CustomButton(
-                                            onTap: () {},
-                                            shape: ButtonShape.RoundedBorder4,
-                                            height: 36,
-                                            width: 135,
-                                            text: "lbl_pending".tr,
-                                            margin: getMargin(bottom: 1),
-                                            variant:
-                                                ButtonVariant.OutlineredA200_2,
-                                            padding: ButtonPadding.PaddingAll9,
-                                            fontStyle:
-                                                ButtonFontStyle.SFUITextBold15),
                                       ],
                                     ),
                                   ),

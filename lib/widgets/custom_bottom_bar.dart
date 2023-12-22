@@ -21,15 +21,15 @@ class CustomBottomBar extends StatelessWidget {
       type: BottomBarEnum.Sort,
     ),
     BottomMenuModel(
-      icon: ImageConstant.legal,
-      type: BottomBarEnum.legal,
+      icon: ImageConstant.survey,
+      type: BottomBarEnum.survey,
     ),
     // BottomMenuModel(
     //   icon: ImageConstant.imgNotification,
     //   type: BottomBarEnum.Notification,
     // ),
     BottomMenuModel(
-      icon: ImageConstant.imgUserGray400,
+      icon: ImageConstant.legal,
       type: BottomBarEnum.Profile,
     )
   ];
@@ -159,9 +159,9 @@ String getCurrentRoute(BottomBarEnum type) {
       return AppRoutes.mapScreen;
     case BottomBarEnum.Sort:
       return AppRoutes.searchOneScreen;
-    case BottomBarEnum.legal:
+    case BottomBarEnum.survey:
       return AppRoutes.historyPage;
-    case BottomBarEnum.Profile:
+    case BottomBarEnum.legal:
       return AppRoutes.profileOneScreen;
     default:
       return "/";
@@ -175,7 +175,8 @@ enum BottomBarEnum {
   legal,
   Notification,
   Usergray400,
-  Profile
+  Profile,
+  survey
 }
 
 class BottomMenuModel {

@@ -1,4 +1,4 @@
-import 'package:vedanta_lrms/presentation/history_one_screen/history_one_screen.dart';
+import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
 import 'package:get/get.dart';
 
 class HistoryOneBinding extends Bindings {

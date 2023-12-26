@@ -59,17 +59,23 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
     if (response.statusCode == 200) {
       // Map<String, dynamic> jsonMap = json.decode(response.body);
       var data = jsonDecode(response.body.toString());
+      if(data['token'] != ''){
       setState(() {
         token = data['token'];
       });
-      print(token);
+            print(token);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
 
       if (token != '') {
         PrefUtils.setIsSignIn(false);
         Get.toNamed(AppRoutes.homeFourContainerScreen);
+      }else{
+
       }
+      }
+
+
     } else {
       throw Exception('Failed to load notifications');
     }

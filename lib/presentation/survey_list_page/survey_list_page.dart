@@ -6,7 +6,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/data/apiClient/api_client.dart';
-import 'package:vedanta_lrms/presentation/history_one_screen/history_one_screen.dart';
+import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 
@@ -588,7 +588,12 @@ class _SurveyListPageState extends State<SurveyListPage> {
                                                               .results!
                                                               .userNotifications![
                                                                   index]
-                                                              .id),
+                                                              .id,
+                                                              notificationStatus:ListSurvey
+                                                              .results!
+                                                              .userNotifications![
+                                                                  index]
+                                                              .notificationStatus),
                                                 ),
                                               );
                                             },

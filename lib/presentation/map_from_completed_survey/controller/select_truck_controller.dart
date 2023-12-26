@@ -1,5 +1,5 @@
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/presentation/select_truck_screen/models/select_truck_model.dart';
+import 'package:vedanta_lrms/presentation/map_from_completed_survey/models/select_truck_model.dart';
 
 class SelectTruckController extends GetxController {
   Rx<SelectTruckModel> selectTruckModelObj = SelectTruckModel().obs;

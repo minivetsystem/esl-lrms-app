@@ -21,7 +21,7 @@ class ApiClient extends GetConnect {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       return NotificationResponse.fromJson(jsonResponse);
     } else {
-      throw Exception('Failed to load notifications');
+      throw Exception('${response.statusCode}');
     }
   }
 

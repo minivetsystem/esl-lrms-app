@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:intl/intl.dart';
-import '../../widgets/custom_button.dart';
+import 'package:vedanta_lrms/presentation/map_from_completed_survey/map_from_completed_survey_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
@@ -12,7 +12,8 @@ import 'package:http/http.dart' as http;
 
 class HistoryOneScreen extends StatefulWidget {
   final int? id;
-  const HistoryOneScreen({super.key, this.id});
+  final String? notificationStatus;
+  const HistoryOneScreen({super.key, this.id, this.notificationStatus});
 
   @override
   State<HistoryOneScreen> createState() => _HistoryOneScreenState();
@@ -23,6 +24,15 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
   bool loadData = false;
   var geoJSONData;
   var geoJSONDataPlot;
+  var lat;
+  var lng;
+  var isMultiPlot;
+  var detailArray;
+  var visitedArray;
+  var notiStatus;
+  var plotId;
+  var plotmainId;
+  var visits;
   getSurveyDetails(id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -36,12 +46,32 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       // label = data['mapFeatures'];
-
+      final details = data['results']['details']['notification'];
       setState(() {
         SurveyDetails = data;
         loadData = true;
-         geoJSONData = data['results']['geoJSONData'];
-      geoJSONDataPlot = data['results']['geoJSONDataPlot'];
+        geoJSONData = data['results']['geoJSONData'];
+        geoJSONDataPlot = data['results']['geoJSONDataPlot'];
+        lat = data['results']['details']['notification']['detail'][0]['lat'];
+        visits = details['visits'];
+        lng = data['results']['details']['notification']['detail'][0]['lng'];
+        isMultiPlot = data['results']['details']['notification']['detail'][0]
+            ['is_multi_plot'];
+        if (isMultiPlot == 1) {
+          detailArray =
+              data['results']['details']['notification']['detail_array'];
+          visitedArray =
+              data['results']['details']['notification']['visited_array'];
+        }
+        if (details['detail'][0]['plot'] != null) {
+          plotId = details['detail'][0]['plot']['khasara_no'];
+        } else {
+          plotId = "";
+        }
+
+        if (details['detail'][0]['plot'] != null) {
+          this.plotmainId = details['detail'][0]['plot']['id'];
+        }
       });
     } else {
       throw Exception();
@@ -72,6 +102,9 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
     // TODO: implement initState
     super.initState();
     getSurveyDetails(widget.id);
+    setState(() {
+      notiStatus = widget.notificationStatus;
+    });
   }
 
   @override
@@ -214,30 +247,58 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                                   height:
                                                                       getVerticalSize(
                                                                           1.08))),
-                                                      Padding(
-                                                          padding: getPadding(
-                                                              top: 1),
-                                                          child: Text(
-                                                              SurveyDetails['results']
-                                                                              ['details']
-                                                                          ['notification']
-                                                                      [
-                                                                      'details']
-                                                                  .toString(),
-                                                              overflow:
-                                                                  TextOverflow
+                                                      isMultiPlot == 0
+                                                          ? Padding(
+                                                              padding: getPadding(
+                                                                  top: 1),
+                                                              child: Text(SurveyDetails['results']['details']['notification']['details'].toString(),
+                                                                  overflow: TextOverflow
                                                                       .ellipsis,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style: AppStyle
-                                                                  .txtSFUITextBold17blueA200
-                                                                  .copyWith(
-                                                                      height: getVerticalSize(
-                                                                          1.5)))),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .left,
+                                                                  style: AppStyle
+                                                                      .txtSFUITextBold17blueA200
+                                                                      .copyWith(
+                                                                          height: getVerticalSize(
+                                                                              1.5))))
+                                                          : Padding(
+                                                              padding:
+                                                                  getPadding(
+                                                                      top: 1),
+                                                              child: Text('',
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  textAlign: TextAlign.left,
+                                                                  style: AppStyle.txtSFUITextBold17blueA200.copyWith(height: getVerticalSize(1.5)))),
                                                     ],
                                                   ),
                                                 ])),
+                                        isMultiPlot == 1
+                                            ? Padding(
+                                                padding: getPadding(top: 1),
+                                                child: Text(
+                                                    "NB: Red Text Khasra Number's Survey is pending, Green Text Khasra Number's Survey is Done",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    style: AppStyle
+                                                        .txtSFUITextBold17blueA200
+                                                        .copyWith(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1.5))))
+                                            : Padding(
+                                                padding: getPadding(top: 1),
+                                                child: Text("",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.left,
+                                                    style: AppStyle
+                                                        .txtSFUITextBold17blueA200
+                                                        .copyWith(
+                                                            height:
+                                                                getVerticalSize(
+                                                                    1.5))))
                                       ])),
                               Container(
                                   width: double.infinity,
@@ -393,57 +454,62 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                         right: 20,
                                         top: 16,
                                         bottom: 16),
-                                    child: Column(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                            padding: getPadding(top: 0),
-                                            child: Row(children: [
-                                              CustomImageView(
-                                                  svgPath: ImageConstant
-                                                      .imgDestination,
-                                                  height: getSize(24.00),
-                                                  width: getSize(24.00)),
-                                              Padding(
-                                                  padding: getPadding(
-                                                      left: 16, top: 2),
-                                                  child: Text(
-                                                      "msg_10_akerele_estate"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
+                                          padding: getPadding(top: 0),
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                                  Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MapFromCompletedSurvey(
+                                                          surveId: plotId,
+                                                              notificationStatus:notiStatus,
+                                                              markersFromVisits:visits,
+                                                              lat:lat,
+                                                              lng:lng),
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                              Icons.map_outlined,
+                                              color: Colors.blue.shade200,
+                                            ), //icon data for elevated button
+                                            label: Text("Check On Map",
+                                                style: AppStyle
+                                                    .txtSFUITextRegular17
+                                                    .copyWith(
+                                                        height: getVerticalSize(
+                                                            1.5))), //label text
+                                          ),
+                                        ),
+                                        plotId != '' &&
+                                                (notiStatus == 'open' ||
+                                                    notiStatus == 'running')
+                                            ? Padding(
+                                                padding: getPadding(
+                                                  top: 0,
+                                                ),
+                                                child: ElevatedButton.icon(
+                                                  onPressed: () {
+                                                    Get.toNamed(AppRoutes.MapFromCompletedSurvey);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.location_on_outlined,
+                                                    color: Colors.blue.shade200,
+                                                  ), //icon data for elevated button
+                                                  label: Text("Visit",
                                                       style: AppStyle
                                                           .txtSFUITextRegular17
                                                           .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                      1.5))))
-                                            ])),
-                                        Padding(
-                                            padding: getPadding(
-                                              top: 17,
-                                            ),
-                                            child: Row(children: [
-                                              CustomImageView(
-                                                  svgPath: ImageConstant
-                                                      .imgLocationIcon,
-                                                  height: getSize(24.00),
-                                                  width: getSize(24.00)),
-                                              Padding(
-                                                  padding: getPadding(
-                                                      left: 16, top: 2),
-                                                  child: Text(
-                                                      "6391 elgin st. celina, delaware 10299",
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtSFUITextRegular17
-                                                          .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                      1.5))))
-                                            ])),
+                                                              height: getVerticalSize(
+                                                                  1.5))), //label text
+                                                ))
+                                            : Text(''),
                                       ],
                                     ),
                                   ),
@@ -548,17 +614,6 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                 ),
                               )
                             ],
-                          ),
-                          Padding(
-                            padding: getPadding(left: 20, right: 20),
-                            child: CustomButton(
-                                alignment: Alignment.center,
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.trackDriverScreen);
-                                },
-                                height: 50,
-                                width: 388,
-                                text: "lbl_track_driver".tr),
                           ),
                         ]))
                 : Center(

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
-import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
 
 import '../../widgets/custom_page.dart';
 import '../home_screen_main/home_main_screen.dart';
@@ -57,7 +56,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return AppRoutes.searchOneScreen;
       case BottomBarEnum.survey:
         return AppRoutes.historyPage;
-      case BottomBarEnum.legal:
+      case BottomBarEnum.Profile:
         return AppRoutes.profileOneScreen;
       default:
         return "/";

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/survey_details_screen/models/visits_model.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/load_map_data_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/polt_details_by_searchid_model.dart';
@@ -104,29 +105,52 @@ class ApiClient extends GetConnect {
       throw Exception('Failed to load notifications');
     }
   }
-//   Future<void> loginAuth( email , password,deviceId) async {
 
-//   try{
+  // Future<SurveyDetails> getSurveyDetails(id) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? token = prefs.getString('token');
+  //   final response = await http.get(
+  //       Uri.parse('${Constant.baseurl}notification/get-survey-details/$id'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //         'Authorization': 'Bearer $token',
+  //       });
+  //   if (response.statusCode == 200) {
+  //     Map<String, dynamic> jsonResponse = json.decode(response.body);
+  //     return SurveyDetails.fromJson(jsonResponse);
+  //     // return json.decode(response.body);
+  //     // label = data['mapFeatures'];
+  //     // final details = data['results']['details']['notification'];
+  //     // setState(() {
+  //     //   SurveyDetails = data;
 
-//     Response response = await post(
-//       Uri.parse('https://reqres.in/api/login'),
-//       body: {
-//         'email' : email,
-//         'password' : password
-//       }
-//     );
+  //     //   geoJSONData = data['results']['geoJSONData'];
+  //     //   geoJSONDataPlot = data['results']['geoJSONDataPlot'];
+  //     //   lat = data['results']['details']['notification']['detail'][0]['lat'];
+  //     //   visits = details['visits'];
+  //     //   lng = data['results']['details']['notification']['detail'][0]['lng'];
+  //     //   isMultiPlot = data['results']['details']['notification']['detail'][0]
+  //     //       ['is_multi_plot'];
+  //     //   if (isMultiPlot == 1) {
+  //     //     detailArray =
+  //     //         data['results']['details']['notification']['detail_array'];
+  //     //     visitedArray =
+  //     //         data['results']['details']['notification']['visited_array'];
+  //     //   }
+  //     //   if (details['detail'][0]['plot'] != null) {
+  //     //     plotId = details['detail'][0]['plot']['khasara_no'];
+  //     //   } else {
+  //     //     plotId = "";
+  //     //   }
 
-//     if(response.statusCode == 200){
-
-//       var data = jsonDecode(response.body.toString());
-//       print(data['token']);
-//       print('Login successfully');
-
-//     }else {
-//       print('failed');
-//     }
-//   }catch(e){
-//     print(e.toString());
-//   }
-// }
+  //     //   if (details['detail'][0]['plot'] != null) {
+  //     //     this.plotmainId = details['detail'][0]['plot']['id'];
+  //     //   }
+  //     //   loadData = true;
+  //     // });
+  //   } else {
+  //     throw Exception();
+  //   }
+  // }
 }

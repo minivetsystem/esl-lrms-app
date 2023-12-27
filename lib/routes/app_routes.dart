@@ -169,6 +169,8 @@ class AppRoutes {
 
   static const String mapScreen = '/map_screen';
 
+  static const String litigationScreen = '/litigation_screen';
+
   static String initialRoute = '/initialRoute';
 
   static List<GetPage> pages = [

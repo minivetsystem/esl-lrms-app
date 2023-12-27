@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:vedanta_lrms/presentation/litigation_list_page/litigation_list_page.dart';
+import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
+import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
@@ -56,8 +59,8 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return AppRoutes.searchOneScreen;
       case BottomBarEnum.survey:
         return AppRoutes.historyPage;
-      case BottomBarEnum.Profile:
-        return AppRoutes.profileOneScreen;
+      case BottomBarEnum.legal:
+        return AppRoutes.litigationScreen;
       default:
         return "/";
     }
@@ -69,15 +72,17 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return HomeMainScreen();
       case AppRoutes.mapScreen:
         return MapScreen(id: 0, searchPlotId: 0);
+      case AppRoutes.searchOneScreen:
+        // return SurveyListPage();
+      return SearchOneScreen();
+
       case AppRoutes.historyPage:
         return SurveyListPage();
-      // return SearchOneScreen();
-
-      case AppRoutes.notificationScreen:
-        return NotificationScreen();
         
-      case AppRoutes.profileOneScreen:
-        return ProfileOneScreen();
+      // case AppRoutes.profileOneScreen:
+      //   return ProfileOneScreen();
+              case AppRoutes.litigationScreen:
+        return LitigationListPage();
       default:
         return DefaultWidget();
     }

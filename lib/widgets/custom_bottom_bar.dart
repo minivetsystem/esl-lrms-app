@@ -29,8 +29,8 @@ class CustomBottomBar extends StatelessWidget {
     //   type: BottomBarEnum.Notification,
     // ),
     BottomMenuModel(
-      icon: ImageConstant.imgUserGray400,
-      type: BottomBarEnum.Profile,
+      icon: ImageConstant.legal,
+      type: BottomBarEnum.legal,
     )
   ];
 

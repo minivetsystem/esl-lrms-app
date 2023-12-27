@@ -157,8 +157,9 @@ class _MapScreenState extends State<MapScreen> {
                   // given width of border
                   strokeWidth: 2,
                   consumeTapEvents: true,
+    
                   onTap: () {
-                    // print(properties);
+                    print(properties);
                     getPlotDetails(properties['id'], properties['village_id']);
                   }),
             );

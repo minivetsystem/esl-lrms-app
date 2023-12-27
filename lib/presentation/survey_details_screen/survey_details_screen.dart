@@ -1,14 +1,12 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:intl/intl.dart';
-import 'package:vedanta_lrms/presentation/map_from_completed_survey/map_from_completed_survey_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
-import 'package:http/http.dart' as http;
 
 class HistoryOneScreen extends StatefulWidget {
   final int? id;
@@ -20,7 +18,6 @@ class HistoryOneScreen extends StatefulWidget {
 }
 
 class _HistoryOneScreenState extends State<HistoryOneScreen> {
-  var SurveyDetails;
   bool loadData = false;
   var geoJSONData;
   var geoJSONDataPlot;
@@ -32,7 +29,10 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
   var notiStatus;
   var plotId;
   var plotmainId;
-  var visits;
+  List<dynamic> visits = [];
+  var details;
+  var detailsOne;
+
   getSurveyDetails(id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -45,15 +45,19 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
         });
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
+      // return SurveyDetails.fromJson(jsonResponse);
+      // return json.decode(response.body);
       // label = data['mapFeatures'];
-      final details = data['results']['details']['notification'];
+
       setState(() {
-        SurveyDetails = data;
-        loadData = true;
+        detailsOne = data['results']['details'];
+        details = data['results']['details']['notification'];
         geoJSONData = data['results']['geoJSONData'];
         geoJSONDataPlot = data['results']['geoJSONDataPlot'];
         lat = data['results']['details']['notification']['detail'][0]['lat'];
-        visits = details['visits'];
+        // visits = details['visits'];
+         visits = details['visits'];
+     
         lng = data['results']['details']['notification']['detail'][0]['lng'];
         isMultiPlot = data['results']['details']['notification']['detail'][0]
             ['is_multi_plot'];
@@ -72,10 +76,21 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
         if (details['detail'][0]['plot'] != null) {
           this.plotmainId = details['detail'][0]['plot']['id'];
         }
+        loadData = true;
       });
     } else {
       throw Exception();
     }
+  }
+  numberingVisits( index){
+    return index+1;
+  }
+  @override
+  void initState() {
+    super.initState();
+    getSurveyDetails(widget.id);
+    // Your initialization logic goes here
+    // This method is called only once when the widget is inserted into the widget tree
   }
 
   dateFormat(date) {
@@ -95,16 +110,6 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
     }
 
     return formattedString;
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getSurveyDetails(widget.id);
-    setState(() {
-      notiStatus = widget.notificationStatus;
-    });
   }
 
   @override
@@ -128,13 +133,13 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                 title: AppbarSubtitle(
                     text: "lbl_pending".tr, margin: getMargin(left: 16)),
                 styleType: Style.bgFillblueA200),
-            body: loadData
+            body: loadData == true
                 ? Container(
                     width: size.width,
                     padding: getPadding(left: 0, top: 24, right: 0, bottom: 24),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Stack(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             children: [
@@ -169,12 +174,7 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                                     getVerticalSize(
                                                                         1.08))),
                                                     Text(
-                                                        SurveyDetails['results']
-                                                                        [
-                                                                        'details']
-                                                                    [
-                                                                    'notification']
-                                                                ['title']
+                                                        details['title']
                                                             .toString(),
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -208,10 +208,8 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                     padding: getPadding(
                                                         left: 4, bottom: 1),
                                                     child: Text(
-                                                        dateFormat(SurveyDetails[
-                                                                        'results']
-                                                                    ['details']
-                                                                ['created_at']
+                                                        dateFormat(detailsOne[
+                                                                'created_at']
                                                             .toString()),
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -247,11 +245,11 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                                   height:
                                                                       getVerticalSize(
                                                                           1.08))),
-                                                      isMultiPlot == 0
+                                                      details['detail'][0]['is_multi_plot'] == 0
                                                           ? Padding(
                                                               padding: getPadding(
                                                                   top: 1),
-                                                              child: Text(SurveyDetails['results']['details']['notification']['details'].toString(),
+                                                              child: Text(details['details'].toString(),
                                                                   overflow: TextOverflow
                                                                       .ellipsis,
                                                                   textAlign:
@@ -263,9 +261,8 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                                           height: getVerticalSize(
                                                                               1.5))))
                                                           : Padding(
-                                                              padding:
-                                                                  getPadding(
-                                                                      top: 1),
+                                                              padding: getPadding(
+                                                                  top: 1),
                                                               child: Text('',
                                                                   overflow: TextOverflow.ellipsis,
                                                                   textAlign: TextAlign.left,
@@ -273,7 +270,8 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                     ],
                                                   ),
                                                 ])),
-                                        isMultiPlot == 1
+                                        details['detail'][0]['is_multi_plot'] ==
+                                                1
                                             ? Padding(
                                                 padding: getPadding(top: 1),
                                                 child: Text(
@@ -297,8 +295,7 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                         .txtSFUITextBold17blueA200
                                                         .copyWith(
                                                             height:
-                                                                getVerticalSize(
-                                                                    1.5))))
+                                                                getVerticalSize(1.5))))
                                       ])),
                               Container(
                                   width: double.infinity,
@@ -332,27 +329,30 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                               height:
                                                                   getVerticalSize(
                                                                       1.5)))),
-                                              SurveyDetails['results']['details']
-                                                                  ['notification']
-                                                              ['detail'][0]
-                                                          ['plot'] !=
-                                                      null
+                                              details['detail'][0]['plot'] != null
                                                   ? Padding(
                                                       padding: getPadding(
                                                           left: 16,
                                                           top: 10,
                                                           bottom: 11),
-                                                      child: Text(
-                                                          SurveyDetails['results']
-                                                                          ['details']
-                                                                      ['notification']['detail'][0]['plot']
-                                                                  ['khasara_no']
-                                                              .toString(),
-                                                          overflow:
-                                                              TextOverflow.ellipsis,
+                                                      child: Text(details['detail'][0]['plot']['khasara_no'].toString(),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle.txtSFUITextRegular15Black900
+                                                              .copyWith(
+                                                                  height: getVerticalSize(
+                                                                      1.5))))
+                                                  : Padding(
+                                                      padding: getPadding(
+                                                          left: 16,
+                                                          top: 10,
+                                                          bottom: 11),
+                                                      child: Text('N/A',
+                                                          overflow: TextOverflow.ellipsis,
                                                           textAlign: TextAlign.left,
                                                           style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
-                                                  : Padding(padding: getPadding(left: 16, top: 10, bottom: 11), child: Text('N/A', overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
                                             ]),
                                         Row(
                                             crossAxisAlignment:
@@ -375,28 +375,30 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                               height:
                                                                   getVerticalSize(
                                                                       1.5)))),
-                                              SurveyDetails['results']['details']
-                                                                  ['notification']
-                                                              ['detail'][0]
-                                                          ['plot'] !=
+                                              details['detail'][0]['plot'] !=
                                                       null
                                                   ? Padding(
                                                       padding: getPadding(
                                                           left: 16,
                                                           top: 10,
                                                           bottom: 11),
-                                                      child: Text(
-                                                          SurveyDetails['results']
-                                                                          ['details']
-                                                                      ['notification']['detail'][0]['plot']['village']
-                                                                  ['name']
-                                                              .toString(),
+                                                      child: Text(details['detail'][0]['plot']['village']['name'].toString(),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          textAlign: TextAlign.left,
-                                                          style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
-                                                  : SurveyDetails['results']['details']['notification']['detail'][0]['village_details'] != null
-                                                      ? Padding(padding: getPadding(left: 16, top: 10, bottom: 11), child: Text(SurveyDetails['results']['details']['notification']['detail'][0]['village_details']['name'].toString(), overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle.txtSFUITextRegular15Black900
+                                                              .copyWith(
+                                                                  height: getVerticalSize(
+                                                                      1.5))))
+                                                  : details['detail'][0]['village_details'] !=
+                                                          null
+                                                      ? Padding(
+                                                          padding: getPadding(
+                                                              left: 16,
+                                                              top: 10,
+                                                              bottom: 11),
+                                                          child: Text(details['detail'][0]['village_details']['name'].toString(), overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
                                                       : Padding(padding: getPadding(left: 16, top: 10, bottom: 11), child: Text('N/A', overflow: TextOverflow.ellipsis, textAlign: TextAlign.left, style: AppStyle.txtSFUITextRegular15Black900.copyWith(height: getVerticalSize(1.5))))
                                             ]),
                                         Row(
@@ -427,12 +429,10 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                       top: 10,
                                                       bottom: 11),
                                                   child: Text(
-                                                      formatString(SurveyDetails[
-                                                                          'results']
-                                                                      ['details']
-                                                                  ['notification']['user']
-                                                              ['username']
-                                                          .toString()),
+                                                      formatString(
+                                                          details['user']
+                                                                  ['username']
+                                                              .toString()),
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
@@ -462,18 +462,37 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                           padding: getPadding(top: 0),
                                           child: ElevatedButton.icon(
                                             onPressed: () {
-                                                  Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      MapFromCompletedSurvey(
-                                                          surveId: plotId,
-                                                              notificationStatus:notiStatus,
-                                                              markersFromVisits:visits,
-                                                              lat:lat,
-                                                              lng:lng),
-                                                ),
-                                              );
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //     builder: (context) =>
+                                              //         MapFromCompletedSurvey(
+                                              //             surveId: details
+                                              //                 .details!
+                                              //                 .notification!
+                                              //                 .detail![0]
+                                              //                 .plot!
+                                              //                 .khasaraNo
+                                              //                 .toString(),
+                                              //             notificationStatus:
+                                              //                 notificationStatus,
+                                              //             markersFromVisits:
+                                              //                 details
+                                              //                     .details!
+                                              //                     .notification!
+                                              //                     .visits,
+                                              //             lat: details
+                                              //                 .details!
+                                              //                 .notification!
+                                              //                 .detail![0]
+                                              //                 .lat,
+                                              //             lng: details
+                                              //                 .details!
+                                              //                 .notification!
+                                              //                 .detail![0]
+                                              //                 .lng),
+                                              //   ),
+                                              // );
                                             },
                                             icon: Icon(
                                               Icons.map_outlined,
@@ -487,16 +506,21 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                                             1.5))), //label text
                                           ),
                                         ),
-                                        plotId != '' &&
-                                                (notiStatus == 'open' ||
-                                                    notiStatus == 'running')
+                                        details['detail'][0]['plot']
+                                                        ['khasara_no'] !=
+                                                    '' &&
+                                                (widget.notificationStatus ==
+                                                        'open' ||
+                                                    widget.notificationStatus ==
+                                                        'running')
                                             ? Padding(
                                                 padding: getPadding(
                                                   top: 0,
                                                 ),
                                                 child: ElevatedButton.icon(
                                                   onPressed: () {
-                                                    Get.toNamed(AppRoutes.MapFromCompletedSurvey);
+                                                    Get.toNamed(AppRoutes
+                                                        .MapFromCompletedSurvey);
                                                   },
                                                   icon: Icon(
                                                     Icons.location_on_outlined,
@@ -515,106 +539,47 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: getPadding(top: 10),
-                                child: Container(
-                                  color: ColorConstant.whiteA700,
-                                  child: Padding(
-                                    padding: getPadding(
-                                        left: 20,
-                                        right: 20,
-                                        top: 16,
-                                        bottom: 16),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                            padding: getPadding(top: 0),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text("lbl_payment".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtSFUITextBold17Width700black
-                                                          .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                      1.08))),
-                                                  Container(
-                                                    width: getHorizontalSize(
-                                                      66.00,
-                                                    ),
-                                                    margin: getMargin(
-                                                      top: 12,
-                                                    ),
-                                                    padding: getPadding(
-                                                      left: 8,
-                                                      top: 3,
-                                                      right: 8,
-                                                      bottom: 3,
-                                                    ),
-                                                    decoration: AppDecoration
-                                                        .txtFillblue50
-                                                        .copyWith(
-                                                      borderRadius:
-                                                          BorderRadiusStyle
-                                                              .txtRoundedBorder4,
-                                                    ),
-                                                    child: Text(
-                                                      "lbl_pending".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: AppStyle
-                                                          .txtSFUITextRegular13blueA200
-                                                          .copyWith(
-                                                        height: getVerticalSize(
-                                                          1.5,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ])),
-                                        Padding(
-                                            padding: getPadding(top: 15),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text("lbl_card".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtSFUITextRegular17Gray600
-                                                          .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                      1.08))),
-                                                  Text("lbl_458_00".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtSFUITextBold17blueA200
-                                                          .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                      1.08)))
-                                                ]))
-                                      ],
-                                    ),
+                              Expanded(
+                                child: Padding(
+                                  padding: getPadding(top: 10),
+                                  child: Container(
+                                    color: ColorConstant.whiteA700,
+                                    child: Padding(
+                                        padding: getPadding(
+                                            left: 20,
+                                            right: 20,
+                                            top: 16,
+                                            bottom: 16),
+                                        child: ListView.builder(
+                                          itemCount: visits.length,
+                                          //  itemCount: 5,
+                                          physics: ScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                
+                                            return Container(
+                                                width: double.infinity,
+                                                padding: getPadding(
+                                                  all: 16,
+                                                ),
+                                                child: ExpansionTile(
+                                                  title: Text(
+                                                    "Visit #${numberingVisits(index)} :"
+                                                      ), //header title
+                                                  children: [
+                                                    Container(
+                                                      child: Text('text'),
+                                                    )
+                                                  ],
+                                                ));
+                                            // });
+                                          },
+                                        )),
                                   ),
                                 ),
                               )
+                       
                             ],
-                          ),
+                          )
                         ]))
                 : Center(
                     child: CircularProgressIndicator(),

@@ -50,8 +50,6 @@ import 'package:vedanta_lrms/presentation/notification_screen/notification_scree
 import 'package:vedanta_lrms/presentation/notification_screen/binding/notification_binding.dart';
 import 'package:vedanta_lrms/presentation/history_empty_screen/history_empty_screen.dart';
 import 'package:vedanta_lrms/presentation/history_empty_screen/binding/history_empty_binding.dart';
-import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
-import 'package:vedanta_lrms/presentation/survey_details_screen/binding/history_one_binding.dart';
 import 'package:vedanta_lrms/presentation/track_driver_screen/track_driver_screen.dart';
 import 'package:vedanta_lrms/presentation/track_driver_screen/binding/track_driver_binding.dart';
 import 'package:vedanta_lrms/presentation/track_driver_one_screen/track_driver_one_screen.dart';
@@ -143,7 +141,7 @@ class AppRoutes {
 
   static const String historyPage = '/history_page';
 
-  static const String historyOneScreen = '/history_one_screen';
+  static const String SurveyDetailsScreen = '/survey_details_screen';
 
   static const String trackDriverScreen = '/track_driver_screen';
 
@@ -363,13 +361,13 @@ class AppRoutes {
         HistoryEmptyBinding(),
       ],
     ),
-    GetPage(
-      name: historyOneScreen,
-      page: () => HistoryOneScreen(),
-      bindings: [
-        HistoryOneBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: SurveyDetailsScreen,
+    //   page: () => SurveyDetailsScreen(),
+    //   bindings: [
+    //     SurveyDetailsBinding(),
+    //   ],
+    // ),
     GetPage(
       name: trackDriverScreen,
       page: () => TrackDriverScreen(),

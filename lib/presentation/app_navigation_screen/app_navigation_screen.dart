@@ -2250,7 +2250,7 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
   }
 
   onTapHistoryOne() {
-    Get.toNamed(AppRoutes.historyOneScreen);
+    Get.toNamed(AppRoutes.SurveyDetailsScreen);
   }
 
   onTapTrackDriver() {

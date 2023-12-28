@@ -3,11 +3,10 @@
 import 'dart:async';
 
 import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/data/apiClient/api_client.dart';
-import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
-import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
+import 'package:vedanta_lrms/presentation/litigation_details_screen/litigation_details_screen.dart';
+import 'package:vedanta_lrms/presentation/litigation_list_page/models/litigation_list_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 import '../../widgets/custom_page.dart';
@@ -70,13 +69,8 @@ class _LitigationListPageState extends State<LitigationListPage> {
   }
 
   Widget get_page(context) {
-    return WillPopScope(
-        onWillPop: () async {
-          Future.delayed(const Duration(milliseconds: 1000), () {
-            SystemNavigator.pop();
-          });
-          return false;
-        },
+    return PopScope(
+        canPop: true,
         child: ColorfulSafeArea(
             minimum: EdgeInsets.only(top: 20),
             color: ColorConstant.whiteA700,
@@ -86,21 +80,34 @@ class _LitigationListPageState extends State<LitigationListPage> {
                 appBar: CustomAppBar(
                     // minimum:EdgeInsets.only(top: 20),
                     height: getVerticalSize(57.00),
+                    centerTitle: true,
                     leadingWidth: 44,
-                    leading: AppbarImage(
-                        height: getSize(24.00),
-                        width: getSize(24.00),
-                        svgPath: ImageConstant.imgArrowleftWhiteA700,
-                        margin: getMargin(left: 20, top: 17, bottom: 16),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
+                   leading: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, '${AppRoutes.notificationScreen}');
+                  },
+                  child: Icon(Icons.notifications),
+                ),
                     title: AppbarSubtitle(
-                        text: "lbl_survey_list".tr,
-                        margin: getMargin(left: 16)),
+                        text: "lbl_case_list".tr, margin: getMargin(left: 16)),
+                        actions: [ 
+                                Container(
+                      margin: getMargin(
+                        left: 20,
+                       top: 11,
+                         right: 20,
+                         bottom: 19,
+                       ),
+                     child: IconButton(onPressed: () {
+                      Get.toNamed(AppRoutes.profileOneScreen);
+                     }, icon: Icon( Icons.settings,
+                     )),
+                   )
+                        ],
                     styleType: Style.bgFillblueA200),
-                body: FutureBuilder<NotificationResponse>(
-                  future: ApiClient().getSurveyList(),
+                body: FutureBuilder<CaseList>(
+                  future: ApiClient().getCaseList(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -109,8 +116,8 @@ class _LitigationListPageState extends State<LitigationListPage> {
                       return Text('Error: ${snapshot.error}');
                     } else {
                       print(snapshot);
-                      final ListSurvey = snapshot.data!;
-                      print(ListSurvey);
+                      final ListCases = snapshot.data!;
+                      print(ListCases);
                       return Column(children: [
                         Container(
                           margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -145,7 +152,7 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               top: 3,
                                             ),
                                             child: Text(
-                                              "${ListSurvey.results!.openSurvey.toString()}",
+                                              "${ListCases.results!.openCase.toString()}",
                                               //  "ListSurvey.results",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
@@ -191,52 +198,7 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               top: 3,
                                             ),
                                             child: Text(
-                                              "${ListSurvey.results!.totalRunning.toString()}",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: AppStyle
-                                                  .txtSFUITextRegular17
-                                                  .copyWith(
-                                                height: getVerticalSize(
-                                                  1.08,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: getPadding(
-                                              left: 16,
-                                              top: 3,
-                                            ),
-                                            child: Text(
-                                              "Running",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: AppStyle
-                                                  .txtSFUITextRegular17
-                                                  .copyWith(
-                                                height: getVerticalSize(
-                                                  1.08,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: getPadding(
-                                        top: 16,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: getPadding(
-                                              left: 16,
-                                              top: 3,
-                                            ),
-                                            child: Text(
-                                              "${ListSurvey.results!.closedSurvey.toString()}",
+                                              "${ListCases.results!.closedCase.toString()}",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
                                               style: AppStyle
@@ -281,7 +243,7 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               top: 3,
                                             ),
                                             child: Text(
-                                              "${ListSurvey.results!.totalCount.toString()}",
+                                              "${ListCases.results!.totalCount.toString()}",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
                                               style: AppStyle
@@ -323,8 +285,7 @@ class _LitigationListPageState extends State<LitigationListPage> {
                         Expanded(
                             child: ListView.builder(
                           // controller: _scrollController,
-                          itemCount:
-                              ListSurvey.results!.userNotifications!.length,
+                          itemCount: ListCases.results!.courtCases!.length,
                           //  itemCount: 50,
                           itemBuilder: (context, index) {
                             return Container(
@@ -356,11 +317,8 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              ListSurvey
-                                                  .results!
-                                                  .userNotifications![index]
-                                                  .notification!
-                                                  .title
+                                              ListCases.results!
+                                                  .courtCases![index].caseNo
                                                   .toString(),
                                               // ' ListSurvey.results.',
                                               overflow: TextOverflow.ellipsis,
@@ -374,11 +332,8 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               ),
                                             ),
                                             Text(
-                                              ListSurvey
-                                                  .results!
-                                                  .userNotifications![index]
-                                                  .notification!
-                                                  .details
+                                              ListCases.results!
+                                                  .courtCases![index].title
                                                   .toString(),
                                               style: TextStyle(
                                                 color: ColorConstant.gray600,
@@ -410,7 +365,7 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                                   ),
                                                   Padding(
                                                     padding: getPadding(
-                                                      left: 16,
+                                                      left: 10,
                                                       top: 1,
                                                       bottom: 1,
                                                     ),
@@ -418,27 +373,8 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
-                                                            text: ListSurvey
-                                                                .results!
-                                                                .userNotifications![
-                                                                    index]
-                                                                .notification!
-                                                                .detail![0]
-                                                                .villageDetails!
-                                                                .name
-                                                                .toString(),
-                                                            style: AppStyle
-                                                                .txtSFUITextRegular17
-                                                                .copyWith(
-                                                              height:
-                                                                  getVerticalSize(
-                                                                1.08,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          TextSpan(
                                                             text:
-                                                                '  Surveyed By  ',
+                                                                '  Assigned By  ',
                                                             style: TextStyle(
                                                               color:
                                                                   ColorConstant
@@ -459,13 +395,12 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                                             ),
                                                           ),
                                                           TextSpan(
-                                                            text: ListSurvey
+                                                            text: ListCases
                                                                 .results!
-                                                                .userNotifications![
+                                                                .courtCases![
                                                                     index]
-                                                                .notification!
-                                                                .user!
-                                                                .name
+                                                                .assignee!
+                                                                .username
                                                                 .toString(),
                                                             style: AppStyle
                                                                 .txtSFUITextRegular17
@@ -514,10 +449,9 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                                       top: 3,
                                                     ),
                                                     child: Text(
-                                                      dateFormat(ListSurvey
+                                                      dateFormat(ListCases
                                                           .results!
-                                                          .userNotifications![
-                                                              index]
+                                                          .courtCases![index]
                                                           .createdAt
                                                           .toString()),
                                                       overflow:
@@ -538,27 +472,27 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                           ],
                                         ),
                                         Padding(
-                                          padding: getPadding(
-                                            top: 14,
-                                            bottom: 90,
-                                          ),
-                                          child: Text(
-                                            ListSurvey
-                                                .results!
-                                                .userNotifications![index]
-                                                .notificationStatus
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle
-                                                .txtSFUITextBold17blueA200
-                                                .copyWith(
-                                              height: getVerticalSize(
-                                                1.08,
-                                              ),
+                                            padding: getPadding(
+                                              top: 14,
+                                              bottom: 90,
                                             ),
-                                          ),
-                                        ),
+                                            child: Text(
+                                              ListCases
+                                                  .results!
+                                                  .courtCases![index]
+                                                  .caseStatus!
+                                                  .name
+                                                  .toString(),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              style: AppStyle
+                                                  .txtSFUITextBold17blueA200
+                                                  .copyWith(
+                                                height: getVerticalSize(
+                                                  1.08,
+                                                ),
+                                              ),
+                                            )),
                                       ],
                                     ),
                                   ),
@@ -573,29 +507,23 @@ class _LitigationListPageState extends State<LitigationListPage> {
                                               // Get.toNamed(
                                               //     AppRoutes.historyOneScreen);
                                               print(
-                                                ListSurvey
-                                                    .results!
-                                                    .userNotifications![index]
-                                                    .id
+                                                ListCases.results!
+                                                    .courtCases![index].id
                                                     .toString(),
                                               );
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) =>
-                                              //         HistoryOneScreen(
-                                              //             id: ListSurvey
-                                              //                 .results!
-                                              //                 .userNotifications![
-                                              //                     index]
-                                              //                 .id,
-                                              //                 notificationStatus:ListSurvey
-                                              //                 .results!
-                                              //                 .userNotifications![
-                                              //                     index]
-                                              //                 .notificationStatus),
-                                              //   ),
-                                              // );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LitigationDetailsScreen(
+                                                          id: ListCases
+                                                              .results!
+                                                              .courtCases![
+                                                                  index]
+                                                              .id,
+                                                              ),
+                                                ),
+                                              );
                                             },
                                             shape: ButtonShape.RoundedBorder4,
                                             height: 36,

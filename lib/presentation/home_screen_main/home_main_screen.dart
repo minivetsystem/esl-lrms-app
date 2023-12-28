@@ -90,8 +90,10 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                          right: 20,
                          bottom: 19,
                        ),
-                     child: Icon( Icons.settings,
-                     ),
+                     child: IconButton(onPressed: () {
+                      Get.toNamed(AppRoutes.profileOneScreen);
+                     }, icon: Icon( Icons.settings,
+                     )),
                    )
                   ],
                   styleType: Style.bgFillblueA200,

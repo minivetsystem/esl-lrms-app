@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/litigation_list_page/models/litigation_list_model.dart';
 import 'package:vedanta_lrms/presentation/survey_details_screen/models/visits_model.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/models/survey_list_model.dart';
 import 'package:vedanta_lrms/presentation/map_page/models/load_map_data_model.dart';
@@ -25,7 +26,23 @@ class ApiClient extends GetConnect {
       throw Exception('${response.statusCode}');
     }
   }
+  static final String getCases = "${Constant.baseurl}case/get-cases";
+  Future<CaseList> getCaseList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    final response = await http.get(Uri.parse(getCases), headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      return CaseList.fromJson(jsonResponse);
+    } else {
+      throw Exception('${response.statusCode}');
+    }
+  }
   static final String layer_list = "${Constant.baseurl}layer-list";
   Future<LayerList> getLayerList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

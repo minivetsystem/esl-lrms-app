@@ -1,6 +1,7 @@
 class Constant {
   static const String baseurl = 'https://vedanta.highlandenergynig.com/api/';
   // static const String baseurl = 'https://ascend.minivetsystem.com/api/';
+  static const String  imageUrl = 'https://vedanta.highlandenergynig.com/public/';
 
 
   static String appName = "Els-lrms";

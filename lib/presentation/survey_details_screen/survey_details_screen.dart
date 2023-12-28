@@ -4,20 +4,22 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/map_from_completed_survey/map_from_completed_survey_screen.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-class HistoryOneScreen extends StatefulWidget {
+class SurveyDetailsScreen extends StatefulWidget {
   final int? id;
   final String? notificationStatus;
-  const HistoryOneScreen({super.key, this.id, this.notificationStatus});
+  const SurveyDetailsScreen({super.key, this.id, this.notificationStatus});
 
   @override
-  State<HistoryOneScreen> createState() => _HistoryOneScreenState();
+  State<SurveyDetailsScreen> createState() => _SurveyDetailsScreenState();
 }
 
-class _HistoryOneScreenState extends State<HistoryOneScreen> {
+class _SurveyDetailsScreenState extends State<SurveyDetailsScreen> {
   bool loadData = false;
   var geoJSONData;
   var geoJSONDataPlot;
@@ -56,8 +58,8 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
         geoJSONDataPlot = data['results']['geoJSONDataPlot'];
         lat = data['results']['details']['notification']['detail'][0]['lat'];
         // visits = details['visits'];
-         visits = details['visits'];
-     
+        visits = details['visits'];
+
         lng = data['results']['details']['notification']['detail'][0]['lng'];
         isMultiPlot = data['results']['details']['notification']['detail'][0]
             ['is_multi_plot'];
@@ -82,9 +84,29 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
       throw Exception();
     }
   }
-  numberingVisits( index){
-    return index+1;
+
+  numberingVisits(index) {
+    return index + 1;
   }
+
+  dateFormating(date) {
+    DateTime dateTime = DateTime.parse(date);
+
+    // Format the date in the desired format
+    String formattedDate = DateFormat("EEEE, MMM d, yyyy").format(dateTime);
+
+    return formattedDate;
+  }
+
+  timeFormating(time) {
+    // Parse the input string to DateTime
+    DateTime dateTime = DateTime.parse(time);
+
+    // Format the time in the desired format
+    String formattedTime = DateFormat("HH:mm:ss").format(dateTime);
+    return formattedTime;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -129,7 +151,9 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                     width: getSize(24.00),
                     svgPath: ImageConstant.imgArrowleftWhiteA700,
                     margin: getMargin(left: 20, top: 17, bottom: 16),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.pop(context);
+                    }),
                 title: AppbarSubtitle(
                     text: "lbl_pending".tr, margin: getMargin(left: 16)),
                 styleType: Style.bgFillblueA200),
@@ -462,37 +486,20 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                           padding: getPadding(top: 0),
                                           child: ElevatedButton.icon(
                                             onPressed: () {
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) =>
-                                              //         MapFromCompletedSurvey(
-                                              //             surveId: details
-                                              //                 .details!
-                                              //                 .notification!
-                                              //                 .detail![0]
-                                              //                 .plot!
-                                              //                 .khasaraNo
-                                              //                 .toString(),
-                                              //             notificationStatus:
-                                              //                 notificationStatus,
-                                              //             markersFromVisits:
-                                              //                 details
-                                              //                     .details!
-                                              //                     .notification!
-                                              //                     .visits,
-                                              //             lat: details
-                                              //                 .details!
-                                              //                 .notification!
-                                              //                 .detail![0]
-                                              //                 .lat,
-                                              //             lng: details
-                                              //                 .details!
-                                              //                 .notification!
-                                              //                 .detail![0]
-                                              //                 .lng),
-                                              //   ),
-                                              // );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MapFromCompletedSurvey(
+                                                          surveId: plotId,
+                                                          notificationStatus:
+                                                              widget.notificationStatus,
+                                                          markersFromVisits:
+                                                              visits,
+                                                          lat: lat,
+                                                          lng: lng),
+                                                ),
+                                              );
                                             },
                                             icon: Icon(
                                               Icons.map_outlined,
@@ -540,44 +547,210 @@ class _HistoryOneScreenState extends State<HistoryOneScreen> {
                                 ),
                               ),
                               Expanded(
-                                child: Padding(
-                                  padding: getPadding(top: 10),
-                                  child: Container(
-                                    color: ColorConstant.whiteA700,
-                                    child: Padding(
-                                        padding: getPadding(
-                                            left: 20,
-                                            right: 20,
-                                            top: 16,
-                                            bottom: 16),
-                                        child: ListView.builder(
-                                          itemCount: visits.length,
-                                          //  itemCount: 5,
-                                          physics: ScrollPhysics(),
-                                          itemBuilder: (context, index) {
-                                
-                                            return Container(
-                                                width: double.infinity,
-                                                padding: getPadding(
-                                                  all: 16,
-                                                ),
-                                                child: ExpansionTile(
-                                                  title: Text(
-                                                    "Visit #${numberingVisits(index)} :"
-                                                      ), //header title
-                                                  children: [
-                                                    Container(
-                                                      child: Text('text'),
-                                                    )
-                                                  ],
-                                                ));
-                                            // });
-                                          },
-                                        )),
-                                  ),
-                                ),
+                                  child: ListView.builder(
+                                itemCount: visits.length,
+                                //  itemCount: 5,
+                                physics: ScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return Expanded(
+                                      child: Padding(
+                                          padding: getPadding(top: 10),
+                                          child: Container(
+                                              color: ColorConstant.whiteA700,
+                                              child: Padding(
+                                                  padding: getPadding(
+                                                      left: 20,
+                                                      right: 20,
+                                                      top: 16,
+                                                      bottom: 16),
+                                                  child: Container(
+                                                      width: double.infinity,
+                                                      // padding: getPadding(
+                                                      //   all: 16,
+                                                      // ),
+                                                      child: ExpansionTile(
+                                                        title: Row(
+                                                          children: [
+                                                            Text(
+                                                                "Visit #${numberingVisits(index)} :"),
+
+                                                            SizedBox(
+                                                                width:
+                                                                    35.0), // Adjust the spacing between texts
+                                                            Text(
+                                                              '${dateFormating(visits[index]['created_at'])}',
+                                                              style: TextStyle(
+                                                                  fontSize: 14),
+                                                            ),
+                                                          ],
+                                                        ),
+
+                                                        //header title
+                                                        children: [
+                                                          Container(
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                        'Current Status :'),
+                                                                    //    SizedBox(
+                                                                    //   width: 20,
+                                                                    // ),
+                                                                    Text(
+                                                                        '${visits[index]['current_status']}'),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Text(
+                                                                        'Current Status :'),
+                                                                    SizedBox(
+                                                                      width: 20,
+                                                                    ),
+                                                                    Text(
+                                                                        '${visits[index]['comments']}'),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                        'Visited At :'),
+                                                                    Text(
+                                                                        '${timeFormating(visits[index]['created_at'])}'),
+                                                                  ],
+                                                                ),
+                                                                Divider(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  thickness:
+                                                                      1.0,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                        'Extimated Area(Acre) :'),
+                                                                    Text(
+                                                                        '${visits[index]['estimated_area']}'),
+                                                                  ],
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 20,
+                                                                ),
+                                                                CarouselSlider(
+                                                                  options:
+                                                                      CarouselOptions(
+                                                                    height:
+                                                                        200.0,
+                                                                    autoPlay:
+                                                                        false,
+                                                                    enlargeCenterPage:
+                                                                        true,
+                                                                  ),
+                                                                  items: visits[
+                                                                              index]
+                                                                          [
+                                                                          'images']
+                                                                      .map<Widget>(
+                                                                          (dynamic
+                                                                              imageData) {
+                                                                    return Builder(
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return Container(
+                                                                          width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width,
+                                                                          margin:
+                                                                              EdgeInsets.symmetric(horizontal: 5.0),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          ),
+                                                                          child:
+                                                                              Image.network(
+                                                                            Constant.imageUrl +
+                                                                                imageData["url"],
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  }).toList(),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ))))));
+                                  // });
+                                },
                               )
-                       
+
+                                  // Padding(
+                                  //   padding: getPadding(top: 10),
+                                  //   child: Container(
+                                  //     color: ColorConstant.whiteA700,
+                                  //     child: Padding(
+                                  //         padding: getPadding(
+                                  //             left: 20,
+                                  //             right: 20,
+                                  //             top: 16,
+                                  //             bottom: 16),
+                                  //         child: ListView.builder(
+                                  //           itemCount: visits.length,
+                                  //           //  itemCount: 5,
+                                  //           physics: ScrollPhysics(),
+                                  //           itemBuilder: (context, index) {
+                                  //             return Container(
+                                  //                 width: double.infinity,
+                                  //                 // padding: getPadding(
+                                  //                 //   all: 16,
+                                  //                 // ),
+                                  //                 child: ExpansionTile(
+                                  //                   title: Row(
+                                  //                     children: [
+                                  //                       Text(
+                                  //                           "Visit #${numberingVisits(index)} :"),
+
+                                  //                       SizedBox(
+                                  //                           width:
+                                  //                               60.0), // Adjust the spacing between texts
+                                  //                       Text('${dateFormating(visits[index]['created_at'])}',
+                                  //                       style: TextStyle(
+                                  //                         fontSize: 14
+                                  //                       ),),
+                                  //                     ],
+                                  //                   ),
+
+                                  //                   //header title
+                                  //                   children: [
+                                  //                     Container(
+                                  //                       child: Text('text'),
+                                  //                     )
+                                  //                   ],
+                                  //                 ));
+                                  //             // });
+                                  //           },
+                                  //         )),
+                                  //   ),
+                                  // ),
+                                  )
                             ],
                           )
                         ]))

@@ -1,11 +1,11 @@
-class CaseList {
+class LitigationDetails {
   bool? status;
   Results? results;
   String? message;
 
-  CaseList({this.status, this.results, this.message});
+  LitigationDetails({this.status, this.results, this.message});
 
-  CaseList.fromJson(Map<String, dynamic> json) {
+  LitigationDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     results =
         json['results'] != null ? new Results.fromJson(json['results']) : null;
@@ -24,46 +24,25 @@ class CaseList {
 }
 
 class Results {
-  List<CourtCases>? courtCases;
-  int? totalPage;
-  int? totalCount;
-  int? closedCase;
-  int? openCase;
+  Details? details;
 
-  Results(
-      {this.courtCases,
-      this.totalPage,
-      this.totalCount,
-      this.closedCase,
-      this.openCase});
+  Results({this.details});
 
   Results.fromJson(Map<String, dynamic> json) {
-    if (json['courtCases'] != null) {
-      courtCases = <CourtCases>[];
-      json['courtCases'].forEach((v) {
-        courtCases!.add(new CourtCases.fromJson(v));
-      });
-    }
-    totalPage = json['totalPage'];
-    totalCount = json['totalCount'];
-    closedCase = json['closedCase'];
-    openCase = json['openCase'];
+    details =
+        json['details'] != null ? new Details.fromJson(json['details']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.courtCases != null) {
-      data['courtCases'] = this.courtCases!.map((v) => v.toJson()).toList();
+    if (this.details != null) {
+      data['details'] = this.details!.toJson();
     }
-    data['totalPage'] = this.totalPage;
-    data['totalCount'] = this.totalCount;
-    data['closedCase'] = this.closedCase;
-    data['openCase'] = this.openCase;
     return data;
   }
 }
 
-class CourtCases {
+class Details {
   int? id;
   int? courtId;
   int? userId;
@@ -81,9 +60,9 @@ class CourtCases {
   Court? court;
   CaseType? caseType;
   CaseType? caseStatus;
-  Assignee? assignee;
+  List<History>? history;
 
-  CourtCases(
+  Details(
       {this.id,
       this.courtId,
       this.userId,
@@ -101,9 +80,9 @@ class CourtCases {
       this.court,
       this.caseType,
       this.caseStatus,
-      this.assignee});
+      this.history});
 
-  CourtCases.fromJson(Map<String, dynamic> json) {
+  Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     courtId = json['court_id'];
     userId = json['user_id'];
@@ -126,9 +105,12 @@ class CourtCases {
     caseStatus = json['case_status'] != null
         ? new CaseType.fromJson(json['case_status'])
         : null;
-    assignee = json['assignee'] != null
-        ? new Assignee.fromJson(json['assignee'])
-        : null;
+    if (json['history'] != null) {
+      history = <History>[];
+      json['history'].forEach((v) {
+        history!.add(new History.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -160,86 +142,9 @@ class CourtCases {
     if (this.caseStatus != null) {
       data['case_status'] = this.caseStatus!.toJson();
     }
-    if (this.assignee != null) {
-      data['assignee'] = this.assignee!.toJson();
+    if (this.history != null) {
+      data['history'] = this.history!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Details {
-  int? id;
-  int? caseId;
-  String? openAt;
-  String? closeAt;
-  String? details;
-  String? petitionerName;
-  String? petitionerAddress;
-  String? petitionerContact;
-  String? advocateName;
-  String? advocateAddress;
-  String? advocatePhoneNo;
-  String? responderName;
-  String? responderAddress;
-  String? responderPhoneNo;
-  String? createdAt;
-  String? updatedAt;
-
-  Details(
-      {this.id,
-      this.caseId,
-      this.openAt,
-      this.closeAt,
-      this.details,
-      this.petitionerName,
-      this.petitionerAddress,
-      this.petitionerContact,
-      this.advocateName,
-      this.advocateAddress,
-      this.advocatePhoneNo,
-      this.responderName,
-      this.responderAddress,
-      this.responderPhoneNo,
-      this.createdAt,
-      this.updatedAt});
-
-  Details.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    caseId = json['case_id'];
-    openAt = json['open_at'];
-    closeAt = json['close_at'];
-    details = json['details'];
-    petitionerName = json['petitioner_name'];
-    petitionerAddress = json['petitioner_address'];
-    petitionerContact = json['petitioner_contact'];
-    advocateName = json['advocate_name'];
-    advocateAddress = json['advocate_address'];
-    advocatePhoneNo = json['advocate_phone_no'];
-    responderName = json['responder_name'];
-    responderAddress = json['responder_address'];
-    responderPhoneNo = json['responder_phone_no'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['case_id'] = this.caseId;
-    data['open_at'] = this.openAt;
-    data['close_at'] = this.closeAt;
-    data['details'] = this.details;
-    data['petitioner_name'] = this.petitionerName;
-    data['petitioner_address'] = this.petitionerAddress;
-    data['petitioner_contact'] = this.petitionerContact;
-    data['advocate_name'] = this.advocateName;
-    data['advocate_address'] = this.advocateAddress;
-    data['advocate_phone_no'] = this.advocatePhoneNo;
-    data['responder_name'] = this.responderName;
-    data['responder_address'] = this.responderAddress;
-    data['responder_phone_no'] = this.responderPhoneNo;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     return data;
   }
 }
@@ -423,95 +328,124 @@ class CaseType {
   }
 }
 
-class Assignee {
+class History {
   int? id;
-  String? name;
-  String? email;
-  String? username;
-  int? departmentId;
-  String? phoneno;
-  String? whatasppno;
-  Null? profileImageOriginalName;
-  String? profileImageName;
-  String? profileImageUrl;
-  Null? signatureImageUrl;
-  Null? stampImageUrl;
-  Null? resetToken;
-  String? verify;
-  Null? verifyToken;
-  String? passwordResets;
+  int? caseId;
+  int? statusId;
+  String? hearingAt;
+  int? notificationId;
+  int? courtId;
+  int? userId;
+  String? details;
   String? createdAt;
-  Null? createdBy;
   String? updatedAt;
-  Null? deletedAt;
+  List<Documents>? documents;
+  CaseType? status;
+  User? user;
 
-  Assignee(
+  History(
       {this.id,
-      this.name,
-      this.email,
-      this.username,
-      this.departmentId,
-      this.phoneno,
-      this.whatasppno,
-      this.profileImageOriginalName,
-      this.profileImageName,
-      this.profileImageUrl,
-      this.signatureImageUrl,
-      this.stampImageUrl,
-      this.resetToken,
-      this.verify,
-      this.verifyToken,
-      this.passwordResets,
+      this.caseId,
+      this.statusId,
+      this.hearingAt,
+      this.notificationId,
+      this.courtId,
+      this.userId,
+      this.details,
       this.createdAt,
-      this.createdBy,
       this.updatedAt,
-      this.deletedAt});
+      this.documents,
+      this.status,
+      this.user});
 
-  Assignee.fromJson(Map<String, dynamic> json) {
+  History.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    username = json['username'];
-    departmentId = json['department_id'];
-    phoneno = json['phoneno'];
-    whatasppno = json['whatasppno'];
-    profileImageOriginalName = json['profile_image_original_name'];
-    profileImageName = json['profile_image_name'];
-    profileImageUrl = json['profile_image_url'];
-    signatureImageUrl = json['signature_image_url'];
-    stampImageUrl = json['stamp_image_url'];
-    resetToken = json['reset_token'];
-    verify = json['verify'];
-    verifyToken = json['verify_token'];
-    passwordResets = json['password_resets'];
+    caseId = json['case_id'];
+    statusId = json['status_id'];
+    hearingAt = json['hearing_at'];
+    notificationId = json['notification_id'];
+    courtId = json['court_id'];
+    userId = json['user_id'];
+    details = json['details'];
     createdAt = json['created_at'];
-    createdBy = json['created_by'];
     updatedAt = json['updated_at'];
-    deletedAt = json['deleted_at'];
+    if (json['documents'] != null) {
+      documents = <Documents>[];
+      json['documents'].forEach((v) {
+        documents!.add(new Documents.fromJson(v));
+      });
+    }
+    status =
+        json['status'] != null ? new CaseType.fromJson(json['status']) : null;
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['username'] = this.username;
-    data['department_id'] = this.departmentId;
-    data['phoneno'] = this.phoneno;
-    data['whatasppno'] = this.whatasppno;
-    data['profile_image_original_name'] = this.profileImageOriginalName;
-    data['profile_image_name'] = this.profileImageName;
-    data['profile_image_url'] = this.profileImageUrl;
-    data['signature_image_url'] = this.signatureImageUrl;
-    data['stamp_image_url'] = this.stampImageUrl;
-    data['reset_token'] = this.resetToken;
-    data['verify'] = this.verify;
-    data['verify_token'] = this.verifyToken;
-    data['password_resets'] = this.passwordResets;
+    data['case_id'] = this.caseId;
+    data['status_id'] = this.statusId;
+    data['hearing_at'] = this.hearingAt;
+    data['notification_id'] = this.notificationId;
+    data['court_id'] = this.courtId;
+    data['user_id'] = this.userId;
+    data['details'] = this.details;
     data['created_at'] = this.createdAt;
-    data['created_by'] = this.createdBy;
     data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
+    if (this.documents != null) {
+      data['documents'] = this.documents!.map((v) => v.toJson()).toList();
+    }
+    if (this.status != null) {
+      data['status'] = this.status!.toJson();
+    }
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
+  }
+}
+
+class Documents {
+  int? id;
+  int? caseId;
+  int? caseHisoryId;
+  String? url;
+  String? name;
+  String? actualName;
+  String? createdAt;
+  String? updatedAt;
+
+  Documents(
+      {this.id,
+      this.caseId,
+      this.caseHisoryId,
+      this.url,
+      this.name,
+      this.actualName,
+      this.createdAt,
+      this.updatedAt});
+
+  Documents.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    caseId = json['case_id'];
+    caseHisoryId = json['case_hisory_id'];
+    url = json['url'];
+    name = json['name'];
+    actualName = json['actual_name'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['case_id'] = this.caseId;
+    data['case_hisory_id'] = this.caseHisoryId;
+    data['url'] = this.url;
+    data['name'] = this.name;
+    data['actual_name'] = this.actualName;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

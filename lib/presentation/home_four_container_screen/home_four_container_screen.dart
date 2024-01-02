@@ -55,7 +55,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return AppRoutes.HomeMainScreen;
       case BottomBarEnum.Globe:
         return AppRoutes.mapScreen;
-      case BottomBarEnum.Sort:
+      case BottomBarEnum.add:
         return AppRoutes.searchOneScreen;
       case BottomBarEnum.survey:
         return AppRoutes.historyPage;

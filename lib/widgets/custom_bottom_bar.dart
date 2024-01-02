@@ -17,8 +17,8 @@ class CustomBottomBar extends StatelessWidget {
       type: BottomBarEnum.Globe,
     ),
     BottomMenuModel(
-      icon: ImageConstant.imgSort,
-      type: BottomBarEnum.Sort,
+      icon: ImageConstant.add,
+      type: BottomBarEnum.add,
     ),
     BottomMenuModel(
       icon: ImageConstant.survey,
@@ -161,6 +161,7 @@ enum BottomBarEnum {
   Sort,
   Globe,
   legal,
+  add,
   Notification,
   Usergray400,
   Profile,

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 // import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/data/services/notification.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/controller/search_one_controller.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
@@ -23,6 +24,16 @@ class HomeMainScreen extends StatefulWidget {
 }
 
 class _HomeMainScreenState extends State<HomeMainScreen> {
+
+
+@override
+void initState() {
+    // TODO: implement initState
+    super.initState();
+    NotificationsServices().initialiseNotifications();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SearchOneController>(

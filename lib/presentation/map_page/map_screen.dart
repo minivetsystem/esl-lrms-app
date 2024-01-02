@@ -655,16 +655,16 @@ class _MapScreenState extends State<MapScreen> {
                     });
                   },
                 ),
-                // SpeedDialChild(
-                //   child: Icon(Icons.search_outlined),
-                //   onTap: () {
-                //     Get.toNamed(AppRoutes.searchOneScreen);
-                //   },
-                // ),
                 SpeedDialChild(
-                  child: Icon(Icons.keyboard_voice),
-                  onTap: () => {},
+                  child: Icon(Icons.search_outlined),
+                  onTap: () {
+                    Get.toNamed(AppRoutes.searchOneScreen);
+                  },
                 ),
+                // SpeedDialChild(
+                //   child: Icon(Icons.keyboard_voice),
+                //   onTap: () => {},
+                // ),
 
                 //add more menu item childs here
               ],

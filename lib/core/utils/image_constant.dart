@@ -65,6 +65,8 @@ class ImageConstant {
 
   static String imgSort = 'assets/images/img_sort.svg';
 
+  static String add = 'assets/images/add-icon.svg';
+
   static String imgClock = 'assets/images/img_clock.svg';
 
   static String imgCheckmarkGray60024x23 =

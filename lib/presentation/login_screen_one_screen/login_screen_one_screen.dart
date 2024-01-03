@@ -8,8 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/core/utils/validation_functions.dart';
-import 'package:vedanta_lrms/data/apiClient/api_client.dart';
-import 'package:vedanta_lrms/data/models/loginModel/login_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
@@ -59,7 +57,7 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
     if (response.statusCode == 200) {
       // Map<String, dynamic> jsonMap = json.decode(response.body);
       var data = jsonDecode(response.body.toString());
-      if(data['token'] != ''){
+      if(data['token'] != '' || data['token'] != null){
       setState(() {
         token = data['token'];
       });
@@ -95,7 +93,7 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
         deviceInfo = androidInfo;
       });
       print(deviceInfo!.product.toString());
-      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+      // IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
       // setState(() {
       //   deviceInfo = 'iOS\n'
       //       'Device: ${iosInfo.utsname.machine}\n'

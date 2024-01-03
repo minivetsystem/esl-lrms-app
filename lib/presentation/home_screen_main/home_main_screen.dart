@@ -1,20 +1,12 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-// import 'package:intl/intl.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/data/services/notification.dart';
-import 'package:vedanta_lrms/presentation/search_one_screen/controller/search_one_controller.dart';
-import 'package:vedanta_lrms/widgets/app_bar/appbar_circleimage.dart';
+
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle_1.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
-import 'package:vedanta_lrms/widgets/custom_bottom_bar.dart';
-import 'package:vedanta_lrms/widgets/custom_button.dart';
-// import 'package:vedanta_lrms/widgets/custom_button.dart';
-// import 'package:vedanta_lrms/widgets/custom_icon_button.dart';
-// import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 
 class HomeMainScreen extends StatefulWidget {
   const HomeMainScreen({super.key});
@@ -36,9 +28,7 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SearchOneController>(
-      init: SearchOneController(),
-      builder: (searchOneController) => ColorfulSafeArea(
+    return ColorfulSafeArea(
         color: ColorConstant.whiteA700,
         child: WillPopScope(
           onWillPop: () async {
@@ -610,7 +600,7 @@ void initState() {
                 )),
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }

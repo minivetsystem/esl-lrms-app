@@ -313,6 +313,7 @@ final Map<String, String> enUs = {
   "msg_no_booking_found": "No Booking Found!",
   "msg_9_vector_olayet": "9, Vector Olayet",
   "lbl_card_type": "Card Type",
+  "lbl_state": "Select State",
   "msg_your_email_address": "Your Email Address",
   "lbl_splash_screen": "Splash Screen",
   "msg_please_enter_the":
@@ -353,6 +354,7 @@ final Map<String, String> enUs = {
   "lbl_login": "Login",
   "lbl_paypal": "Paypal",
   "lbl_add_new_card2": "Add New Card",
+  "lbl_add_new_survey": "Add New Survey",
   "lbl_17_4_2024": "17/4/2024",
   "lbl_notification": "Notification",
   "lbl_map": "Map",

@@ -1573,7 +1573,7 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
                                             ]))),
                                 GestureDetector(
                                     onTap: () {
-                                      onTapAddNewCard();
+                                      // onTapAddNewCard();
                                     },
                                     child: Container(
                                         width: getHorizontalSize(375.00),
@@ -2265,9 +2265,9 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
     Get.toNamed(AppRoutes.addNewCardOneScreen);
   }
 
-  onTapAddNewCard() {
-    Get.toNamed(AppRoutes.addNewCardScreen);
-  }
+  // onTapAddNewCard() {
+  //   Get.toNamed(AppRoutes.addNewCardScreen);
+  // }
 
   onTapPayment() {
     Get.toNamed(AppRoutes.paymentScreen);

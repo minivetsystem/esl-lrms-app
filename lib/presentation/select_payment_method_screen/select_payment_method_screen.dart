@@ -104,7 +104,7 @@ class SelectPaymentMethodScreen
                     padding: getPadding(left: 20, right: 20),
                     child: CustomButton(
                         onTap: () {
-                          Get.toNamed(AppRoutes.addNewCardScreen);
+                          Get.toNamed(AppRoutes.addNewSurveyScreen);
                         },
                         height: 40,
                         width: 388,

@@ -1,5 +1,8 @@
+import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
+import 'package:vedanta_lrms/presentation/add_new_survey_screen/add_new_survey_screen.dart';
 
 // ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
@@ -12,7 +15,7 @@ class CustomBottomBar extends StatelessWidget {
       icon: ImageConstant.imgContrastWhiteA700,
       type: BottomBarEnum.Contrastwhitea700,
     ),
-        BottomMenuModel(
+    BottomMenuModel(
       icon: ImageConstant.globe,
       type: BottomBarEnum.Globe,
     ),
@@ -132,7 +135,14 @@ class CustomBottomBar extends StatelessWidget {
             }),
             onTap: (index) {
               selectedIndex.value = index;
-              onChanged!(bottomMenuList[index].type);
+              // onChanged!(bottomMenuList[index].type);
+              if (bottomMenuList[index].type == BottomBarEnum.add) {
+                // Open action sheet for the "Add" tab
+                openActionSheet(context);
+              } else {
+                // Navigate to the selected tab
+                onChanged!(bottomMenuList[index].type);
+              }
             },
           ),
         ));
@@ -155,6 +165,53 @@ class CustomBottomBar extends StatelessWidget {
 //       return "/";
 //   }
 // }
+openActionSheet(context) {
+  showAdaptiveActionSheet(
+      isDismissible: true,
+
+    context: context,
+    title: const Text('Choose'),
+    androidBorderRadius: 30,
+    actions: <BottomSheetAction>[
+      BottomSheetAction(
+          title: Text("Add new Survey"),
+          onPressed: (context) {
+            Navigator.pop(context);
+            Get.toNamed(AppRoutes.addNewSurveyScreen);
+          }),
+    ],
+    cancelAction: CancelAction(
+        title: const Text(
+            'Cancel'),
+            ), // onPressed parameter is optional by default will dismiss the ActionSheet
+  );
+  // showCupertinoModalPopup<void>(
+  //   context: context,
+  //   builder: (BuildContext context) => CupertinoActionSheet(
+  //     title: const Text('Choose'),
+  //     actions: <CupertinoActionSheetAction>[
+  //       CupertinoActionSheetAction(
+  //         isDefaultAction: true,
+  //         onPressed: () {
+  //           Navigator.pop(context);
+  //           Get.toNamed(AppRoutes.addNewSurveyScreen);
+  //         },
+  //         child: Text("Add new Survey"),
+  //       ),
+  //       CupertinoActionSheetAction(
+  //         /// This parameter indicates the action would perform
+  //         /// a destructive action such as delete or exit and turns
+  //         /// the action's text color to red.
+  //         isDestructiveAction: true,
+  //         onPressed: () {
+  //           Navigator.pop(context);
+  //         },
+  //         child: const Text('Close'),
+  //       ),
+  //     ],
+  //   ),
+  // );
+}
 
 enum BottomBarEnum {
   Contrastwhitea700,
@@ -199,4 +256,3 @@ class DefaultWidget extends StatelessWidget {
     );
   }
 }
-

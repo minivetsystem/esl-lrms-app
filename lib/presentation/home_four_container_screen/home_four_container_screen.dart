@@ -2,14 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:vedanta_lrms/presentation/litigation_list_page/litigation_list_page.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
-import 'package:vedanta_lrms/presentation/survey_details_screen/survey_details_screen.dart';
 import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
 import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
-import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
 
 import '../../widgets/custom_page.dart';
 import '../home_screen_main/home_main_screen.dart';
-import '../notification_screen/notification_screen.dart';
 import 'controller/home_four_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
@@ -33,7 +30,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
                   key: Get.nestedKey(1),
                   initialRoute: AppRoutes.HomeMainScreen,
                   onGenerateRoute: (routeSetting) => GetPageRoute(
-                      page: () => getCurrentPage(routeSetting.name!),
+                      page: () => getCurrentPage(routeSetting.name!, context),
                       transition: Transition.noTransition)),
               bottomNavigationBar: kIsWeb
                   ? Container(
@@ -56,7 +53,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
       case BottomBarEnum.Globe:
         return AppRoutes.mapScreen;
       case BottomBarEnum.add:
-        return AppRoutes.searchOneScreen;
+        return AppRoutes.HomeMainScreen;
       case BottomBarEnum.survey:
         return AppRoutes.historyPage;
       case BottomBarEnum.legal:
@@ -66,7 +63,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
     }
   }
 
-  Widget getCurrentPage(String currentRoute) {
+  Widget getCurrentPage(String currentRoute, context) {
     switch (currentRoute) {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
@@ -74,17 +71,15 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
         return MapScreen(id: 0, searchPlotId: 0);
       case AppRoutes.searchOneScreen:
         // return SurveyListPage();
-      return SearchOneScreen();
-
+        return SearchOneScreen();
       case AppRoutes.historyPage:
         return SurveyListPage();
-        
-      // case AppRoutes.profileOneScreen:
-      //   return ProfileOneScreen();
-              case AppRoutes.litigationScreen:
+      case AppRoutes.litigationScreen:
         return LitigationListPage();
       default:
         return DefaultWidget();
     }
   }
+
+  
 }

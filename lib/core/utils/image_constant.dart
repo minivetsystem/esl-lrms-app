@@ -67,7 +67,11 @@ class ImageConstant {
 
   static String add = 'assets/images/add-icon.svg';
 
+  static String addSurvey = 'assets/images/new-survey.png';
+
   static String imgClock = 'assets/images/img_clock.svg';
+
+  static String imgCross = 'assets/images/cross.svg';
 
   static String imgCheckmarkGray60024x23 =
       'assets/images/img_checkmark_gray_600_24x23.svg';

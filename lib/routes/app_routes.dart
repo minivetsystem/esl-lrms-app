@@ -1,3 +1,5 @@
+import 'package:vedanta_lrms/presentation/add_new_survey_screen/add_new_survey_screen.dart';
+import 'package:vedanta_lrms/presentation/add_new_survey_screen/binding/add_new_card_binding.dart';
 import 'package:vedanta_lrms/presentation/iphone_14_plus_one_screen/iphone_14_plus_one_screen.dart';
 import 'package:vedanta_lrms/presentation/iphone_14_plus_one_screen/binding/iphone_14_plus_one_binding.dart';
 import 'package:vedanta_lrms/presentation/map_page/binding/map_binding.dart';
@@ -56,8 +58,6 @@ import 'package:vedanta_lrms/presentation/track_driver_one_screen/track_driver_o
 import 'package:vedanta_lrms/presentation/track_driver_one_screen/binding/track_driver_one_binding.dart';
 import 'package:vedanta_lrms/presentation/add_new_card_one_screen/add_new_card_one_screen.dart';
 import 'package:vedanta_lrms/presentation/add_new_card_one_screen/binding/add_new_card_one_binding.dart';
-import 'package:vedanta_lrms/presentation/add_new_card_screen/add_new_card_screen.dart';
-import 'package:vedanta_lrms/presentation/add_new_card_screen/binding/add_new_card_binding.dart';
 import 'package:vedanta_lrms/presentation/payment_screen/payment_screen.dart';
 import 'package:vedanta_lrms/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:vedanta_lrms/presentation/truck_detail_one_screen/truck_detail_one_screen.dart';
@@ -149,7 +149,7 @@ class AppRoutes {
 
   static const String addNewCardOneScreen = '/add_new_card_one_screen';
 
-  static const String addNewCardScreen = '/add_new_card_screen';
+  static const String addNewSurveyScreen = '/add_new_card_screen';
 
   static const String paymentScreen = '/payment_screen';
 
@@ -390,8 +390,8 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: addNewCardScreen,
-      page: () => AddNewCardScreen(),
+      name: addNewSurveyScreen,
+      page: () => AddNewSurvey(),
       bindings: [
         AddNewCardBinding(),
       ],

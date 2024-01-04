@@ -7,7 +7,6 @@ import 'package:vedanta_lrms/widgets/app_bar/appbar_image.dart';
 import 'package:vedanta_lrms/widgets/app_bar/appbar_subtitle.dart';
 import 'package:vedanta_lrms/widgets/app_bar/custom_app_bar.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
-import 'package:vedanta_lrms/widgets/custom_drop_down.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -27,13 +26,17 @@ class _AddNewSurveyState extends State<AddNewSurvey> {
   TextEditingController masterInputFourController = TextEditingController();
 
   List<dynamic> stateList = [];
-  RxList<SelectionPopupModel> districtList = RxList<SelectionPopupModel>();
-  RxList<SelectionPopupModel> updatedList = RxList<SelectionPopupModel>();
-
-  SelectionPopupModel? selectedDropDownValue;
-
-  SelectionPopupModel? selectedDropDownValue1;
-  var dropdownValue;
+  List<dynamic> districtList = [];
+  List<dynamic> tahesilList = [];
+  List<dynamic> riList = [];
+  List<dynamic> villageList = [];
+  List<dynamic> khasraNoList = [];
+  var stateValue;
+  var districtValue;
+  var tahesilValue;
+  var riValue;
+  var villageValue;
+  var khasraNoValue;
   int? selectState;
   List<dynamic> states = [];
   getStateList() async {
@@ -50,17 +53,153 @@ class _AddNewSurveyState extends State<AddNewSurvey> {
       Map<String, dynamic> list = json.decode(response.body);
 
       setState(() {
-        states = list['states'];
+        // states = list['states'];
         stateList = list['states'];
-        // for (var state in states) {
-        //   stateList.add(
-        //     SelectionPopupModel(
-        //         id: state['id'], title: state['name'], isSelected: false),
-        //   );
-        // }
-        //  stateList = updatedList;
       });
       print(stateList);
+      EasyLoading.dismiss();
+    } else {
+      throw Exception();
+    }
+  }
+
+  getDistrictList(stateValue) async {
+    print(stateValue['id']);
+    EasyLoading.show(status: 'Loading District...');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}district-list/${stateValue['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> list = json.decode(response.body);
+      if (list['status'] == true) {
+        if (list['districts'] != []) {
+          setState(() {
+            districtList = list['districts'];
+          });
+        } else {
+          EasyLoading.showToast('No District List...');
+        }
+      } else {}
+
+      print(districtList);
+      EasyLoading.dismiss();
+    } else {
+      throw Exception();
+    }
+  }
+
+  getTehsilList(districtValue) async {
+    print(districtValue['id']);
+    EasyLoading.show(status: 'Loading Tahesils...');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}tehasils-list/${districtValue['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> list = json.decode(response.body);
+      if (list['status'] == true) {
+        if (list['districts'] != []) {
+          setState(() {
+            tahesilList = list['tehasils'];
+          });
+        } else {
+          EasyLoading.showToast('No Tahesils List...');
+        }
+      } else {}
+
+      print(tahesilList);
+      EasyLoading.dismiss();
+    } else {
+      throw Exception();
+    }
+  }
+
+  getRiList(tahesilValue) async {
+    print(tahesilValue['id']);
+    EasyLoading.show(status: 'Loading Ri...');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}ri-list/${tahesilValue['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> list = json.decode(response.body);
+      if (list['status'] == true) {
+        setState(() {
+          riList = list['ris'];
+        });
+      } else {}
+
+      print(riList);
+      EasyLoading.dismiss();
+    } else {
+      throw Exception();
+    }
+  }
+
+  getVillageList(riValue) async {
+    print(riValue['id']);
+    EasyLoading.show(status: 'Loading Villages...');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}village-list/${riValue['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> list = json.decode(response.body);
+      if (list['status'] == true) {
+        setState(() {
+          villageList = list['villages'];
+        });
+      } else {}
+
+      print(villageList);
+      EasyLoading.dismiss();
+    } else {
+      throw Exception();
+    }
+  }
+
+  getPlotList(villageValue) async {
+    print(villageValue['id']);
+    EasyLoading.show(status: 'Loading Plots...');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+        Uri.parse('${Constant.baseurl}plot-list/${villageValue['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> list = json.decode(response.body);
+      if (list['status'] == true) {
+        setState(() {
+          khasraNoList = list['plots'];
+        });
+      } else {}
+
+      print(khasraNoList);
       EasyLoading.dismiss();
     } else {
       throw Exception();
@@ -76,34 +215,9 @@ class _AddNewSurveyState extends State<AddNewSurvey> {
   }
 
   refreshFc() {
-    selectState = 0;
     setState(() {
-        dropdownValue = null;
+      stateValue = null;
     });
-  
-  }
-
-  onSelected(dynamic value) {
-    selectedDropDownValue = value as SelectionPopupModel;
-    // stateList.forEach((element) {
-    //   element.isSelected = false;
-    //   if (element.id == value.id) {
-
-    //     element.isSelected = true;
-    //   }
-    // });
-    // stateList.refresh();
-  }
-
-  onSelected1(dynamic value) {
-    selectedDropDownValue1 = value as SelectionPopupModel;
-    districtList.forEach((element) {
-      element.isSelected = false;
-      if (element.id == value.id) {
-        element.isSelected = true;
-      }
-    });
-    districtList.refresh();
   }
 
   @override
@@ -160,141 +274,328 @@ class _AddNewSurveyState extends State<AddNewSurvey> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                color: ColorConstant.whiteA700,
-                                child: Padding(
-                                  padding: getPadding(
-                                      left: 20, right: 20, top: 16, bottom: 16),
-                                  child: Column(
-                                    children: [
-                                      //  CustomDropDown(
-                                      //     width: double.infinity,
-                                      //     focusNode: FocusNode(),
-                                      //     icon: Container(
-                                      //         margin: getMargin(left: 30, right: 16),
-                                      //         child: CustomImageView(
-                                      //             svgPath: ImageConstant
-                                      //                 .imgArrowdownBlack900)),
-                                      //     hintText: "lbl_state".tr,
-                                      //     items:
-                                      //         stateList,
-                                      //     onChanged: (value) {
-                                      //       setState(() {
-                                      //         selectState = value.id;
-                                      //       });
-                                      //       // onSelected(value);
-                                      //     }
-                                      //     ),
-                                    Container(
-            height: 50,
-            width: double.infinity,
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-                                      child: DropdownButton(
-                                        hint: Text('Select State'),
-                                         isExpanded: true,
-                                        underline: Container(),
-                                            value: dropdownValue,
-                                            icon: const Icon(Icons.arrow_downward_outlined,
+                              SizedBox(
+                                width: width - 20,
+                                child: Container(
+                                  width: double.infinity,
+                                  color: ColorConstant.whiteA700,
+                                  child: Padding(
+                                    padding: getPadding(
+                                        left: 20, right: 20, top: 16, bottom: 16),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select State'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: stateValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
                                             ),
                                             elevation: 20,
-                                            style: const TextStyle(color: Colors.black54),
-                                            onChanged: ( value) {
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
                                               // This is called when the user selects an item.
                                               setState(() {
-                                                dropdownValue = value;
+                                                stateValue = value;
+                                                getDistrictList(stateValue);
                                               });
                                             },
-                                            items: stateList.map<DropdownMenuItem>(( value) {
+                                            items: stateList
+                                                .map<DropdownMenuItem>((value) {
                                               return DropdownMenuItem(
-                                                value: value,
-                                                child: Text(value['name'])
-                                              );
+                                                  value: value,
+                                                  child: Text(value['name']));
                                             }).toList(),
                                           ),
-                                    ),
-                                      CustomTextFormField(
-                                          shadowTextfield: false,
-                                          width: double.infinity,
-                                          focusNode: FocusNode(),
-                                          // controller:
-                                          //     controller.masterInputOneController,
-                                          hintText: "lbl_565".tr,
+                                        ),
+                                        Container(
                                           margin: getMargin(top: 16),
-                                          padding: TextFormFieldPadding
-                                              .PaddingAll14),
-                                      Padding(
-                                          padding: getPadding(top: 16),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        getPadding(right: 8),
-                                                    child: CustomDropDown(
-                                                        focusNode: FocusNode(),
-                                                        icon: Container(
-                                                            margin: getMargin(
-                                                                left: 30,
-                                                                right: 16),
-                                                            child: CustomImageView(
-                                                                svgPath:
-                                                                    ImageConstant
-                                                                        .imgArrowdownBlack900)),
-                                                        hintText:
-                                                            "lbl_25_5_2022".tr,
-                                                        items: districtList,
-                                                        onChanged: (value) {
-                                                          onSelected1(value);
-                                                        }),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        getPadding(left: 8),
-                                                    child: CustomTextFormField(
-                                                        shadowTextfield: false,
-                                                        focusNode: FocusNode(),
-                                                        controller:
-                                                            masterInputThreeController,
-                                                        hintText: "lbl_658".tr,
-                                                        padding:
-                                                            TextFormFieldPadding
-                                                                .PaddingAll14),
-                                                  ),
-                                                )
-                                              ])),
-                                      CustomTextFormField(
-                                          shadowTextfield: false,
-                                          width: double.infinity,
-                                          focusNode: FocusNode(),
-                                          // controller:
-                                          //     ,
-                                          hintText: "lbl_zohn_bell".tr,
-                                          margin: getMargin(top: 16),
-                                          padding:
-                                              TextFormFieldPadding.PaddingAll14,
-                                          textInputAction:
-                                              TextInputAction.done),
-                                      CustomButton(
-                                          onTap: () {
-                                            Get.back();
-                                          },
                                           height: 50,
-                                          width: 388,
-                                          text: "lbl_add".tr,
-                                          margin: getMargin(top: 32)),
-                                    ],
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select District'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: districtValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
+                                            ),
+                                            elevation: 20,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                districtValue = value;
+                                                getTehsilList(districtValue);
+                                              });
+                                            },
+                                            items: districtList
+                                                .map<DropdownMenuItem>((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(value['name']));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: getMargin(top: 16),
+                                          height: 50,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select Tahesil'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: tahesilValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
+                                            ),
+                                            elevation: 20,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                tahesilValue = value;
+                                                getRiList(tahesilValue);
+                                              });
+                                            },
+                                            items: tahesilList
+                                                .map<DropdownMenuItem>((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(value['name']));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: getMargin(top: 16),
+                                          height: 50,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select Ri'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: riValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
+                                            ),
+                                            elevation: 20,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                riValue = value;
+                                                getVillageList(riValue);
+                                              });
+                                            },
+                                            items: riList
+                                                .map<DropdownMenuItem>((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(value['name']));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: getMargin(top: 16),
+                                          height: 50,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select Village'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: villageValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
+                                            ),
+                                            elevation: 20,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                villageValue = value;
+                                                getPlotList(villageValue);
+                                              });
+                                            },
+                                            items: villageList
+                                                .map<DropdownMenuItem>((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child: Text(value['name']));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: getMargin(top: 16),
+                                          height: 50,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.all(14),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: DropdownButton(
+                                            hint: Text('Select Plot'),
+                                            isExpanded: true,
+                                            underline: Container(),
+                                            value: khasraNoValue,
+                                            icon: const Icon(
+                                              Icons.arrow_downward_outlined,
+                                            ),
+                                            elevation: 20,
+                                            style: const TextStyle(
+                                                color: Colors.black54),
+                                            onChanged: (value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                khasraNoValue = value;
+                                              });
+                                            },
+                                            items: khasraNoList
+                                                .map<DropdownMenuItem>((value) {
+                                              return DropdownMenuItem(
+                                                  value: value,
+                                                  child:
+                                                      Text(value['khasara_no']));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: width - 20,
+                                child: Container(
+                                  margin: getMargin(top: 20),
+                                    width: double.infinity,
+                                    color: ColorConstant.whiteA700,
+                                    child: Padding(
+                                        padding: getPadding(
+                                            left: 20,
+                                            right: 20,
+                                            top: 16,
+                                            bottom: 16),
+                                        child: Column(children: [
+                                          CustomTextFormField(
+                                              shadowTextfield: false,
+                                              width: double.infinity,
+                                              focusNode: FocusNode(),
+                                              // controller:
+                                              //     controller.masterInputOneController,
+                                              hintText: "lbl_565".tr,
+                                              margin: getMargin(top: 16),
+                                              padding: TextFormFieldPadding
+                                                  .PaddingAll14),
+                                          Padding(
+                                              padding: getPadding(top: 16),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    // Expanded(
+                                                    //   child: Padding(
+                                                    //     padding:
+                                                    //         getPadding(right: 8),
+                                                    //     child: CustomDropDown(
+                                                    //         focusNode: FocusNode(),
+                                                    //         icon: Container(
+                                                    //             margin: getMargin(
+                                                    //                 left: 30,
+                                                    //                 right: 16),
+                                                    //             child: CustomImageView(
+                                                    //                 svgPath:
+                                                    //                     ImageConstant
+                                                    //                         .imgArrowdownBlack900)),
+                                                    //         hintText:
+                                                    //             "lbl_25_5_2022".tr,
+                                                    //         items: districtList,
+                                                    //         onChanged: (value) {
+                                                    //           onSelected1(value);
+                                                    //         }),
+                                                    //   ),
+                                                    // ),
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            getPadding(left: 8),
+                                                        child: CustomTextFormField(
+                                                            shadowTextfield:
+                                                                false,
+                                                            focusNode:
+                                                                FocusNode(),
+                                                            controller:
+                                                                masterInputThreeController,
+                                                            hintText:
+                                                                "lbl_658".tr,
+                                                            padding:
+                                                                TextFormFieldPadding
+                                                                    .PaddingAll14),
+                                                      ),
+                                                    )
+                                                  ])),
+                                          CustomTextFormField(
+                                              shadowTextfield: false,
+                                              width: double.infinity,
+                                              focusNode: FocusNode(),
+                                              // controller:
+                                              //     ,
+                                              hintText: "lbl_zohn_bell".tr,
+                                              margin: getMargin(top: 16),
+                                              padding: TextFormFieldPadding
+                                                  .PaddingAll14,
+                                              textInputAction:
+                                                  TextInputAction.done),
+                                          CustomButton(
+                                              onTap: () {
+                                                Get.back();
+                                              },
+                                              height: 50,
+                                              width: 388,
+                                              text: "lbl_add".tr,
+                                              margin: getMargin(top: 32))
+                                        ]))),
                               ),
                             ])),
                   )

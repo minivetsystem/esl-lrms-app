@@ -351,6 +351,8 @@ final Map<String, String> enUs = {
   "lbl_245_00": "\$245.00",
   "lbl_make_booking": "Make Booking",
   "lbl_565": "**** **** 565",
+  "lbl_enter_survey_title": "Enter survey title",
+  "lbl_select_current_status": "Select current status",
   "lbl_login": "Login",
   "lbl_paypal": "Paypal",
   "lbl_add_new_card2": "Add New Card",

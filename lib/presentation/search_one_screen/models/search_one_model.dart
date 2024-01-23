@@ -282,7 +282,7 @@ class Value {
   int? id;
   String? uploadedPath;
   String? name;
-  Null? notes;
+  Null notes;
   String? originalName;
   String? type;
   double? lat;

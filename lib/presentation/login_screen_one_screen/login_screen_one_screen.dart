@@ -8,8 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
 import 'package:vedanta_lrms/core/utils/validation_functions.dart';
-import 'package:vedanta_lrms/data/apiClient/api_client.dart';
-import 'package:vedanta_lrms/data/models/loginModel/login_model.dart';
 import 'package:vedanta_lrms/widgets/custom_button.dart';
 import 'package:vedanta_lrms/widgets/custom_text_form_field.dart';
 import 'package:vedanta_lrms/domain/facebookauth/facebook_auth_helper.dart';
@@ -59,17 +57,23 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
     if (response.statusCode == 200) {
       // Map<String, dynamic> jsonMap = json.decode(response.body);
       var data = jsonDecode(response.body.toString());
+      if(data['token'] != '' || data['token'] != null){
       setState(() {
         token = data['token'];
       });
-      print(token);
+            print(token);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
 
       if (token != '') {
         PrefUtils.setIsSignIn(false);
         Get.toNamed(AppRoutes.homeFourContainerScreen);
+      }else{
+
       }
+      }
+
+
     } else {
       throw Exception('Failed to load notifications');
     }
@@ -89,7 +93,7 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
         deviceInfo = androidInfo;
       });
       print(deviceInfo!.product.toString());
-      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+      // IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
       // setState(() {
       //   deviceInfo = 'iOS\n'
       //       'Device: ${iosInfo.utsname.machine}\n'
@@ -279,72 +283,72 @@ class _LoginScreenOneScreenState extends State<LoginScreenOneScreen> {
                           width: width,
                           text: "lbl_login".tr,
                           margin: EdgeInsets.only(top: 47.h)),
-                      Padding(
-                          padding: EdgeInsets.only(top: 16.h),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                      height: getVerticalSize(1.00),
-                                      margin: EdgeInsets.only(
-                                          top: 9.h, bottom: 7.h),
-                                      decoration: BoxDecoration(
-                                          color: ColorConstant.gray300)),
-                                ),
-                                Text("lbl_or".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtSFUITextRegular15
-                                        .copyWith(
-                                            height: getVerticalSize(1.12))),
-                                Expanded(
-                                  child: Container(
-                                      height: 1.h,
-                                      margin: EdgeInsets.only(
-                                          top: 9.h, bottom: 7.h),
-                                      decoration: BoxDecoration(
-                                          color: ColorConstant.gray300)),
-                                )
-                              ])),
-                      Padding(
-                          padding: EdgeInsets.only(top: 17.h),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: CustomButton(
-                                      height: 56.h,
-                                      text: "lbl_facebook".tr,
-                                      variant: ButtonVariant.FillGray100,
-                                      padding: ButtonPadding.PaddingT17,
-                                      fontStyle:
-                                          ButtonFontStyle.SFUITextRegular16,
-                                      prefixWidget: Container(
-                                          child: CustomImageView(
-                                              svgPath:
-                                                  ImageConstant.imgFacebook)),
-                                      onTap: onTapFacebook),
-                                ),
-                                SizedBox(
-                                  width: 16.h,
-                                ),
-                                Expanded(
-                                  child: CustomButton(
-                                      height: 56.h,
-                                      text: "lbl_google".tr,
-                                      variant: ButtonVariant.FillGray100,
-                                      padding: ButtonPadding.PaddingT17,
-                                      fontStyle:
-                                          ButtonFontStyle.SFUITextRegular16,
-                                      prefixWidget: Container(
-                                          child: CustomImageView(
-                                              svgPath:
-                                                  ImageConstant.imgGoogle)),
-                                      onTap: onTapGoogle),
-                                )
-                              ])),
+                      // Padding(
+                      //     padding: EdgeInsets.only(top: 16.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         crossAxisAlignment: CrossAxisAlignment.end,
+                      //         children: [
+                      //           Expanded(
+                      //             child: Container(
+                      //                 height: getVerticalSize(1.00),
+                      //                 margin: EdgeInsets.only(
+                      //                     top: 9.h, bottom: 7.h),
+                      //                 decoration: BoxDecoration(
+                      //                     color: ColorConstant.gray300)),
+                      //           ),
+                      //           Text("lbl_or".tr,
+                      //               overflow: TextOverflow.ellipsis,
+                      //               textAlign: TextAlign.left,
+                      //               style: AppStyle.txtSFUITextRegular15
+                      //                   .copyWith(
+                      //                       height: getVerticalSize(1.12))),
+                      //           Expanded(
+                      //             child: Container(
+                      //                 height: 1.h,
+                      //                 margin: EdgeInsets.only(
+                      //                     top: 9.h, bottom: 7.h),
+                      //                 decoration: BoxDecoration(
+                      //                     color: ColorConstant.gray300)),
+                      //           )
+                      //         ])),
+                      // Padding(
+                      //     padding: EdgeInsets.only(top: 17.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           // Expanded(
+                      //           //   child: CustomButton(
+                      //           //       height: 56.h,
+                      //           //       text: "lbl_facebook".tr,
+                      //           //       variant: ButtonVariant.FillGray100,
+                      //           //       padding: ButtonPadding.PaddingT17,
+                      //           //       fontStyle:
+                      //           //           ButtonFontStyle.SFUITextRegular16,
+                      //           //       prefixWidget: Container(
+                      //           //           child: CustomImageView(
+                      //           //               svgPath:
+                      //           //                   ImageConstant.imgFacebook)),
+                      //           //       onTap: onTapFacebook),
+                      //           // ),
+                      //           // SizedBox(
+                      //           //   width: 16.h,
+                      //           // ),
+                      //           // Expanded(
+                      //           //   child: CustomButton(
+                      //           //       height: 56.h,
+                      //           //       text: "lbl_google".tr,
+                      //           //       variant: ButtonVariant.FillGray100,
+                      //           //       padding: ButtonPadding.PaddingT17,
+                      //           //       fontStyle:
+                      //           //           ButtonFontStyle.SFUITextRegular16,
+                      //           //       prefixWidget: Container(
+                      //           //           child: CustomImageView(
+                      //           //               svgPath:
+                      //           //                   ImageConstant.imgGoogle)),
+                      //           //       onTap: onTapGoogle),
+                      //           // )
+                      //         ])),
                       Spacer(),
                       RichText(
                           text: TextSpan(children: [

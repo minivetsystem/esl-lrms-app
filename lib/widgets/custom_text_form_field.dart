@@ -98,10 +98,10 @@ class CustomTextFormField extends StatelessWidget {
       width: getHorizontalSize(width ?? 0),
       margin: margin,
       child: TextFormField(
-        onTap: () {
-          // ignore: unnecessary_statements
-          function!() ?? () {};
-        },
+        // onTap: () {
+        //   // ignore: unnecessary_statements
+        //   function!() ?? () {};
+        // },
         onChanged: onChanged,
         onFieldSubmitted: onFieldSubmitted,
         controller: controller,

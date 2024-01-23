@@ -1,3 +1,5 @@
+import 'package:vedanta_lrms/presentation/add_new_survey_screen/add_new_survey_screen.dart';
+import 'package:vedanta_lrms/presentation/add_new_survey_screen/binding/add_new_card_binding.dart';
 import 'package:vedanta_lrms/presentation/iphone_14_plus_one_screen/iphone_14_plus_one_screen.dart';
 import 'package:vedanta_lrms/presentation/iphone_14_plus_one_screen/binding/iphone_14_plus_one_binding.dart';
 import 'package:vedanta_lrms/presentation/map_page/binding/map_binding.dart';
@@ -34,8 +36,6 @@ import 'package:vedanta_lrms/presentation/home_five_screen/home_five_screen.dart
 import 'package:vedanta_lrms/presentation/home_five_screen/binding/home_five_binding.dart';
 import 'package:vedanta_lrms/presentation/home_one_screen/home_one_screen.dart';
 import 'package:vedanta_lrms/presentation/home_one_screen/binding/home_one_binding.dart';
-import 'package:vedanta_lrms/presentation/select_truck_screen/select_truck_screen.dart';
-import 'package:vedanta_lrms/presentation/select_truck_screen/binding/select_truck_binding.dart';
 import 'package:vedanta_lrms/presentation/truck_detail_screen/truck_detail_screen.dart';
 import 'package:vedanta_lrms/presentation/truck_detail_screen/binding/truck_detail_binding.dart';
 import 'package:vedanta_lrms/presentation/truck_detail_two_screen/truck_detail_two_screen.dart';
@@ -52,16 +52,12 @@ import 'package:vedanta_lrms/presentation/notification_screen/notification_scree
 import 'package:vedanta_lrms/presentation/notification_screen/binding/notification_binding.dart';
 import 'package:vedanta_lrms/presentation/history_empty_screen/history_empty_screen.dart';
 import 'package:vedanta_lrms/presentation/history_empty_screen/binding/history_empty_binding.dart';
-import 'package:vedanta_lrms/presentation/history_one_screen/history_one_screen.dart';
-import 'package:vedanta_lrms/presentation/history_one_screen/binding/history_one_binding.dart';
 import 'package:vedanta_lrms/presentation/track_driver_screen/track_driver_screen.dart';
 import 'package:vedanta_lrms/presentation/track_driver_screen/binding/track_driver_binding.dart';
 import 'package:vedanta_lrms/presentation/track_driver_one_screen/track_driver_one_screen.dart';
 import 'package:vedanta_lrms/presentation/track_driver_one_screen/binding/track_driver_one_binding.dart';
 import 'package:vedanta_lrms/presentation/add_new_card_one_screen/add_new_card_one_screen.dart';
 import 'package:vedanta_lrms/presentation/add_new_card_one_screen/binding/add_new_card_one_binding.dart';
-import 'package:vedanta_lrms/presentation/add_new_card_screen/add_new_card_screen.dart';
-import 'package:vedanta_lrms/presentation/add_new_card_screen/binding/add_new_card_binding.dart';
 import 'package:vedanta_lrms/presentation/payment_screen/payment_screen.dart';
 import 'package:vedanta_lrms/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:vedanta_lrms/presentation/truck_detail_one_screen/truck_detail_one_screen.dart';
@@ -120,7 +116,9 @@ class AppRoutes {
 
   static const String homeOneScreen = '/home_one_screen';
 
-  static const String selectTruckScreen = '/select_truck_screen';
+  static const String MapFromCompletedSurvey = '/map_from_completed_survey';
+
+  static const String selectTruckScreen = '/map_from_completed_survey';
 
   static const String truckDetailScreen = '/truck_detail_screen';
 
@@ -143,7 +141,7 @@ class AppRoutes {
 
   static const String historyPage = '/history_page';
 
-  static const String historyOneScreen = '/history_one_screen';
+  static const String SurveyDetailsScreen = '/survey_details_screen';
 
   static const String trackDriverScreen = '/track_driver_screen';
 
@@ -151,7 +149,7 @@ class AppRoutes {
 
   static const String addNewCardOneScreen = '/add_new_card_one_screen';
 
-  static const String addNewCardScreen = '/add_new_card_screen';
+  static const String addNewSurveyScreen = '/add_new_card_screen';
 
   static const String paymentScreen = '/payment_screen';
 
@@ -169,6 +167,8 @@ class AppRoutes {
 
   static const String mapScreen = '/map_screen';
 
+  static const String litigationScreen = '/litigation_screen';
+
   static String initialRoute = '/initialRoute';
 
   static List<GetPage> pages = [
@@ -179,9 +179,9 @@ class AppRoutes {
         Iphone14PlusOneBinding(),
       ],
     ),
-        GetPage(
+    GetPage(
       name: mapScreen,
-      page: () => MapScreen(id: 0),
+      page: () => MapScreen(id: 0, searchPlotId: 0),
       bindings: [
         MapBinding(),
       ],
@@ -306,13 +306,6 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: selectTruckScreen,
-      page: () => SelectTruckScreen(),
-      bindings: [
-        SelectTruckBinding(),
-      ],
-    ),
-    GetPage(
       name: truckDetailScreen,
       page: () => TruckDetailScreen(),
       bindings: [
@@ -368,13 +361,13 @@ class AppRoutes {
         HistoryEmptyBinding(),
       ],
     ),
-    GetPage(
-      name: historyOneScreen,
-      page: () => HistoryOneScreen(),
-      bindings: [
-        HistoryOneBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: SurveyDetailsScreen,
+    //   page: () => SurveyDetailsScreen(),
+    //   bindings: [
+    //     SurveyDetailsBinding(),
+    //   ],
+    // ),
     GetPage(
       name: trackDriverScreen,
       page: () => TrackDriverScreen(),
@@ -397,8 +390,8 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: addNewCardScreen,
-      page: () => AddNewCardScreen(),
+      name: addNewSurveyScreen,
+      page: () => AddNewSurvey(),
       bindings: [
         AddNewCardBinding(),
       ],

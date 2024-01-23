@@ -21,12 +21,12 @@ class SplashScreen extends GetWidget<SplashController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Image.asset('assets/images/20220310134204.png')
-                    CustomImageView(
-                      svgPath: ImageConstant.imgSplashLogo,
-                      height: getVerticalSize(232.00),
-                      width: getHorizontalSize(176.00),
-                    ),
+                    Image.asset(ImageConstant.imgSplashLogo)
+                    // CustomImageView(
+                    //   svgPath: ImageConstant.imgSplashLogo,
+                    //   height: getVerticalSize(232.00),
+                    //   width: getHorizontalSize(176.00),
+                    // ),
                   ])),
         ));
   }

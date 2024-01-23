@@ -1,9 +1,6 @@
-import 'package:vedanta_lrms/presentation/select_truck_screen/select_truck_screen.dart';
-
 import 'controller/select_payment_method_one_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
-import 'package:vedanta_lrms/widgets/custom_button.dart';
 
 // ignore_for_file: must_be_immutable
 class SelectPaymentMethodOneDialog extends StatelessWidget {
@@ -70,17 +67,7 @@ class SelectPaymentMethodOneDialog extends StatelessWidget {
               ),
             ),
           ),
-          CustomButton(
-            onTap: (){
-              Get.off(SelectTruckScreen());
-            },
-            height: 50,
-            width: 356,
-            text: "lbl_done".tr,
-            margin: getMargin(
-              top: 13,
-            ),
-          ),
+       
         ],
       ),
     );

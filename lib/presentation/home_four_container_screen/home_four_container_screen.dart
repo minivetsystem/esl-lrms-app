@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
-import 'package:vedanta_lrms/presentation/profile_one_screen/profile_one_screen.dart';
+import 'package:vedanta_lrms/presentation/litigation_list_page/litigation_list_page.dart';
 import 'package:vedanta_lrms/presentation/search_one_screen/search_one_screen.dart';
+import 'package:vedanta_lrms/presentation/survey_list_page/survey_list_page.dart';
+import 'package:vedanta_lrms/presentation/map_page/map_screen.dart';
 
 import '../../widgets/custom_page.dart';
 import '../home_screen_main/home_main_screen.dart';
-import '../notification_screen/notification_screen.dart';
 import 'controller/home_four_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:vedanta_lrms/core/app_export.dart';
@@ -30,7 +30,7 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
                   key: Get.nestedKey(1),
                   initialRoute: AppRoutes.HomeMainScreen,
                   onGenerateRoute: (routeSetting) => GetPageRoute(
-                      page: () => getCurrentPage(routeSetting.name!),
+                      page: () => getCurrentPage(routeSetting.name!, context),
                       transition: Transition.noTransition)),
               bottomNavigationBar: kIsWeb
                   ? Container(
@@ -46,37 +46,40 @@ class HomeFourContainerScreen extends GetWidget<HomeFourContainerController> {
   }
 
   String getCurrentRoute(BottomBarEnum type) {
+    print(type);
     switch (type) {
       case BottomBarEnum.Contrastwhitea700:
         return AppRoutes.HomeMainScreen;
-      case BottomBarEnum.Sort:
-        return AppRoutes.historyPage;
       case BottomBarEnum.Globe:
         return AppRoutes.mapScreen;
-      case BottomBarEnum.Notification:
-        return AppRoutes.notificationScreen;
-      case BottomBarEnum.Profile:
-        return AppRoutes.profileOneScreen;
+      case BottomBarEnum.add:
+        return AppRoutes.HomeMainScreen;
+      case BottomBarEnum.survey:
+        return AppRoutes.historyPage;
+      case BottomBarEnum.legal:
+        return AppRoutes.litigationScreen;
       default:
         return "/";
     }
   }
 
-  Widget getCurrentPage(String currentRoute) {
+  Widget getCurrentPage(String currentRoute, context) {
     switch (currentRoute) {
       case AppRoutes.HomeMainScreen:
         return HomeMainScreen();
-      case AppRoutes.historyPage:
+      case AppRoutes.mapScreen:
+        return MapScreen(id: 0, searchPlotId: 0);
+      case AppRoutes.searchOneScreen:
         // return SurveyListPage();
         return SearchOneScreen();
-      case AppRoutes.mapScreen:
-        return MapScreen(id: 0,);
-      case AppRoutes.notificationScreen:
-        return NotificationScreen();
-      case AppRoutes.profileOneScreen:
-        return ProfileOneScreen();
+      case AppRoutes.historyPage:
+        return SurveyListPage();
+      case AppRoutes.litigationScreen:
+        return LitigationListPage();
       default:
         return DefaultWidget();
     }
   }
+
+  
 }
